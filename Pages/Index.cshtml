@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Acceso - IFK Manager";
+    Layout = null; 
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        @Html.Raw(Model.CustomCSS)
+    </style>
+</head>
+<body>
+    <div class="top-banner">
+        <i class="fas fa-user"></i> Acceso al IFK Manager
+    </div>
+
+    <div class="login-container">
+        <img src="/imagenes/logo.jpg" alt="Logo" class="main-logo" />
+
+        <form method="post">
+            <label>USUARIO O MATRICULA:</label>
+            <input type="text" name="Username" required />
+
+            <label>CONTRASEÑA:</label>
+            <input type="password" name="Password" required />
+
+            <button type="submit" class="btn-login">ENTRAR AL DOJO</button>
+        </form>
+
+        <a href="#" class="forgot-password">¿Olvidó su contraseña? Contacte al Sensei</a>
+    </div>
+</body>
+</html>
