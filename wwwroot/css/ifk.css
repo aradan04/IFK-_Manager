@@ -331,3 +331,108 @@ body{
     border-radius:5px;
     cursor:pointer;
 }
+
+/* ========================= */
+/* FINANZAS */
+/* ========================= */
+
+.finanzas-title{
+    text-align:center;
+    font-size:64px;
+    font-weight:bold;
+    margin-bottom:50px;
+}
+
+.buscar-container{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.buscar-container label{
+    font-size:24px;
+    min-width:320px;
+}
+
+.pago-box{
+    border:2px solid #ddd;
+    padding:25px;
+    border-radius:8px;
+}
+
+.alumno-row{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.alumno-row label{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.alumno-row input{
+    flex:1;
+}
+
+.pago-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:40px;
+}
+
+.pago-grid label{
+    display:block;
+    margin-bottom:10px;
+    font-weight:bold;
+    font-size:22px;
+}
+
+.registro-pago-container{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:20px;
+}
+
+.btn-registrar-pago{
+    background:#111;
+    color:var(--gold);
+
+    border:none;
+
+    padding:15px 30px;
+
+    font-size:20px;
+    font-weight:bold;
+
+    border-radius:5px;
+
+    cursor:pointer;
+}
+
+.historial-title{
+    margin-top:30px;
+    margin-bottom:15px;
+
+    font-size:38px;
+    font-weight:bold;
+}
+
+.tabla-pagos{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabla-pagos th{
+    background:var(--gold);
+    color:black;
+    padding:15px;
+}
+
+.tabla-pagos td{
+    border:1px solid #ccc;
+    padding:15px;
+    text-align:center;
+}
