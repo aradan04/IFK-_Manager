@@ -497,3 +497,114 @@ body{
     background:#4d4d4d;
     transform:translateY(-3px);
 }
+
+/* ========================= */
+/* REPORTES */
+/* ========================= */
+
+.reportes-title{
+    text-align:center;
+    font-size:64px;
+    font-weight:bold;
+    margin-bottom:40px;
+}
+
+.reportes-container{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.reporte-card{
+    width:240px;
+    text-decoration:none;
+}
+
+.reporte-icon{
+    height:180px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.reporte-img{
+    width:170px;
+    height:170px;
+    object-fit:contain;
+}
+
+.reporte-btn{
+    background:#111;
+    color:var(--gold);
+
+    text-align:center;
+
+    padding:15px;
+
+    font-weight:bold;
+
+    border-radius:5px;
+}
+
+.reportes-subtitle{
+    text-align:center;
+    font-size:54px;
+    font-weight:bold;
+
+    margin-top:60px;
+    margin-bottom:25px;
+}
+
+.tabla-reportes{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabla-reportes th{
+    background:var(--gold);
+    color:#222;
+
+    padding:25px;
+
+    font-size:22px;
+}
+
+.tabla-reportes td{
+    padding:35px;
+    text-align:center;
+    border:1px solid #ddd;
+    font-size:18px;
+}
+
+.tabla-reportes tbody tr:nth-child(even){
+    background:var(--gold);
+}
+
+.tabla-reportes tbody tr:nth-child(odd){
+    background:#f7f7f7;
+}
+
+.pdf-icon{
+    width:28px;
+    height:28px;
+    object-fit:contain;
+}
+
+.reporte-btn{
+    background:#111;
+    color:var(--gold);
+
+    text-align:center;
+
+    padding:15px;
+
+    font-weight:bold;
+
+    border-radius:5px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
