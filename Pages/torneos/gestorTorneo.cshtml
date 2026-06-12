@@ -1,0 +1,128 @@
+@page
+
+@{
+    ViewData["Title"] = "Gestión de Torneo";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Gestión de Torneo</title>
+
+    <link rel="stylesheet" href="~/css/ifk.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="header-title">
+            IFK MANAGER
+        </div>
+
+        <a href="/Index" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            Cerrar sesión
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="sidebar">
+
+            <a href="/Inicio">
+                <i class="fas fa-home"></i>
+                Inicio
+            </a>
+
+            <a href="/alumnos/gestion">
+                <i class="fas fa-users"></i>
+                Alumnos
+            </a>
+
+            <a href="/Finanzas">
+                <i class="fas fa-money-bill"></i>
+                Finanzas
+            </a>
+
+            <a href="/torneos/gestorTorneo">
+                <i class="fas fa-trophy"></i>
+                Torneos
+            </a>
+
+            <a href="#">
+                <i class="fas fa-chart-bar"></i>
+                Reportes
+            </a>
+
+        </div>
+
+        <div class="content">
+
+            <div class="page-box">
+
+                <h1 class="torneo-title">
+                    GESTIÓN DE TORNEO: COPA PRIMAVERA 2026
+                </h1>
+
+                <div class="torneo-container">
+
+                    <!-- AGRUPAR -->
+
+                    <a href="#" class="torneo-card">
+
+                        <div class="torneo-icon">
+
+                            <img src="~/imagenes/icons/casaca.png"
+                                 alt="Agrupar"
+                                 class="torneo-img" />
+
+                        </div>
+
+                        <div class="torneo-btn">
+
+                            AGRUPAR POR
+                            <br />
+                            CATEGORÍAS
+
+                        </div>
+
+                    </a>
+
+                    <!-- BRACKET -->
+
+                    <a href="#" class="torneo-card">
+
+                        <div class="torneo-icon">
+
+                            <img src="~/imagenes/icons/medal-solid.png"
+                                 alt="Bracket"
+                                 class="torneo-img" />
+
+                        </div>
+
+                        <div class="torneo-btn">
+
+                            GENERAR
+                            <br />
+                            BRACKET
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
