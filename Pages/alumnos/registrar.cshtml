@@ -1,0 +1,232 @@
+@page
+
+@{
+    ViewData["Title"] = "Registro de Alumno";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Registro de Alumno</title>
+
+    <link rel="stylesheet" href="~/css/ifk.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-title">
+            IFK MANAGER
+        </div>
+
+        <a href="/Index" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            Cerrar sesión
+        </a>
+    </div>
+
+    <div class="main">
+
+        <div class="sidebar">
+
+            <a href="/Inicio">
+                <i class="fas fa-home"></i>
+                Inicio
+            </a>
+
+            <a href="/alumnos/gestion">
+                <i class="fas fa-users"></i>
+                Alumnos
+            </a>
+
+            <a href="#">
+                <i class="fas fa-money-bill"></i>
+                Finanzas
+            </a>
+
+            <a href="#">
+                <i class="fas fa-trophy"></i>
+                Torneos
+            </a>
+
+            <a href="#">
+                <i class="fas fa-file"></i>
+                Reportes
+            </a>
+
+        </div>
+
+        <div class="content">
+
+            <div class="page-box">
+
+                <h1 class="registro-title">
+                    REGISTRO DE ALUMNO
+                </h1>
+
+                <!-- DATOS PERSONALES -->
+
+                <h2 class="section-title">
+                    DATOS PERSONALES
+                </h2>
+
+                <div class="registro-grid">
+
+                    <div class="campo-grande">
+
+                        <label>Nombre Completo</label>
+
+                        <input type="text"
+                               class="ifk-input">
+
+                    </div>
+
+                    <div>
+
+                        <label>Fecha de Nacimiento</label>
+
+                        <input type="date"
+                               class="ifk-input">
+
+                    </div>
+
+                    <div>
+
+                        <label>Sexo</label>
+
+                        <select class="ifk-input">
+
+                            <option selected disabled>
+                                Seleccione el sexo
+                            </option>
+
+                            <option>Masculino</option>
+                            <option>Femenino</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- DATOS FISICOS -->
+
+                <h2 class="section-title">
+                    DATOS FÍSICOS Y DE CONTACTO
+                </h2>
+
+                <div class="datos-fisicos">
+
+                    <div class="peso-box">
+
+                        <label>Peso</label>
+
+                        <input type="number"
+                               class="ifk-input"
+                               placeholder="kg">
+
+                    </div>
+
+                    <div class="contacto-box">
+
+                        <label>Nombre del contacto de emergencia</label>
+
+                        <input type="text"
+                               class="ifk-input">
+
+                        <label>Teléfono</label>
+
+                        <input type="text"
+                               class="ifk-input">
+
+                    </div>
+
+                    <div class="medico-box">
+
+                        <label>Datos médicos / alergias</label>
+
+                        <textarea class="ifk-textarea"></textarea>
+
+                    </div>
+
+                </div>
+
+                <!-- DATOS ACADEMIA -->
+
+                <h2 class="section-title">
+                    DATOS DE LA ACADEMIA
+                </h2>
+
+                <div class="academia-grid">
+
+                    <div>
+
+                        <label>Grado Inicial</label>
+
+                        <select class="ifk-input">
+
+                            <option selected disabled>
+                                Seleccione un grado
+                            </option>
+
+                            <option>Blanca (sin grado)</option>
+
+                            <option>Naranja (10mo Kyu)</option>
+                            <option>Naranja avanzada (9no Kyu)</option>
+
+                            <option>Azul (8vo Kyu)</option>
+                            <option>Azul avanzada (7mo Kyu)</option>
+
+                            <option>Amarilla (6to Kyu)</option>
+                            <option>Amarilla avanzada (5to Kyu)</option>
+
+                            <option>Verde (4to Kyu)</option>
+                            <option>Verde avanzada (3er Kyu)</option>
+
+                            <option>Café (2do Kyu)</option>
+                            <option>Café avanzada (1er Kyu)</option>
+
+                            <option>Negra (1er Dan)</option>
+
+                        </select>
+
+                    </div>
+
+                    <div>
+
+                        <label>Matrícula</label>
+
+                        <input type="text"
+                               value="2026-001"
+                               readonly
+                               class="ifk-input">
+
+                    </div>
+
+                </div>
+
+                <!-- BOTONES -->
+
+                <div class="registro-buttons">
+
+                    <button class="btn-guardar">
+                        GUARDAR ALUMNO
+                    </button>
+
+                    <button class="btn-cancelar">
+                        CANCELAR
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

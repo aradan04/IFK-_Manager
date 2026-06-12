@@ -1,0 +1,127 @@
+@page
+
+@{
+    ViewData["Title"] = "Gestión de Alumnado";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Gestión de Alumnado</title>
+
+    <link rel="stylesheet" href="~/css/ifk.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header-title">
+            IFK MANAGER
+        </div>
+
+        <a href="/Index" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            Cerrar sesión
+        </a>
+    </div>
+
+    <div class="main">
+
+        <div class="sidebar">
+
+            <a href="/Inicio">
+                <i class="fas fa-home"></i>
+                Inicio
+            </a>
+
+            <a href="/alumnos/gestion">
+                <i class="fas fa-users"></i>
+                Alumnos
+            </a>
+
+            <a href="#">
+                <i class="fas fa-money-bill"></i>
+                Finanzas
+            </a>
+
+            <a href="#">
+                <i class="fas fa-trophy"></i>
+                Torneos
+            </a>
+
+            <a href="#">
+                <i class="fas fa-chart-bar"></i>
+                Reportes
+            </a>
+
+        </div>
+
+        <div class="content">
+
+            <div class="page-box">
+
+                <h1 class="page-title">
+                    GESTIÓN DE ALUMNADO
+                </h1>
+
+                <div class="gestion-container">
+
+                    <a href="/alumnos/registrar" class="gestion-card">
+
+                        <div class="gestion-icon">
+                            <img src="/imagenes/icons/casaca.png" class="gestion-img">
+                                
+                        </div>
+
+                        <div class="gestion-btn">
+                            REGISTRAR
+                            <br>
+                            ALUMNO NUEVO
+                        </div>
+
+                    </a>
+
+                    <a href="/alumnos/expediente" class="gestion-card">
+
+                        <div class="gestion-icon">
+                            <img src="/imagenes/icons/folder-solid.png" class="gestion-img">
+                                >
+                        </div>
+
+                        <div class="gestion-btn">
+                            VER
+                            <br>
+                            EXPEDIENTE
+                        </div>
+
+                    </a>
+
+                    <a href="/alumnos/asistencia" class="gestion-card">
+
+                        <div class="gestion-icon">
+                            <img src="/imagenes/icons/list-check-solid.png" class="gestion-img">
+                                 
+                        </div>
+
+                        <div class="gestion-btn">
+                            LISTA DE
+                            <br>
+                            ASISTENCIA
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
