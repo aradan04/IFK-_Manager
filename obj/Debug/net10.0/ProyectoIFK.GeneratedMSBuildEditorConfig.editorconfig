@@ -38,10 +38,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcYWx1bW5vc1xyZWdpc3RyYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/arada/OneDrive/Desktop/Escuela/Cuarto semestre/Desarrollo de software/Proyecto/IFK-_Manager/Pages/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/arada/OneDrive/Desktop/Escuela/Cuarto semestre/Desarrollo de software/Proyecto/IFK-_Manager/Pages/finanzas.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZmluYW56YXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,6 +56,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/arada/OneDrive/Desktop/Escuela/Cuarto semestre/Desarrollo de software/Proyecto/IFK-_Manager/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/arada/OneDrive/Desktop/Escuela/Cuarto semestre/Desarrollo de software/Proyecto/IFK-_Manager/Pages/torneos/bracket.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcdG9ybmVvc1xicmFja2V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/arada/OneDrive/Desktop/Escuela/Cuarto semestre/Desarrollo de software/Proyecto/IFK-_Manager/Pages/torneos/categorias.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcdG9ybmVvc1xjYXRlZ29yaWFzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/arada/OneDrive/Desktop/Escuela/Cuarto semestre/Desarrollo de software/Proyecto/IFK-_Manager/Pages/torneos/gestorTorneo.cshtml]

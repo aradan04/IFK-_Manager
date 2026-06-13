@@ -870,3 +870,104 @@ font-weight:bold;
 border-radius:6px;
 cursor:pointer;
 }
+/* ===========================
+   CATEGORIAS DE TORNEO
+=========================== */
+
+.categoria-title{
+    text-align:center;
+    font-size:52px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.categoria-divider{
+    height:2px;
+    background:#d4af37;
+    margin-bottom:30px;
+}
+
+.categoria-nombre{
+    width:55%;
+    margin-bottom:30px;
+}
+
+.categoria-nombre label,
+.categoria-grid label{
+    display:block;
+    font-weight:bold;
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.categoria-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(5, 1fr);
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.categoria-btn-container{
+    display:flex;
+    align-items:flex-end;
+}
+
+.btn-previsualizar{
+    width:100%;
+    background:#111;
+    color:#d4af37;
+    border:none;
+    padding:14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.categoria-subtitle{
+    margin:40px 0 20px;
+}
+
+.tabla-categorias{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabla-categorias th{
+    background:#d4af37;
+    padding:15px;
+    border:1px solid #666;
+}
+
+.tabla-categorias td{
+    padding:18px;
+    text-align:center;
+    border:1px solid #999;
+}
+
+.tabla-categorias tbody tr:nth-child(even){
+    background:#d4af37;
+}
+
+.categoria-footer{
+    margin-top:30px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.competidores-box{
+    background:white;
+    border:1px solid #ccc;
+    padding:20px 30px;
+    font-size:22px;
+}
+
+.btn-guardar-categoria{
+    background:#d4af37;
+    border:none;
+    padding:18px 35px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}

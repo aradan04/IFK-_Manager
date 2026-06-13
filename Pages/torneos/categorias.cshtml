@@ -1,0 +1,308 @@
+@page
+@model ProyectoIFK.Pages.torneos.categoriasModel
+
+@{
+    ViewData["Title"] = "Categorías";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+
+    <title>Categorías</title>
+
+    <link rel="stylesheet" href="~/css/ifk.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="header-title">
+        IFK MANAGER
+    </div>
+
+    <a href="/Index" class="logout">
+        <i class="fas fa-sign-out-alt"></i>
+        Cerrar sesión
+    </a>
+
+</div>
+
+<div class="main">
+
+    <div class="sidebar">
+
+        <a href="/Inicio">
+            <i class="fas fa-home"></i>
+            Inicio
+        </a>
+
+        <a href="/alumnos/gestion">
+            <i class="fas fa-users"></i>
+            Alumnos
+        </a>
+
+        <a href="/finanzas">
+            <i class="fas fa-money-bill"></i>
+            Finanzas
+        </a>
+
+        <a href="/torneos/gestorTorneo">
+            <i class="fas fa-trophy"></i>
+            Torneos
+        </a>
+
+        <a href="/reportes">
+            <i class="fas fa-file"></i>
+            Reportes
+        </a>
+
+    </div>
+
+    <div class="content">
+
+        <div class="page-box">
+
+            <h1 class="categoria-title">
+                CONFIGURACIÓN DE CATEGORÍA - COPA PRIMAVERA 2026
+            </h1>
+
+            <div class="categoria-divider"></div>
+
+            <!-- NOMBRE -->
+
+            <div class="categoria-nombre">
+
+                <label>
+                    NOMBRE DE CATEGORÍA
+                </label>
+
+                <input type="text"
+                       class="ifk-input"
+                       value="Infantil Principiantes">
+
+            </div>
+
+            <!-- FILA 1 -->
+
+            <div class="categoria-grid">
+
+                <div>
+
+                    <label>EDAD MÍNIMA</label>
+
+                    <input type="number"
+                           class="ifk-input"
+                           value="8">
+
+                </div>
+
+                <div>
+
+                    <label>EDAD MÁXIMA</label>
+
+                    <input type="number"
+                           class="ifk-input"
+                           value="11">
+
+                </div>
+
+                <div>
+
+                    <label>PESO MÍNIMO</label>
+
+                    <input type="number"
+                           class="ifk-input"
+                           value="25">
+
+                </div>
+
+                <div>
+
+                    <label>PESO MÁXIMO</label>
+
+                    <input type="number"
+                           class="ifk-input"
+                           value="40">
+
+                </div>
+
+                <div>
+
+                    <label>RAMA</label>
+
+                    <select class="ifk-input">
+
+                        <option>Varonil</option>
+                        <option>Femenil</option>
+                        <option>Mixto</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- FILA 2 -->
+
+            <div class="categoria-grid">
+
+                <div>
+
+                    <label>CINTA MÍNIMA</label>
+
+                    <select class="ifk-input">
+
+                        <option>Blanca</option>
+                        <option>Naranja</option>
+                        <option>Naranja avanzada</option>
+                        <option>Azul</option>
+                        <option>Azul avanzada</option>
+                        <option>Amarilla</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>CINTA MÁXIMA</label>
+
+                    <select class="ifk-input">
+
+                        <option>Amarilla avanzada</option>
+                        <option>Verde</option>
+                        <option>Verde avanzada</option>
+                        <option>Café</option>
+
+                    </select>
+
+                </div>
+
+                <div class="categoria-btn-container">
+
+                    <button class="btn-previsualizar">
+
+                        PREVISUALIZAR GRUPO
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- TABLA -->
+
+            <h2 class="categoria-subtitle">
+
+                <i class="fas fa-users"></i>
+
+                ALUMNOS ENCONTRADOS
+
+            </h2>
+
+            <table class="tabla-categorias">
+
+                <thead>
+
+                <tr>
+
+                    <th>MATRÍCULA</th>
+                    <th>NOMBRE DEL ALUMNO</th>
+                    <th>EDAD</th>
+                    <th>PESO</th>
+                    <th>GRADO / CINTA</th>
+                    <th>RAMA</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr>
+
+                    <td>2026-001</td>
+                    <td>Juan Pérez</td>
+                    <td>10</td>
+                    <td>34 kg</td>
+                    <td>Blanca (10mo Kyu)</td>
+                    <td>Varonil</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>2026-002</td>
+                    <td>María García</td>
+                    <td>9</td>
+                    <td>31 kg</td>
+                    <td>Amarilla (9no Kyu)</td>
+                    <td>Femenil</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>2026-004</td>
+                    <td>Carlos Ruiz</td>
+                    <td>10</td>
+                    <td>35 kg</td>
+                    <td>Blanca (10mo Kyu)</td>
+                    <td>Varonil</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>2026-005</td>
+                    <td>Roberto Gómez</td>
+                    <td>11</td>
+                    <td>38 kg</td>
+                    <td>Naranja (8vo Kyu)</td>
+                    <td>Varonil</td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+            <!-- PIE -->
+
+            <div class="categoria-footer">
+
+                <div class="competidores-box">
+
+                    <i class="fas fa-users"></i>
+
+                    Competidores encontrados:
+
+                    <strong>4</strong>
+
+                </div>
+
+                <button class="btn-guardar-categoria">
+
+                    <i class="fas fa-save"></i>
+
+                    GUARDAR CATEGORÍA
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

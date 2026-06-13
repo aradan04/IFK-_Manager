@@ -121,7 +121,6 @@ C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\P
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\scopedcss\bundle\ProyectoIFK.styles.css
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\scopedcss\projectbundle\ProyectoIFK.bundle.scp.css
-C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-mu9da1a3z1-mu9da1a3z1.gz
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\compressed\n6ifskqdb1-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\compressed\2nx615qvo3-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\compressed\gaosto9xhw-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
@@ -196,3 +195,4 @@ C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\P
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\ProyectoIFK.pdb
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\ProyectoIFK.genruntimeconfig.cache
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\ref\ProyectoIFK.dll
+C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-pdfuievukc-pdfuievukc.gz
