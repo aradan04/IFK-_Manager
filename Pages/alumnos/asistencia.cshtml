@@ -1,3 +1,193 @@
 @page
+@model ProyectoIFK.Pages.alumnos.asistenciaModel
 
-<h1>ASISTENCIA</h1>
+@{
+ViewData["Title"] = "Lista de Asistencia";
+Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+
+<title>Lista de Asistencia</title>
+
+<link rel="stylesheet" href="~/css/ifk.css" />
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="header-title">
+    IFK MANAGER
+</div>
+
+<a href="/Index" class="logout">
+    <i class="fas fa-sign-out-alt"></i>
+    Cerrar sesión
+</a>
+
+</div>
+
+<div class="main">
+
+<div class="sidebar">
+
+    <a href="/Inicio">
+        <i class="fas fa-home"></i>
+        Inicio
+    </a>
+
+    <a href="/alumnos/gestion">
+        <i class="fas fa-users"></i>
+        Alumnos
+    </a>
+
+    <a href="/Finanzas">
+        <i class="fas fa-money-bill"></i>
+        Finanzas
+    </a>
+
+    <a href="/torneos/gestorTorneo">
+        <i class="fas fa-trophy"></i>
+        Torneos
+    </a>
+
+    <a href="/reportes">
+        <i class="fas fa-chart-bar"></i>
+        Reportes
+    </a>
+
+</div>
+
+<div class="content">
+
+    <div class="page-box">
+
+        <div class="asistencia-header">
+
+            <h1 class="asistencia-title">
+                LISTA DE ASISTENCIA
+            </h1>
+
+            <div class="asistencia-fecha">
+                @DateTime.Now.ToString("dd / MM / yyyy")
+            </div>
+
+        </div>
+
+        <div class="asistencia-clase">
+
+            <label>CLASE:</label>
+
+            <select class="ifk-input">
+
+                <option>ADULTOS</option>
+                <option>NIÑOS</option>
+                <option>EN LÍNEA</option>
+
+            </select>
+
+        </div>
+
+        <table class="tabla-asistencia">
+
+            <thead>
+
+            <tr>
+                <th>NOMBRE DEL ALUMNO</th>
+                <th>GRADO</th>
+                <th>ESTATUS</th>
+                <th>OBSERVACIONES</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+                <td>Juan Pérez</td>
+                <td>Blanca</td>
+                <td>
+                    <input type="checkbox">
+                    Asistió
+                </td>
+                <td>
+                    <input type="text"
+                           class="obs-input"
+                           placeholder="Observaciones">
+                </td>
+            </tr>
+
+            <tr>
+                <td>María García</td>
+                <td>Amarilla</td>
+                <td>
+                    <input type="checkbox" checked>
+                    Asistió
+                </td>
+                <td>
+                    <input type="text"
+                           class="obs-input"
+                           placeholder="Observaciones">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Carlos Ruiz</td>
+                <td>Blanca</td>
+                <td>
+                    <input type="checkbox">
+                    Asistió
+                </td>
+                <td>
+                    <input type="text"
+                           class="obs-input"
+                           placeholder="Observaciones">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Roberto Gómez</td>
+                <td>Naranja</td>
+                <td>
+                    <input type="checkbox" checked>
+                    Asistió
+                </td>
+                <td>
+                    <input type="text"
+                           class="obs-input"
+                           placeholder="Observaciones">
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+        <div class="asistencia-btn-container">
+
+            <button class="btn-asistencia">
+                GUARDAR
+                <br />
+                ASISTENCIA
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</script>
+
+</body>
+</html>

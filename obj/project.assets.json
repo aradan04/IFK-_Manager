@@ -8,24 +8,32 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\arada\\.nuget\\packages\\": {}
+    "C:\\Users\\arada\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arada\\OneDrive\\Desktop\\Escuela\\Cuarto semestre\\Desarrollo de software\\Proyecto IFK Manager\\ProyectoIFK\\ProyectoIFK.csproj",
+      "projectUniqueName": "C:\\Users\\arada\\OneDrive\\Desktop\\Escuela\\Cuarto semestre\\Desarrollo de software\\Proyecto\\IFK-_Manager\\ProyectoIFK.csproj",
       "projectName": "ProyectoIFK",
-      "projectPath": "C:\\Users\\arada\\OneDrive\\Desktop\\Escuela\\Cuarto semestre\\Desarrollo de software\\Proyecto IFK Manager\\ProyectoIFK\\ProyectoIFK.csproj",
+      "projectPath": "C:\\Users\\arada\\OneDrive\\Desktop\\Escuela\\Cuarto semestre\\Desarrollo de software\\Proyecto\\IFK-_Manager\\ProyectoIFK.csproj",
       "packagesPath": "C:\\Users\\arada\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arada\\OneDrive\\Desktop\\Escuela\\Cuarto semestre\\Desarrollo de software\\Proyecto IFK Manager\\ProyectoIFK\\obj\\",
+      "outputPath": "C:\\Users\\arada\\OneDrive\\Desktop\\Escuela\\Cuarto semestre\\Desarrollo de software\\Proyecto\\IFK-_Manager\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\arada\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\arada\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -44,7 +52,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net10.0": {
@@ -68,7 +76,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.109/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
