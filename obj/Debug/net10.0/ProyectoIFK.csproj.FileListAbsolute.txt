@@ -195,4 +195,4 @@ C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\P
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\ProyectoIFK.pdb
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\ProyectoIFK.genruntimeconfig.cache
 C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\ref\ProyectoIFK.dll
-C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-pdfuievukc-pdfuievukc.gz
+C:\Users\arada\OneDrive\Desktop\Escuela\Cuarto semestre\Desarrollo de software\Proyecto\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-1o61lsen13-1o61lsen13.gz

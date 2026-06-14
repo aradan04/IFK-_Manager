@@ -971,3 +971,260 @@ cursor:pointer;
     font-weight:bold;
     cursor:pointer;
 }
+
+/* ===========================
+   BRACKET
+=========================== */
+
+.bracket-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:20px;
+}
+
+.bracket-top label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.bracket-top select{
+    width:220px;
+}
+
+.bracket-title{
+    font-size:60px;
+    font-weight:bold;
+}
+
+.bracket-info{
+    display:flex;
+    gap:40px;
+    margin-bottom:40px;
+    font-size:20px;
+    font-weight:600;
+}
+
+.bracket-container{
+    display:grid;
+
+    grid-template-columns:
+        180px
+        180px
+        180px
+        220px
+        180px
+        180px
+        180px;
+
+    justify-content:center;
+
+    gap:35px;
+
+    margin-top:40px;
+    margin-bottom:60px;
+
+    position:relative;
+}
+
+.bracket-column{
+    position:relative;
+    height:500px;
+}
+
+.bracket-player{
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:180px;
+    height:70px;
+
+    border:3px solid #d4d4d4;
+    background:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:18px;
+}
+
+.champion-box{
+    width:220px;
+    height:90px;
+
+    font-weight:bold;
+
+    background:#d4af37;
+}
+
+.bracket-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+}
+
+.btn-cerrar-bracket{
+    background:#111;
+    color:#d4af37;
+
+    border:none;
+
+    padding:18px 30px;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+    width:auto;
+}
+
+/* ===========================
+   POSICIONES
+=========================== */
+
+.players-column .bracket-player:nth-child(1){
+    top:12.5%;
+}
+
+.players-column .bracket-player:nth-child(2){
+    top:37.5%;
+}
+
+.players-column .bracket-player:nth-child(3){
+    top:62.5%;
+}
+
+.players-column .bracket-player:nth-child(4){
+    top:87.5%;
+}
+
+.semifinal-column .bracket-player:nth-child(1){
+    top:25%;
+}
+
+.semifinal-column .bracket-player:nth-child(2){
+    top:75%;
+}
+
+.finalist-column .bracket-player,
+.champion-column .bracket-player{
+    top:50%;
+}
+
+/* ===========================
+   CONEXIONES
+=========================== */
+
+/* horizontales izquierda */
+
+.bracket-container > .bracket-column:nth-child(-n+4) .bracket-player::after{
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    right:-40px;
+
+    width:40px;
+    height:2px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-50%);
+}
+
+/* horizontales derecha */
+
+.bracket-container > .bracket-column:nth-child(n+4) .bracket-player::before{
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    left:-40px;
+
+    width:40px;
+    height:2px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-50%);
+}
+
+/* jugadores -> semifinal izquierda */
+
+.bracket-container > .bracket-column:nth-child(2) .bracket-player::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    width:2px;
+    height:128px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-64px);
+}
+
+/* semifinal -> finalista izquierda */
+
+.bracket-container > .bracket-column:nth-child(3) .bracket-player::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    width:2px;
+    height:250px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-125px);
+}
+
+/* semifinal -> finalista derecha */
+
+.bracket-container > .bracket-column:nth-child(5) .bracket-player::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:50%;
+
+    width:2px;
+    height:250px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-125px);
+}
+
+/* jugadores -> semifinal derecha */
+
+.bracket-container > .bracket-column:nth-child(6) .bracket-player::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:50%;
+
+    width:2px;
+    height:128px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-64px);
+}

@@ -1,0 +1,166 @@
+@page
+@model ProyectoIFK.Pages.torneos.bracketModel
+
+@{
+ViewData["Title"] = "Bracket";
+Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+
+<meta charset="utf-8" />
+
+<title>Bracket</title>
+
+<link rel="stylesheet" href="~/css/ifk.css" />
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="header-title">
+    IFK MANAGER
+</div>
+
+<a href="/Index" class="logout">
+    <i class="fas fa-sign-out-alt"></i>
+    Cerrar sesión
+</a>
+
+</div>
+
+<div class="main">
+
+<div class="sidebar">
+
+    <a href="/Inicio">
+        <i class="fas fa-home"></i>
+        Inicio
+    </a>
+
+    <a href="/alumnos/gestion">
+        <i class="fas fa-users"></i>
+        Alumnos
+    </a>
+
+    <a href="/finanzas">
+        <i class="fas fa-money-bill"></i>
+        Finanzas
+    </a>
+
+    <a href="/torneos/gestorTorneo">
+        <i class="fas fa-trophy"></i>
+        Torneos
+    </a>
+
+    <a href="/reportes">
+        <i class="fas fa-chart-bar"></i>
+        Reportes
+    </a>
+
+</div>
+
+<div class="content">
+
+    <div class="page-box">
+
+        <div class="bracket-top">
+
+            <div>
+
+                <label>CATEGORÍA</label>
+
+                <select class="ifk-input">
+                    <option>Infantil</option>
+                    <option>Juvenil</option>
+                    <option>Adultos</option>
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>GRADO</label>
+
+                <select class="ifk-input">
+                    <option>Blanca</option>
+                    <option>Amarilla</option>
+                    <option>Naranja</option>
+                    <option>Verde</option>
+                    <option>cafe/negra</option>
+                </select>
+
+            </div>
+
+            <div class="bracket-title">
+                BRACKET
+            </div>
+
+        </div>
+
+        <div class="bracket-info">
+
+            <span>
+                Categoría: Infantil Principiantes
+            </span>
+
+            <span>
+                Competidores: 8
+            </span>
+
+        </div>
+
+<div class="bracket-container">
+
+    <div class="bracket-column players-column">
+        <div class="bracket-player">Juan Pérez</div>
+        <div class="bracket-player">María García</div>
+        <div class="bracket-player">Carlos Ruiz</div>
+        <div class="bracket-player">Roberto Gómez</div>
+    </div>
+
+    <div class="bracket-column semifinal-column">
+        <div class="bracket-player">Ganador 1</div>
+        <div class="bracket-player">Ganador 2</div>
+    </div>
+
+    <div class="bracket-column finalist-column">
+        <div class="bracket-player">Finalista</div>
+    </div>
+
+    <div class="bracket-column champion-column">
+        <div class="bracket-player champion-box">CAMPEÓN</div>
+    </div>
+
+    <div class="bracket-column finalist-column">
+        <div class="bracket-player">Finalista</div>
+    </div>
+
+    <div class="bracket-column semifinal-column">
+        <div class="bracket-player">Ganador 3</div>
+        <div class="bracket-player">Ganador 4</div>
+    </div>
+
+    <div class="bracket-column players-column">
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
