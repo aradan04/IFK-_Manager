@@ -1,0 +1,283 @@
+@page
+@model ProyectoIFK.Pages.personal.AuditoriaModel
+
+@{
+    ViewData["Title"] = "Log de Auditoría";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Log de Auditoría</title>
+
+    <link rel="stylesheet" href="~/css/ifk.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="header-title">
+            IFK MANAGER
+        </div>
+
+        <a href="/Index" class="logout">
+
+            <i class="fas fa-sign-out-alt"></i>
+
+            Cerrar sesión
+
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="sidebar">
+
+            <a href="/Inicio">
+                <i class="fas fa-home"></i>
+                Inicio
+            </a>
+
+            <a href="/alumnos/gestion">
+                <i class="fas fa-users"></i>
+                Alumnos
+            </a>
+
+            <a href="/finanzas">
+                <i class="fas fa-money-bill"></i>
+                Finanzas
+            </a>
+
+            <a href="/torneos/gestorTorneo">
+                <i class="fas fa-trophy"></i>
+                Torneos
+            </a>
+
+            <a href="/reportes">
+                <i class="fas fa-chart-bar"></i>
+                Reportes
+            </a>
+
+            <a href="/personal/menuPersonal">
+                <i class="fas fa-user"></i>
+                Personal
+            </a>
+
+        </div>
+
+        <div class="content">
+
+            <div class="page-box">
+
+                <h1 class="auditoria-title">
+                    LOG DE AUDITORÍA
+                </h1>
+
+                <div class="auditoria-filtros">
+
+                    <div>
+
+                        <label>
+                            Buscar por palabra clave o descripción:
+                        </label>
+
+                        <input type="text"
+                               class="ifk-input"
+                               placeholder="" />
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Filtrar por módulo:
+                        </label>
+
+                        <select class="ifk-input">
+
+                            <option>Todos</option>
+                            <option>Finanzas</option>
+                            <option>Alumnos</option>
+                            <option>Torneos</option>
+                            <option>Reportes</option>
+                            <option>Seguridad</option>
+
+                        </select>
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Filtrar por fecha:
+                        </label>
+
+                        <div class="auditoria-fechas">
+
+                            <div>
+
+                                <span>Desde:</span>
+
+                                <input type="date"
+                                       class="ifk-input" />
+
+                            </div>
+
+                            <div>
+
+                                <span>Hasta:</span>
+
+                                <input type="date"
+                                       class="ifk-input" />
+
+                            </div>
+
+                            <button class="btn-aplicar">
+
+                                APLICAR
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <table class="auditoria-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>FECHA / HORA</th>
+                            <th>USUARIO</th>
+                            <th>ACCIÓN REALIZADA</th>
+                            <th>MÓDULO</th>
+                            <th>DETALLES</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>07/04/26 14:20</td>
+                            <td>Secretaria_IFK</td>
+                            <td>Registró Pago: $850.00 (Juan Pérez)</td>
+                            <td>FINANZAS</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>07/04/26 13:15</td>
+                            <td>Sensei_Roberto</td>
+                            <td>Promovió Grado: Blanca a Amarilla</td>
+                            <td>ALUMNOS</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>06/04/26 18:00</td>
+                            <td>Staff_Mesa01</td>
+                            <td>Actualizó Bracket: Copa Primavera</td>
+                            <td>TORNEOS</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>06/04/26 10:05</td>
+                            <td>Secretaria_IFK</td>
+                            <td>Generó Reporte PDF: Padrón Abril</td>
+                            <td>REPORTES</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>05/04/26 16:30</td>
+                            <td>Sensei_Roberto</td>
+                            <td>Creó Usuario: Staff_Mesa02</td>
+                            <td>SEGURIDAD</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

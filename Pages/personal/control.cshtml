@@ -1,0 +1,387 @@
+@page
+@model ProyectoIFK.Pages.personal.ControlModel
+
+@{
+    ViewData["Title"] = "Control de Acceso";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Control de Acceso</title>
+
+    <link rel="stylesheet" href="~/css/ifk.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="header-title">
+            IFK MANAGER
+        </div>
+
+        <a href="/Index" class="logout">
+
+            <i class="fas fa-sign-out-alt"></i>
+
+            Cerrar sesión
+
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="sidebar">
+
+            <a href="/Inicio">
+                <i class="fas fa-home"></i>
+                Inicio
+            </a>
+
+            <a href="/alumnos/gestion">
+                <i class="fas fa-users"></i>
+                Alumnos
+            </a>
+
+            <a href="/finanzas">
+                <i class="fas fa-money-bill"></i>
+                Finanzas
+            </a>
+
+            <a href="/torneos/gestorTorneo">
+                <i class="fas fa-trophy"></i>
+                Torneos
+            </a>
+
+            <a href="/reportes">
+                <i class="fas fa-chart-bar"></i>
+                Reportes
+            </a>
+
+            <a href="/personal/menuPersonal">
+                <i class="fas fa-user"></i>
+                Personal
+            </a>
+
+        </div>
+
+        <div class="content">
+
+            <div class="page-box">
+
+                <h1 class="control-title">
+                    CONTROL DE ACCESO Y ROLES DE PERSONAL
+                </h1>
+
+                <div class="control-actions">
+
+                    <button id="btnAbrirModal"
+                            class="btn-agregar-usuario">
+
+                        + | AGREGAR USUARIO
+
+                    </button>
+
+                </div>
+
+                <table class="control-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>USUARIO</th>
+                            <th>ROL</th>
+                            <th>ÚLTIMO ACCESO</th>
+                            <th>ESTADO</th>
+                            <th>ACCIONES</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>01</td>
+
+                            <td>Secretaria_IFK</td>
+
+                            <td>Administrativo</td>
+
+                            <td>07/04/2026</td>
+
+                            <td>Activo</td>
+
+                            <td class="acciones">
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-pencil-alt"></i>
+
+                                </button>
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-lock"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>02</td>
+
+                            <td>Senpai_Changuito</td>
+
+                            <td>Asistente</td>
+
+                            <td>06/04/2026</td>
+
+                            <td>Activo</td>
+
+                            <td class="acciones">
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-pencil-alt"></i>
+
+                                </button>
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-lock"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>03</td>
+
+                            <td>Staff_Mesa01</td>
+
+                            <td>Personal de Mesa</td>
+
+                            <td>01/04/2026</td>
+
+                            <td>Inactivo</td>
+
+                            <td class="acciones">
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-pencil-alt"></i>
+
+                                </button>
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-lock"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+
+    <div id="modalUsuario"
+         class="modal-overlay">
+
+        <div class="modal-control">
+
+            <div class="modal-header">
+
+                <h2>
+                    AGREGAR USUARIO
+                </h2>
+
+                <button id="btnCerrarModal"
+                        class="btn-cerrar-modal">
+
+                    <i class="fas fa-times"></i>
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-row">
+
+                    <label>
+                        Nombre completo:
+                    </label>
+
+                    <input type="text"
+                           class="ifk-input" />
+
+                </div>
+
+                <div class="form-grid">
+
+                    <div>
+
+                        <label>
+                            Nombre de usuario:
+                        </label>
+
+                        <input type="text"
+                               class="ifk-input" />
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Asigna el rol:
+                        </label>
+
+                        <select class="ifk-input">
+
+                            <option>
+                                Administrador (Sensei)
+                            </option>
+
+                            <option>
+                                Asistente (Senpai)
+                            </option>
+
+                            <option>
+                                Administrativo (Secretaría)
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <label>
+                        Contraseña temporal:
+                    </label>
+
+                    <div class="password-container">
+
+                        <input type="password"
+                               id="txtPassword"
+                               value="123456789"
+                               class="ifk-input" />
+
+                        <button type="button"
+                                id="btnMostrarPassword"
+                                class="btn-ojo">
+
+                            <i class="fas fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn-guardar-usuario">
+
+                    GUARDAR Y ENVIAR ACCESO
+
+                </button>
+
+                <button id="btnCancelarModal"
+                        class="btn-cancelar-usuario">
+
+                    CANCELAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const modal =
+            document.getElementById("modalUsuario");
+
+        document
+            .getElementById("btnAbrirModal")
+            .addEventListener("click", () => {
+
+                modal.style.display = "flex";
+
+            });
+
+        document
+            .getElementById("btnCerrarModal")
+            .addEventListener("click", () => {
+
+                modal.style.display = "none";
+
+            });
+
+        document
+            .getElementById("btnCancelarModal")
+            .addEventListener("click", () => {
+
+                modal.style.display = "none";
+
+            });
+
+        document
+            .getElementById("btnMostrarPassword")
+            .addEventListener("click", () => {
+
+                const txt =
+                    document.getElementById("txtPassword");
+
+                txt.type =
+                    txt.type === "password"
+                    ? "text"
+                    : "password";
+
+            });
+
+    </script>
+
+</body>
+
+</html>
