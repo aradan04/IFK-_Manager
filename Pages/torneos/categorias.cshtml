@@ -232,18 +232,16 @@
 
             </div>
 
+            @if(ViewData["Mensaje"] != null)
+            {
+                <div class="alerta-torneo">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+
             <!-- TABLA -->
 
             <h2 class="categoria-subtitle">
-
-                @if(ViewData["Mensaje"] != null)
-                    {
-                        <div class="alerta-torneo">
-
-                            @ViewData["Mensaje"]
-
-                        </div>
-                    }
 
                 <i class="fas fa-users"></i>
 

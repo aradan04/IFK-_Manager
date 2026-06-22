@@ -46,10 +46,20 @@ namespace ProyectoIFK.Pages
                     Estatus = reader.GetString("estatus")
                 });
 
+            string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
                 RegistrarAuditoria(
-                1,
-                "Generó reporte de asistencia",
-                "Reportes");
+                    idUsuario,
+                    $"Generó el reportes de asistencia",
+                    "Reportes");
+            }
+
             }
         }
 

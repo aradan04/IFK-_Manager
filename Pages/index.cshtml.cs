@@ -124,6 +124,10 @@ public class IndexModel : PageModel
                 int idUsuario =
                     Convert.ToInt32(resultado);
 
+                HttpContext.Session.SetString(
+                "IdUsuario",
+                idUsuario.ToString());
+
                 RegistrarAuditoria(
                     idUsuario,
                     "Inicio de sesión",
