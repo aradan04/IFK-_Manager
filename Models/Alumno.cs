@@ -21,6 +21,7 @@ namespace ProyectoIFK.Models
         [Column("nombre_completo")]
         public string NombreCompleto { get; set; } = string.Empty;
 
+        // Esta es la fecha que ya tienes en la base de datos
         [Column("fecha_nacimiento")]
         public DateTime FechaNacimiento { get; set; }
 
@@ -52,10 +53,7 @@ namespace ProyectoIFK.Models
         [Column("id_tarifa")]
         public int IdTarifa { get; set; }
 
-        // --- CAMPOS NO MAPEADOS (Para evitar errores de "Unknown column") ---
-
-        [NotMapped]
-        public DateTime FechaInscripcion { get; set; }
+        // --- CAMPOS NO MAPEADOS (Variables auxiliares) ---
 
         [NotMapped]
         public string? Estatus { get; set; }
@@ -65,5 +63,6 @@ namespace ProyectoIFK.Models
         
         [NotMapped]
         public string? ContactoEmergenciaTelefono { get; set; }
+
     }
 }

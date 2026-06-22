@@ -32,24 +32,18 @@ namespace ProyectoIFK.Pages.alumnos
 
         public void OnGet()
         {
-            // Establece una fecha por defecto en el formulario (15 años atrás)
             NuevoAlumno.FechaNacimiento = DateTime.Now.AddYears(-15);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // SOLUCIÓN AL REBOTE: Forzamos a C# a ignorar la validación obligatoria de propiedades
-            // que el usuario no llena a mano porque las calcula el sistema automáticamente.
+            // Se eliminó la referencia a NuevoAlumno.FechaInscripcion
             ModelState.Remove("NuevoAlumno.Matricula");
             ModelState.Remove("NuevoAlumno.Estatus");
             ModelState.Remove("NuevoAlumno.EstatusMedico");
-            ModelState.Remove("NuevoAlumno.FechaInscripcion");
 
-            // Si por alguna otra razón el formulario es rechazado, extraemos el nombre exacto 
-            // del campo faltante para que sepas con precisión qué arreglar en el navegador.
             if (!ModelState.IsValid)
             {
-                // CORRECCIÓN CS8602: Se agregó el operador '!' en ModelState[k]! 
                 var erroresDetallados = string.Join(", ", ModelState.Keys
                     .Where(k => ModelState[k]!.Errors.Count > 0)
                     .Select(k => k.Replace("NuevoAlumno.", "")));
@@ -60,7 +54,6 @@ namespace ProyectoIFK.Pages.alumnos
 
             try
             {
-                // 1. GENERACIÓN AUTOMÁTICA Y CONSECUTIVA DE LA MATRÍCULA
                 var ultimoAlumno = await _context.Alumno
                     .Where(a => a.Matricula.StartsWith("S"))
                     .OrderByDescending(a => a.Matricula)
@@ -83,36 +76,29 @@ namespace ProyectoIFK.Pages.alumnos
                     NuevoAlumno.Matricula = "S24013370";
                 }
 
-                // 2. CONCATENACIÓN MÉDICA SOLICITADA
                 NuevoAlumno.EstatusMedico = $"Contacto: {ContactoNombreAux} | Tel: {ContactoTelefonoAux} | Alergias: {MedicosAlergiasAux}";
                 
-                // Propiedades auxiliares mapeadas correctamente
                 NuevoAlumno.ContactoEmergenciaNombre = "-";
                 NuevoAlumno.ContactoEmergenciaTelefono = "-"; 
-                NuevoAlumno.FechaInscripcion = DateTime.Now;
                 NuevoAlumno.Estatus = "Activo";
 
-                // 3. REGLA AUTOMÁTICA DE MINORÍA DE EDAD (Límite dinámico de 18 años)
                 if (NuevoAlumno.FechaNacimiento > DateTime.Today.AddYears(-18))
                 {
-                    NuevoAlumno.IdTutor = 1; // Asigna un tutor por defecto si es menor de edad
+                    NuevoAlumno.IdTutor = 1; 
                 }
                 else
                 {
-                    NuevoAlumno.IdTutor = null; // Mayor de edad no requiere tutor
+                    NuevoAlumno.IdTutor = null; 
                 }
 
-                // 4. INSERCIÓN DIRECTA EN LA BASE DE DATOS
                 _context.Alumno.Add(NuevoAlumno);
                 await _context.SaveChangesAsync();
 
-                // Mensaje de éxito que viaja hacia la vista de gestión
                 TempData["MensajeExito"] = "¡Alumno registrado con éxito en la Base de Datos!";
                 return RedirectToPage("./gestion");
             }
             catch (Exception ex)
             {
-                // Si el motor de MySQL rechaza la consulta, atrapamos el mensaje interno real
                 TempData["MensajeError"] = "Error crítico de Base de Datos: " + (ex.InnerException?.Message ?? ex.Message);
                 return Page();
             }

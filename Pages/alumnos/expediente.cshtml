@@ -69,8 +69,8 @@
                             <label>CURP:</label>
                             <input type="text" value="@(Model.AlumnoSeleccionado?.Curp ?? "—")" readonly class="ifk-input">
 
-                            <label>FECHA DE INGRESO:</label>
-                            <input type="text" value="@(Model.AlumnoSeleccionado != null ? Model.AlumnoSeleccionado.FechaInscripcion.ToString("dd/MM/yyyy") : "—")" readonly class="ifk-input">
+                            <label>FECHA DE NACIMIENTO:</label>
+                            <input type="text" value="@(Model.AlumnoSeleccionado != null ? Model.AlumnoSeleccionado.FechaNacimiento.ToString("dd/MM/yyyy") : "—")" readonly class="ifk-input">
                         </div>
                     </div>
                 </div>
