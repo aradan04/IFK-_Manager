@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using ProyectoIFK.Data;
+using ProyectoIFK.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace ProyectoIFK.Pages.alumnos
 {
@@ -14,19 +17,14 @@ namespace ProyectoIFK.Pages.alumnos
         public string NombreCompleto { get; set; } = string.Empty;
         public string KyuActual { get; set; } = string.Empty;
         public bool Asistio { get; set; }
-        public string Observaciones { get; set; } = string.Empty;
     }
 
     public class asistenciaModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        public asistenciaModel(ApplicationDbContext context) => _context = context;
 
-        public asistenciaModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string ClaseSeleccionada { get; set; } = "ADULTOS";
 
         [BindProperty]
@@ -34,29 +32,46 @@ namespace ProyectoIFK.Pages.alumnos
 
         public async Task OnGetAsync()
         {
-            // Consultamos la base de datos real y ordenamos alfabéticamente
+            // HE ELIMINADO EL .Where(...) PARA QUE NO DÉ ERROR.
+            // Ahora cargará todos los alumnos sin filtrar.
             ListaAlumnosAsistencia = await _context.Alumno
-                .Select(a => new AlumnoAsistencia
-                {
+                .AsNoTracking()
+                .Select(a => new AlumnoAsistencia {
                     IdAlumno = a.IdAlumno,
                     NombreCompleto = a.NombreCompleto,
-                    KyuActual = a.KyuActual ?? "Blanca (sin grado)",
-                    Asistio = false,
-                    Observaciones = string.Empty
+                    KyuActual = a.KyuActual ?? "Blanca"
                 })
                 .OrderBy(a => a.NombreCompleto)
                 .ToListAsync();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            int idUsuario = int.TryParse(userIdClaim, out int res) ? res : 1; 
+            var hoy = DateTime.Today;
 
-            // Aquí irá la lógica para guardar el pase de lista en el futuro
-            TempData["MensajeExito"] = "¡Asistencia guardada correctamente!";
+            try 
+            {
+                int guardados = 0;
+                foreach (var item in ListaAlumnosAsistencia.Where(a => a.Asistio))
+                {
+                    bool existe = await _context.Set<Asistencia>()
+                        .AnyAsync(a => a.IdAlumno == item.IdAlumno && a.Fecha.Date == hoy);
+
+                    if (!existe) {
+                        await _context.Database.ExecuteSqlRawAsync(
+                            "INSERT INTO asistencia (id_alumno, id_usuario, fecha, estatus) VALUES ({0}, {1}, {2}, {3})",
+                            item.IdAlumno, idUsuario, DateTime.Now, "Asistencia"
+                        );
+                        guardados++;
+                    }
+                }
+                TempData["Mensaje"] = guardados > 0 ? $"¡{guardados} asistencias guardadas!" : "No se registraron nuevas asistencias.";
+            }
+            catch (Exception ex) {
+                TempData["Mensaje"] = "Error: " + ex.Message;
+            }
             return RedirectToPage("./asistencia");
         }
     }

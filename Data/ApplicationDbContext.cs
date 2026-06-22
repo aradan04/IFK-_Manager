@@ -10,9 +10,17 @@ namespace ProyectoIFK.Data
         {
         }
 
-        // Registramos las tablas del módulo Alumnos
+        // Módulo de Alumnos
         public DbSet<Alumno> Alumno { get; set; }
         public DbSet<Asistencia> Asistencia { get; set; }
-        public DbSet<HistorialKyus> HistorialKyus { get; set; }
+        
+        // Módulo de Promociones (Historial de Grados)
+        public DbSet<HistorialKyus> Historial_Kyus { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+        }
     }
 }

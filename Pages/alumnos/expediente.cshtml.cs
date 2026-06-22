@@ -41,7 +41,7 @@ namespace ProyectoIFK.Pages.alumnos
 
             if (AlumnoSeleccionado != null)
             {
-                HistorialPromociones = await _context.HistorialKyus
+                HistorialPromociones = await _context.Historial_Kyus
                     .Where(h => h.IdAlumno == AlumnoSeleccionado.IdAlumno)
                     .OrderBy(h => h.FechaEvaluacion)
                     .ToListAsync();

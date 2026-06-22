@@ -50,7 +50,7 @@ namespace ProyectoIFK.Pages.alumnos
             try
             {
                 // 1. INSERCIÓN EN LA TABLA HISTORIAL_KYUS
-                _context.HistorialKyus.Add(NuevaPromocion);
+                _context.Historial_Kyus.Add(NuevaPromocion);
 
                 // 2. ACTUALIZACIÓN DE LA CINTA ACTUAL EN LA TABLA ALUMNO
                 var alumno = await _context.Alumno.FirstOrDefaultAsync(a => a.IdAlumno == NuevaPromocion.IdAlumno);

@@ -1,6 +1,5 @@
 @page
 @model ProyectoIFK.Pages.alumnos.asistenciaModel
-
 @{
     ViewData["Title"] = "Lista de Asistencia";
     Layout = null;
@@ -14,122 +13,89 @@
     <link rel="stylesheet" href="~/css/ifk.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
-
 <body>
 
     <div class="header">
-        <div class="header-title">
-            IFK MANAGER
-        </div>
-        <a href="/Index" class="logout">
-            <i class="fas fa-sign-out-alt"></i>
-            Cerrar sesión
-        </a>
+        <div class="header-title">IFK MANAGER</div>
+        <a href="/Index" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
     </div>
 
     <div class="main">
 
         <div class="sidebar">
-            <a href="/Inicio">
-                <i class="fas fa-home"></i> Inicio
-            </a>
-            <a href="/alumnos/gestion">
-                <i class="fas fa-users"></i> Alumnos
-            </a>
-            <a href="/Finanzas">
-                <i class="fas fa-money-bill"></i> Finanzas
-            </a>
-            <a href="/torneos/gestorTorneo">
-                <i class="fas fa-trophy"></i> Torneos
-            </a>
-            <a href="/reportes">
-                <i class="fas fa-chart-bar"></i> Reportes
-            </a>
-            <a href="/personal/menuPersonal">
-                <i class="fas fa-user"></i> Personal
-            </a>
+            <a href="/Inicio"><i class="fas fa-home"></i> Inicio</a>
+            <a href="/alumnos/gestion"><i class="fas fa-users"></i> Alumnos</a>
+            <a href="/Finanzas"><i class="fas fa-money-bill"></i> Finanzas</a>
+            <a href="/torneos/gestorTorneo"><i class="fas fa-trophy"></i> Torneos</a>
+            <a href="/reportes"><i class="fas fa-chart-bar"></i> Reportes</a>
+            <a href="/personal/menuPersonal"><i class="fas fa-user"></i> Personal</a>
         </div>
 
         <div class="content">
+            <div class="page-box">
+                @if (TempData["Mensaje"] != null) { 
+                    <div style="text-align:center; padding:15px; background:#d4edda; color:#155724; border-radius:5px; margin-bottom:15px;">
+                        @TempData["Mensaje"]
+                    </div> 
+                }
 
-            <form method="post" class="page-box">
-
-                <div class="asistencia-header">
-                    <h1 class="asistencia-title">
-                        LISTA DE ASISTENCIA
-                    </h1>
-                    <div class="asistencia-fecha">
-                        @DateTime.Now.ToString("dd / MM / yyyy")
+                <form method="post">
+                    <div class="asistencia-header">
+                        <h1 class="asistencia-title">LISTA DE ASISTENCIA</h1>
                     </div>
-                </div>
 
-                <div class="asistencia-clase">
-                    <label>CLASE:</label>
-                    <select asp-for="ClaseSeleccionada" class="ifk-input">
-                        <option value="ADULTOS">ADULTOS</option>
-                        <option value="NIÑOS">NIÑOS</option>
-                        <option value="EN LÍNEA">EN LÍNEA</option>
-                    </select>
-                </div>
+                    <div class="asistencia-clase">
+                        <label>CLASE:</label>
+                        <select id="filtroClase" onchange="filtrarTabla()" class="ifk-input">
+                            <option value="TODOS">TODOS</option>
+                            <option value="ADULTOS">ADULTOS</option>
+                            <option value="NIÑOS">NIÑOS</option>
+                        </select>
+                    </div>
 
-                <table class="tabla-asistencia">
-                    <thead>
-                        <tr>
-                            <th>NOMBRE DEL ALUMNO</th>
-                            <th>GRADO</th>
-                            <th>ESTATUS</th>
-                            <th>OBSERVACIONES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.ListaAlumnosAsistencia != null && Model.ListaAlumnosAsistencia.Any())
-                        {
-                            for (int i = 0; i < Model.ListaAlumnosAsistencia.Count; i++)
+                    <table class="tabla-asistencia" id="tablaAsistencia">
+                        <thead>
+                            <tr>
+                                <th>NOMBRE DEL ALUMNO</th>
+                                <th>GRADO</th>
+                                <th>ESTATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.ListaAlumnosAsistencia.Count; i++)
                             {
-                                <tr>
-                                    <input type="hidden" asp-for="ListaAlumnosAsistencia[i].IdAlumno" />
-                                    <input type="hidden" asp-for="ListaAlumnosAsistencia[i].NombreCompleto" />
-                                    <input type="hidden" asp-for="ListaAlumnosAsistencia[i].KyuActual" />
-
+                                <input type="hidden" asp-for="ListaAlumnosAsistencia[i].IdAlumno" />
+                                <tr class="fila-alumno" data-categoria="ADULTOS">
                                     <td>@Model.ListaAlumnosAsistencia[i].NombreCompleto</td>
                                     <td>@Model.ListaAlumnosAsistencia[i].KyuActual</td>
                                     <td>
-                                        <input type="checkbox" asp-for="ListaAlumnosAsistencia[i].Asistio">
-                                        Asistió
-                                    </td>
-                                    <td>
-                                        <input type="text"
-                                               asp-for="ListaAlumnosAsistencia[i].Observaciones"
-                                               class="obs-input"
-                                               placeholder="Observaciones">
+                                        <input type="checkbox" asp-for="ListaAlumnosAsistencia[i].Asistio" /> Asistió
                                     </td>
                                 </tr>
                             }
-                        }
-                        else
-                        {
-                            <tr>
-                                <td colspan="4" style="text-align: center; padding: 20px; color: #777;">
-                                    No hay alumnos registrados para tomar asistencia.
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <div class="asistencia-btn-container">
-                    <button type="submit" class="btn-asistencia">
-                        GUARDAR
-                        <br />
-                        ASISTENCIA
-                    </button>
-                </div>
-
-            </form>
-
+                    <div class="asistencia-btn-container">
+                        <button type="submit" class="btn-asistencia">GUARDAR<br />ASISTENCIA</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
     </div>
 
+    <script>
+        function filtrarTabla() {
+            var filtro = document.getElementById("filtroClase").value;
+            var filas = document.getElementsByClassName("fila-alumno");
+            for (var i = 0; i < filas.length; i++) {
+                if (filtro === "TODOS" || filas[i].getAttribute("data-categoria") === filtro) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
