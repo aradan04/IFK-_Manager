@@ -48,10 +48,20 @@ namespace ProyectoIFK.Pages
                 });
             }
 
-            RegistrarAuditoria(
-            1,
-            "Generó reporte de alumnos",
-            "Reportes");
+            string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
+                RegistrarAuditoria(
+                    idUsuario,
+                    $"Generó el reportes de alumnos",
+                    "Reportes");
+            }
+
         }
 
         private void RegistrarAuditoria(int idUsuario,string accion,string modulo){

@@ -250,4 +250,262 @@ public class categoriasModel : PageModel
             return Page();
         }
     }
+
+    public IActionResult OnPostGuardarCategoria(){
+        try
+        {
+            OnPostPrevisualizar();
+
+            if (AlumnosEncontrados.Count < 2)
+            {
+                ViewData["Mensaje"] =
+                    "No se puede guardar una categoría con menos de 2 competidores.";
+
+                return Page();
+            }
+
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sqlCategoria =
+                @"INSERT INTO categoria_torneo
+                (
+                    id_torneo,
+                    nombre_categoria,
+                    edad_min,
+                    edad_max,
+                    peso_min,
+                    peso_max,
+                    rama,
+                    cinta_min,
+                    cinta_max
+                )
+                VALUES
+                (
+                    @idTorneo,
+                    @nombre,
+                    @edadMin,
+                    @edadMax,
+                    @pesoMin,
+                    @pesoMax,
+                    @rama,
+                    @cintaMin,
+                    @cintaMax
+                );";
+
+            using var cmdCategoria =
+                new MySqlCommand(sqlCategoria, conn);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@idTorneo",
+                1);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@nombre",
+                NombreCategoria);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@edadMin",
+                EdadMin);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@edadMax",
+                EdadMax);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@pesoMin",
+                PesoMin);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@pesoMax",
+                PesoMax);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@rama",
+                Rama);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@cintaMin",
+                CintaMin);
+
+            cmdCategoria.Parameters.AddWithValue(
+                "@cintaMax",
+                CintaMax);
+
+            cmdCategoria.ExecuteNonQuery();
+
+            long idCategoria =
+                cmdCategoria.LastInsertedId;
+
+            foreach(var alumno in AlumnosEncontrados)
+            {
+                string sqlAlumno =
+                    @"INSERT INTO categoria_alumno
+                    (
+                        id_categoria,
+                        id_alumno
+                    )
+                    VALUES
+                    (
+                        @idCategoria,
+                        @idAlumno
+                    )";
+
+                using var cmdAlumno =
+                    new MySqlCommand(sqlAlumno, conn);
+
+                cmdAlumno.Parameters.AddWithValue(
+                    "@idCategoria",
+                    idCategoria);
+
+                cmdAlumno.Parameters.AddWithValue(
+                    "@idAlumno",
+                    alumno.IdAlumno);
+
+                cmdAlumno.ExecuteNonQuery();
+            }
+
+            for (int i = 0; i < AlumnosEncontrados.Count; i += 2)
+{
+    int idAlumno1 =
+        AlumnosEncontrados[i].IdAlumno;
+
+    int? idAlumno2 = null;
+
+    if (i + 1 < AlumnosEncontrados.Count)
+    {
+        idAlumno2 =
+            AlumnosEncontrados[i + 1].IdAlumno;
+    }
+
+    string sqlEncuentro =
+        @"INSERT INTO encuentro
+        (
+            id_torneo,
+            id_categoria,
+            id_alumno_1,
+            id_alumno_2,
+            fase,
+            estatus
+        )
+        VALUES
+        (
+            @idTorneo,
+            @idCategoria,
+            @alumno1,
+            @alumno2,
+            @fase,
+            @estatus
+        )";
+
+    using var cmdEncuentro =
+        new MySqlCommand(sqlEncuentro, conn);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@idTorneo",
+            1);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@idCategoria",
+            idCategoria);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@alumno1",
+            idAlumno1);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@alumno2",
+            (object?)idAlumno2 ?? DBNull.Value);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@fase",
+            "Primera Ronda");
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@estatus",
+            "Pendiente");
+
+        cmdEncuentro.ExecuteNonQuery();
+    }
+
+            string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
+                RegistrarAuditoria(
+                    idUsuario,
+                    $"Creó categoría: {NombreCategoria}",
+                    "Torneos");
+            }
+
+            ViewData["Mensaje"] =
+                "Categoría guardada correctamente.";
+
+            return Page();
+        }
+        catch(Exception ex)
+        {
+            ViewData["Mensaje"] =
+                ex.Message;
+
+            return Page();
+        }
+    }
+
+private void RegistrarAuditoria(
+        int idUsuario,
+        string accion,
+        string modulo)
+    {
+        using var conn =
+            _conexion.ObtenerConexion();
+
+        conn.Open();
+
+        string sql =
+            @"INSERT INTO log_auditoria
+            (
+                id_usuario,
+                accion,
+                modulo,
+                ip_direccion
+            )
+            VALUES
+            (
+                @idUsuario,
+                @accion,
+                @modulo,
+                @ip
+            )";
+
+        using var cmd =
+            new MySqlCommand(sql, conn);
+
+        cmd.Parameters.AddWithValue(
+            "@idUsuario",
+            idUsuario);
+
+        cmd.Parameters.AddWithValue(
+            "@accion",
+            accion);
+
+        cmd.Parameters.AddWithValue(
+            "@modulo",
+            modulo);
+
+        cmd.Parameters.AddWithValue(
+            "@ip",
+            HttpContext.Connection
+                .RemoteIpAddress?
+                .ToString());
+
+        cmd.ExecuteNonQuery();
+    }
+
 }
