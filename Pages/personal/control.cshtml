@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="~/css/ifk.css" />
 
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
 </head>
 
@@ -115,56 +115,95 @@
 
                     <tbody>
 
-                        @foreach (var usuario in Model.Usuarios)
-                        {
-                            <tr>
+                        <tr>
 
-                                <td>@usuario.IdUsuario</td>
+                            <td>01</td>
 
-                                <td>@usuario.Username</td>
+                            <td>Secretaria_IFK</td>
 
-                                <td>@usuario.Rol</td>
+                            <td>Administrativo</td>
 
-                                <td>-</td>
+                            <td>07/04/2026</td>
 
-                                <td>@usuario.Estatus</td>
+                            <td>Activo</td>
 
-                                <td class="acciones">
+                            <td class="acciones">
 
-                                <form method="get">
+                                <button class="btn-icono">
 
-                                    <input type="hidden"
-                                        name="idEditar"
-                                        value="@usuario.IdUsuario" />
+                                    <i class="fas fa-pencil-alt"></i>
 
-                                    <button type="submit"
-                                            class="btn-icono">
+                                </button>
 
-                                        <i class="fas fa-pencil-alt"></i>
+                                <button class="btn-icono">
 
-                                    </button>
+                                    <i class="fas fa-lock"></i>
 
-                                </form>
+                                </button>
 
-                                <form method="post" asp-page-handler="CambiarEstado">
+                            </td>
 
-                                    <input type="hidden"
-                                        name="idUsuario"
-                                        value="@usuario.IdUsuario" />
+                        </tr>
 
-                                    <button type="submit"
-                                            class="btn-icono">
+                        <tr>
 
-                                        <i class="fas fa-lock"></i>
+                            <td>02</td>
 
-                                    </button>
+                            <td>Senpai_Changuito</td>
 
-                                </form>
+                            <td>Asistente</td>
 
-                                </td>
+                            <td>06/04/2026</td>
 
-                            </tr>
-                        }
+                            <td>Activo</td>
+
+                            <td class="acciones">
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-pencil-alt"></i>
+
+                                </button>
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-lock"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>03</td>
+
+                            <td>Staff_Mesa01</td>
+
+                            <td>Personal de Mesa</td>
+
+                            <td>01/04/2026</td>
+
+                            <td>Inactivo</td>
+
+                            <td class="acciones">
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-pencil-alt"></i>
+
+                                </button>
+
+                                <button class="btn-icono">
+
+                                    <i class="fas fa-lock"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
 
                     </tbody>
 
@@ -178,27 +217,18 @@
 
     <!-- MODAL -->
 
-<div id="modalUsuario"
-    class="modal-overlay">
+    <div id="modalUsuario"
+         class="modal-overlay">
 
-    <div class="modal-control">
-
-        <form method="post">
-
-        <input type="hidden"
-        name="IdUsuario"
-        value="@Model.IdUsuario" />
+        <div class="modal-control">
 
             <div class="modal-header">
 
                 <h2>
-                    @(Model.IdUsuario > 0
-                        ? "EDITAR USUARIO"
-                        : "AGREGAR USUARIO")
+                    AGREGAR USUARIO
                 </h2>
 
-                <button type="button"
-                        id="btnCerrarModal"
+                <button id="btnCerrarModal"
                         class="btn-cerrar-modal">
 
                     <i class="fas fa-times"></i>
@@ -216,10 +246,7 @@
                     </label>
 
                     <input type="text"
-                    name="NombreCompleto"
-                    value="@Model.NombreCompleto"
-                    class="ifk-input"
-                    required />
+                           class="ifk-input" />
 
                 </div>
 
@@ -232,10 +259,7 @@
                         </label>
 
                         <input type="text"
-                            name="Username"
-                            value="@Model.Username"
-                            class="ifk-input"
-                            required />
+                               class="ifk-input" />
 
                     </div>
 
@@ -245,21 +269,17 @@
                             Asigna el rol:
                         </label>
 
-                        <select name="Rol"
-                        class="ifk-input">
+                        <select class="ifk-input">
 
-                            <option value="Sensei"
-                                selected="@(Model.Rol == "Sensei")">
+                            <option>
                                 Administrador (Sensei)
                             </option>
 
-                            <option value="Senpai"
-                                selected="@(Model.Rol == "Senpai")">
+                            <option>
                                 Asistente (Senpai)
                             </option>
 
-                            <option value="Secretaria"
-                                selected="@(Model.Rol == "Secretaria")">
+                            <option>
                                 Administrativo (Secretaría)
                             </option>
 
@@ -278,10 +298,9 @@
                     <div class="password-container">
 
                         <input type="password"
-                                id="txtPassword"
-                                name="Password"
-                                value="123456789"
-                                class="ifk-input" />
+                               id="txtPassword"
+                               value="123456789"
+                               class="ifk-input" />
 
                         <button type="button"
                                 id="btnMostrarPassword"
@@ -299,17 +318,13 @@
 
             <div class="modal-footer">
 
-            <button type="submit"
-                    class="btn-guardar-usuario">
+                <button class="btn-guardar-usuario">
 
-                @(Model.IdUsuario > 0
-                    ? "GUARDAR CAMBIOS"
-                    : "GUARDAR Y ENVIAR ACCESO")
+                    GUARDAR Y ENVIAR ACCESO
 
-            </button>
+                </button>
 
-                <button type="button"
-                        id="btnCancelarModal"
+                <button id="btnCancelarModal"
                         class="btn-cancelar-usuario">
 
                     CANCELAR
@@ -318,11 +333,9 @@
 
             </div>
 
-        </form>
+        </div>
 
     </div>
-
-</div>
 
     <script>
 
@@ -366,14 +379,6 @@
                     : "password";
 
             });
-
-            @if (Model.IdUsuario > 0){
-                <text>
-
-                modal.style.display = "flex";
-
-                </text>
-            }
 
     </script>
 

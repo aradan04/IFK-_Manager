@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ProyectoIFK.Pages.alumnos;
-
-public class gestionModel : PageModel
+namespace ProyectoIFK.Pages.alumnos
 {
-    public void OnGet()
+    public class gestionModel : PageModel
     {
+        public void OnGet()
+        {
+        }
     }
 }

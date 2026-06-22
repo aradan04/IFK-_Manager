@@ -1,11 +1,21 @@
-using ProyectoIFK.Services;
+using ProyectoIFK.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<ConexionBD>();
-builder.Services.AddSession();
+
+// =========================================================================
+// CONFIGURACIÓN DE CONEXIÓN A MYSQL (POMELO EF CORE)
+// =========================================================================
+// 1. Recupera la cadena de conexión desde el archivo appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// 2. Registra el contexto de datos en los servicios de la aplicación
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+// =========================================================================
 
 var app = builder.Build();
 
@@ -21,12 +31,10 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseSession();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapRazorPages()
-    .WithStaticAssets();
+   .WithStaticAssets();
 
 app.Run();

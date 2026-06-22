@@ -18,7 +18,7 @@ Layout = null;
 <link rel="stylesheet" href="~/css/ifk.css" />
 
 <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
 </head>
 
@@ -83,28 +83,11 @@ Layout = null;
 
                 <label>CATEGORÍA</label>
 
-                <form method="get">
-
-                    <select name="IdCategoria"
-                            class="ifk-input"
-                            onchange="this.form.submit()">
-
-                        <option value="">
-                            Seleccione categoría
-                        </option>
-
-                        @foreach(var categoria in Model.Categorias)
-                        {
-                            <option value="@categoria.IdCategoria">
-
-                                @categoria.NombreCategoria
-
-                            </option>
-                        }
-
-                    </select>
-
-                </form>
+                <select class="ifk-input">
+                    <option>Infantil</option>
+                    <option>Juvenil</option>
+                    <option>Adultos</option>
+                </select>
 
             </div>
 
@@ -142,29 +125,11 @@ Layout = null;
 
 <div class="bracket-container">
 
-    <!-- LADO IZQUIERDO -->
-
     <div class="bracket-column players-column">
-
-        @for(int i = 0; i < Model.Encuentros.Count / 2; i++)
-        {
-            var encuentro = Model.Encuentros[i];
-
-            <div class="bracket-match">
-
-                <div class="bracket-player">
-                    @encuentro.Alumno1
-                </div>
-
-                <div class="bracket-player">
-                    @(string.IsNullOrEmpty(encuentro.Alumno2)
-                        ? "PASE"
-                        : encuentro.Alumno2)
-                </div>
-
-            </div>
-        }
-
+        <div class="bracket-player">Juan Pérez</div>
+        <div class="bracket-player">María García</div>
+        <div class="bracket-player">Carlos Ruiz</div>
+        <div class="bracket-player">Roberto Gómez</div>
     </div>
 
     <div class="bracket-column semifinal-column">
@@ -177,9 +142,7 @@ Layout = null;
     </div>
 
     <div class="bracket-column champion-column">
-        <div class="bracket-player champion-box">
-            CAMPEÓN
-        </div>
+        <div class="bracket-player champion-box">CAMPEÓN</div>
     </div>
 
     <div class="bracket-column finalist-column">
@@ -191,34 +154,12 @@ Layout = null;
         <div class="bracket-player">Ganador 4</div>
     </div>
 
-    <!-- LADO DERECHO -->
-
     <div class="bracket-column players-column">
-
-        @for(int i = Model.Encuentros.Count / 2;
-              i < Model.Encuentros.Count;
-              i++)
-        {
-            var encuentro = Model.Encuentros[i];
-
-            <div class="bracket-match">
-
-                <div class="bracket-player">
-                    @encuentro.Alumno1
-                </div>
-
-                <div class="bracket-player">
-                    @(string.IsNullOrEmpty(encuentro.Alumno2)
-                        ? "PASE"
-                        : encuentro.Alumno2)
-                </div>
-
-            </div>
-        }
-
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
     </div>
-
-    
 
 </div>
 

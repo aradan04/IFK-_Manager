@@ -1,0 +1,76 @@
+@page
+@model ProyectoIFK.Pages.alumnos.promocionarModel
+@{
+    ViewData["Title"] = "Registrar Promoción";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Registrar Promoción de Cinta</title>
+    <link rel="stylesheet" href="~/css/ifk.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-title">IFK MANAGER</div>
+        <a href="/Index" class="logout">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
+    </div>
+
+    <div class="main">
+        <div class="sidebar">
+            <a href="/Inicio"><i class="fas fa-home"></i> Inicio</a>
+            <a href="/alumnos/gestion"><i class="fas fa-users"></i> Alumnos</a>
+            <a href="/finanzas"><i class="fas fa-money-bill"></i> Finanzas</a>
+            <a href="/torneos/gestorTorneo"><i class="fas fa-trophy"></i> Torneos</a>
+            <a href="/reportes"><i class="fas fa-chart-bar"></i> Reportes</a>
+            <a href="/personal/menuPersonal"><i class="fas fa-user"></i> Personal</a>
+        </div>
+
+        <div class="content">
+            <div class="page-box">
+                <h1 class="page-title">REGISTRAR NUEVA PROMOCIÓN</h1>
+
+                <form method="post" class="form-registrar-alumno" style="max-width: 500px; margin: 30px auto 0 auto;">
+                    <input type="hidden" asp-for="NuevaPromocion.IdAlumno" />
+
+                    <label>ALUMNO:</label>
+                    <input type="text" value="@Model.NombreAlumno" readonly class="ifk-input" style="background-color: #f0f0f0;" />
+
+                    <label>NUEVO GRADO (CINTA):</label>
+                    <select asp-for="NuevaPromocion.KyuOtorgado" class="ifk-input" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+                        <option value="" disabled selected>-- SELECCIONE EL GRADO --</option>
+                        <option value="10° Kyu - Cinta Blanca">10° Kyu - Cinta Blanca</option>
+                        <option value="9° Kyu - Cinta Naranja">9° Kyu - Cinta Naranja</option>
+                        <option value="8° Kyu - Cinta Azul">8° Kyu - Cinta Azul</option>
+                        <option value="7° Kyu - Cinta Azul (Raya)">7° Kyu - Cinta Azul (Raya)</option>
+                        <option value="6° Kyu - Cinta Amarilla">6° Kyu - Cinta Amarilla</option>
+                        <option value="5° Kyu - Cinta Amarilla (Raya)">5° Kyu - Cinta Amarilla (Raya)</option>
+                        <option value="4° Kyu - Cinta Verde">4° Kyu - Cinta Verde</option>
+                        <option value="3° Kyu - Cinta Verde (Raya)">3° Kyu - Cinta Verde (Raya)</option>
+                        <option value="2° Kyu - Cinta Marrón">2° Kyu - Cinta Marrón</option>
+                        <option value="1° Kyu - Cinta Marrón (Raya)">1° Kyu - Cinta Marrón (Raya)</option>
+                        <option value="1° Dan - Cinta Negra">1° Dan - Cinta Negra</option>
+                    </select>
+
+                    <label>SINODAL:</label>
+                    <input type="text" asp-for="NuevaPromocion.Evaluador" placeholder="Nombre del evaluador" required class="ifk-input" />
+
+                    <label>FECHA:</label>
+                    <input type="date" asp-for="NuevaPromocion.FechaEvaluacion" required class="ifk-input" />
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="btn-guardar" style="flex: 1; padding: 10px;">GUARDAR PROMOCIÓN</button>
+                        <a href="/alumnos/expediente?id=@Model.NuevaPromocion.IdAlumno" class="btn-guardar" style="flex: 1; padding: 10px; background: #6c757d; text-align: center; text-decoration: none;">CANCELAR</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
