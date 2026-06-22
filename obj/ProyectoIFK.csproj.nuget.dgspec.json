@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PROYECTO\\IFK-_Manager\\ProyectoIFK.csproj": {}
+    "C:\\Users\\jesus\\Videos\\Software\\IFK-_Manager-main (1)\\IFK-_Manager-main\\ProyectoIFK.csproj": {}
   },
   "projects": {
-    "D:\\PROYECTO\\IFK-_Manager\\ProyectoIFK.csproj": {
+    "C:\\Users\\jesus\\Videos\\Software\\IFK-_Manager-main (1)\\IFK-_Manager-main\\ProyectoIFK.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PROYECTO\\IFK-_Manager\\ProyectoIFK.csproj",
+        "projectUniqueName": "C:\\Users\\jesus\\Videos\\Software\\IFK-_Manager-main (1)\\IFK-_Manager-main\\ProyectoIFK.csproj",
         "projectName": "ProyectoIFK",
-        "projectPath": "D:\\PROYECTO\\IFK-_Manager\\ProyectoIFK.csproj",
-        "packagesPath": "C:\\Users\\m4r14\\.nuget\\packages\\",
-        "outputPath": "D:\\PROYECTO\\IFK-_Manager\\obj\\",
+        "projectPath": "C:\\Users\\jesus\\Videos\\Software\\IFK-_Manager-main (1)\\IFK-_Manager-main\\ProyectoIFK.csproj",
+        "packagesPath": "C:\\Users\\jesus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jesus\\Videos\\Software\\IFK-_Manager-main (1)\\IFK-_Manager-main\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\m4r14\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\jesus\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -24,6 +24,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -38,15 +39,22 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
-            "MySqlConnector": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[2.6.0, )"
+              "version": "[9.0.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [
@@ -68,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

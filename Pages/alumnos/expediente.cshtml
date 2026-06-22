@@ -10,301 +10,163 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-
     <title>Expediente de Alumnado</title>
-
     <link rel="stylesheet" href="~/css/ifk.css" />
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
-
 <body>
 
     <div class="header">
-
-        <div class="header-title">
-            IFK MANAGER
-        </div>
-
+        <div class="header-title">IFK MANAGER</div>
         <a href="/Index" class="logout">
-            <i class="fas fa-sign-out-alt"></i>
-            Cerrar sesión
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
         </a>
-
     </div>
 
     <div class="main">
-
         <div class="sidebar">
-
-            <a href="/Inicio">
-                <i class="fas fa-home"></i>
-                Inicio
-            </a>
-
-            <a href="/alumnos/gestion">
-                <i class="fas fa-users"></i>
-                Alumnos
-            </a>
-
-            <a href="/Finanzas">
-                <i class="fas fa-money-bill"></i>
-                Finanzas
-            </a>
-
-            <a href="/torneos/gestorTorneo">
-                <i class="fas fa-trophy"></i>
-                Torneos
-            </a>
-
-            <a href="/reportes">
-                <i class="fas fa-chart-bar"></i>
-                Reportes
-            </a>
-
-            <a href="/personal/menuPersonal">
-                <i class="fas fa-user"></i>
-                Personal
-            </a>
-
+            <a href="/Inicio"><i class="fas fa-home"></i> Inicio</a>
+            <a href="/alumnos/gestion"><i class="fas fa-users"></i> Alumnos</a>
+            <a href="/finanzas"><i class="fas fa-money-bill"></i> Finanzas</a>
+            <a href="/torneos/gestorTorneo"><i class="fas fa-trophy"></i> Torneos</a>
+            <a href="/reportes"><i class="fas fa-chart-bar"></i> Reportes</a>
+            <a href="/personal/menuPersonal"><i class="fas fa-user"></i> Personal</a>
         </div>
 
         <div class="content">
-
             <div class="page-box">
+                <h1 class="expediente-title">EXPEDIENTE DE ALUMNADO</h1>
 
-                <h1 class="expediente-title">
-                    EXPEDIENTE DE ALUMNADO
-                </h1>
-
-                <div class="busqueda-expediente">
-
-                    <label>
-                        BUSCAR POR MATRÍCULA O NOMBRE:
-                    </label>
-
-                    <input type="text"
-                           class="ifk-input">
-
-                </div>
-
-                <!-- PESTAÑAS -->
+                <form method="post" asp-page-handler="Buscar" class="busqueda-expediente" style="display: flex; align-items: center; gap: 10px;">
+                    <label>BUSCAR POR MATRÍCULA O NOMBRE:</label>
+                    <input type="text" asp-for="TerminoBusqueda" class="ifk-input" style="flex: 1; margin-bottom: 0;">
+                    <button type="submit" class="btn-guardar" style="height: 40px; padding: 0 15px; margin: 0; line-height: 40px; cursor: pointer;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
 
                 <div class="tabs">
-
-                    <button class="tab-btn active"
-                            onclick="mostrarTab(event,'datos')">
-                        DATOS PERSONALES
-                    </button>
-
-                    <button class="tab-btn"
-                            onclick="mostrarTab(event,'medicos')">
-                        DATOS MÉDICOS
-                    </button>
-
-                    <button class="tab-btn"
-                            onclick="mostrarTab(event,'historial')">
-                        HISTORIAL DE CINTAS
-                    </button>
-
+                    <button class="tab-btn active" onclick="mostrarTab(event,'datos')">DATOS PERSONALES</button>
+                    <button class="tab-btn" onclick="mostrarTab(event,'medicos')">DATOS MÉDICOS</button>
+                    <button class="tab-btn" onclick="mostrarTab(event,'historial')">HISTORIAL DE CINTAS</button>
                 </div>
-
-                <!-- DATOS PERSONALES -->
 
                 <div id="datos" class="tab-content active-tab">
-
                     <div class="expediente-box">
-
                         <div class="avatar-box">
-
-                            <img src="~/imagenes/icons/user-solid.png"
-                                 class="expediente-avatar">
-
+                            <img src="/imagenes/icons/user-solid.png" class="expediente-avatar" />
                         </div>
-
                         <div class="expediente-form">
-
                             <label>ALUMNO:</label>
-
-                            <input type="text"
-                                   value="Juan Pérez"
-                                   readonly
-                                   class="ifk-input">
+                            <input type="text" value="@(Model.AlumnoSeleccionado?.NombreCompleto ?? "Seleccione o busque un alumno")" readonly class="ifk-input">
 
                             <label>MATRÍCULA:</label>
-
-                            <input type="text"
-                                   value="2026-001"
-                                   readonly
-                                   class="ifk-input">
+                            <input type="text" value="@(Model.AlumnoSeleccionado?.Matricula ?? "—")" readonly class="ifk-input">
 
                             <label>GRADO ACTUAL:</label>
+                            <input type="text" value="@(Model.AlumnoSeleccionado?.KyuActual ?? "—")" readonly class="ifk-input">
 
-                            <input type="text"
-                                   value="Naranja (10mo Kyu)"
-                                   readonly
-                                   class="ifk-input">
+                            <label>CURP:</label>
+                            <input type="text" value="@(Model.AlumnoSeleccionado?.Curp ?? "—")" readonly class="ifk-input">
 
                             <label>FECHA DE INGRESO:</label>
-
-                            <input type="text"
-                                   value="15/01/2026"
-                                   readonly
-                                   class="ifk-input">
-
+                            <input type="text" value="@(Model.AlumnoSeleccionado != null ? Model.AlumnoSeleccionado.FechaInscripcion.ToString("dd/MM/yyyy") : "—")" readonly class="ifk-input">
                         </div>
-
                     </div>
-
                 </div>
-
-                <!-- DATOS MEDICOS -->
 
                 <div id="medicos" class="tab-content">
-
                     <div class="expediente-box">
-
                         <div class="avatar-box">
-
-                            <img src="~/imagenes/icons/user-solid.png"
-                                 class="expediente-avatar">
-
+                            <img src="/imagenes/icons/user-solid.png" class="expediente-avatar" />
                         </div>
-
                         <div class="expediente-form">
-
                             <label>ALUMNO:</label>
+                            <input type="text" value="@(Model.AlumnoSeleccionado?.NombreCompleto ?? "Seleccione o busque un alumno")" readonly class="ifk-input">
 
-                            <input type="text"
-                                   value="Juan Pérez"
-                                   readonly
-                                   class="ifk-input">
-
-                            <label>ALERGIAS:</label>
-
-                            <input type="text"
-                                   value="Ninguna"
-                                   readonly
-                                   class="ifk-input">
+                            <label>OTROS DATOS:</label>
+                            <input type="text" value="@(Model.AlumnoSeleccionado?.EstatusMedico ?? "Ninguno")" readonly class="ifk-input">
 
                             <label>PESO:</label>
+                            <input type="text" value="@(Model.AlumnoSeleccionado != null && Model.AlumnoSeleccionado.Peso.HasValue ? $"{Model.AlumnoSeleccionado.Peso.Value} Kg" : "—")" readonly class="ifk-input">
 
-                            <input type="text"
-                                   value="72 Kg"
-                                   readonly
-                                   class="ifk-input">
-
+                            <label>ESTATURA:</label>
+                            <input type="text" value="@(Model.AlumnoSeleccionado != null && Model.AlumnoSeleccionado.Estatura.HasValue ? $"{Model.AlumnoSeleccionado.Estatura.Value} cm" : "—")" readonly class="ifk-input">
                         </div>
-
                     </div>
-
                 </div>
 
-                <!-- HISTORIAL -->
-
                 <div id="historial" class="tab-content">
-
                     <div class="expediente-box">
-
                         <div class="avatar-box">
-
-                            <img src="~/imagenes/icons/user-solid.png"
-                                 class="expediente-avatar">
-
+                            <img src="/imagenes/icons/user-solid.png" class="expediente-avatar" />
                         </div>
-
                         <div class="expediente-form">
-
                             <label>ALUMNO:</label>
-
-                            <input type="text"
-                                   value="Juan Pérez"
-                                   readonly
-                                   class="ifk-input">
-
+                            <input type="text" value="@(Model.AlumnoSeleccionado?.NombreCompleto ?? "Seleccione o busque un alumno")" readonly class="ifk-input">
                         </div>
 
                         <table class="tabla-historial">
-
                             <thead>
-
                                 <tr>
                                     <th>FECHA</th>
                                     <th>GRADO / CINTA</th>
-                                    <th>SENSEI EVALUADOR</th>
+                                    <th>SINODAL EVALUADOR</th>
                                     <th>ESTATUS</th>
                                 </tr>
-
                             </thead>
-
                             <tbody>
-
-                                <tr>
-                                    <td>15/01/2026</td>
-                                    <td>Blanca</td>
-                                    <td>J. Roberto Méndez</td>
-                                    <td>Aprobado</td>
-                                </tr>
-
-                                <tr>
-                                    <td>10/03/2026</td>
-                                    <td>Amarilla</td>
-                                    <td>J. Roberto Méndez</td>
-                                    <td>Aprobado</td>
-                                </tr>
-
-                                <tr>
-                                    <td>05/04/2026</td>
-                                    <td>Naranja</td>
-                                    <td>J. Roberto Méndez</td>
-                                    <td>Pendiente</td>
-                                </tr>
-
+                                @if (Model.HistorialPromociones != null && Model.HistorialPromociones.Any())
+                                {
+                                    @foreach (var promo in Model.HistorialPromociones)
+                                    {
+                                        <tr>
+                                            <td>@promo.FechaEvaluacion.ToString("dd/MM/yyyy")</td>
+                                            <td>@promo.KyuOtorgado</td>
+                                            <td>@(promo.Evaluador ?? "—")</td>
+                                            <td>Aprobado</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" style="text-align: center; color: #777; padding: 15px;">
+                                            @(Model.AlumnoSeleccionado != null ? "No hay registros de promociones anteriores para este alumno." : "Historial vacío.")
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
-
                         </table>
 
                         <div class="historial-btn-container">
-
-                            <button class="btn-reporte">
-
-                                REGISTRAR NUEVA
-                                PROMOCIÓN
-
-                            </button>
-
+                            @if (Model.AlumnoSeleccionado != null)
+                            {
+                                <a href="/alumnos/promocionar?id=@Model.AlumnoSeleccionado.IdAlumno" class="btn-reporte" style="text-decoration: none; text-align: center; display: inline-block; padding: 10px 20px;">
+                                    REGISTRAR NUEVA <br> PROMOCIÓN
+                                </a>
+                            }
+                            else
+                            {
+                                <button class="btn-reporte" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                    REGISTRAR NUEVA <br> PROMOCIÓN
+                                </button>
+                            }
                         </div>
-
                     </div>
-
                 </div>
 
             </div>
-
         </div>
-
     </div>
 
     <script>
-
         function mostrarTab(event, id) {
-
-            document
-                .querySelectorAll(".tab-content")
-                .forEach(x => x.classList.remove("active-tab"));
-
-            document
-                .querySelectorAll(".tab-btn")
-                .forEach(x => x.classList.remove("active"));
-
-            document
-                .getElementById(id)
-                .classList.add("active-tab");
-
+            document.querySelectorAll(".tab-content").forEach(x => x.classList.remove("active-tab"));
+            document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
+            document.getElementById(id).classList.add("active-tab");
             event.target.classList.add("active");
         }
-
     </script>
-
 </body>
 </html>
