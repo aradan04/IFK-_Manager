@@ -34,6 +34,13 @@
             <button type="submit" class="btn-login">ENTRAR AL DOJO</button>
         </form>
 
+        @if (!string.IsNullOrEmpty(Model.Mensaje))
+        {
+            <p style="color:red; font-weight:bold;">
+                @Model.Mensaje
+            </p>
+        }
+
         <a href="#" class="forgot-password">¿Olvidó su contraseña? Contacte al Sensei</a>
     </div>
 </body>
