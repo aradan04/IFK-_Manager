@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "BcH6wPFRoyQ=",
+  "dgSpecHash": "JQ1Ifz80quE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\arada\\OneDrive\\Desktop\\Escuela\\Cuarto semestre\\Desarrollo de software\\Proyecto\\IFK-_Manager\\ProyectoIFK.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\PROYECTO\\IFK-_Manager\\ProyectoIFK.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\m4r14\\.nuget\\packages\\mysqlconnector\\2.6.0\\mysqlconnector.2.6.0.nupkg.sha512"
+  ],
   "logs": []
 }
