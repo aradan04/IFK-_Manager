@@ -367,6 +367,69 @@ public class categoriasModel : PageModel
                 cmdAlumno.ExecuteNonQuery();
             }
 
+            for (int i = 0; i < AlumnosEncontrados.Count; i += 2)
+{
+    int idAlumno1 =
+        AlumnosEncontrados[i].IdAlumno;
+
+    int? idAlumno2 = null;
+
+    if (i + 1 < AlumnosEncontrados.Count)
+    {
+        idAlumno2 =
+            AlumnosEncontrados[i + 1].IdAlumno;
+    }
+
+    string sqlEncuentro =
+        @"INSERT INTO encuentro
+        (
+            id_torneo,
+            id_categoria,
+            id_alumno_1,
+            id_alumno_2,
+            fase,
+            estatus
+        )
+        VALUES
+        (
+            @idTorneo,
+            @idCategoria,
+            @alumno1,
+            @alumno2,
+            @fase,
+            @estatus
+        )";
+
+    using var cmdEncuentro =
+        new MySqlCommand(sqlEncuentro, conn);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@idTorneo",
+            1);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@idCategoria",
+            idCategoria);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@alumno1",
+            idAlumno1);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@alumno2",
+            (object?)idAlumno2 ?? DBNull.Value);
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@fase",
+            "Primera Ronda");
+
+        cmdEncuentro.Parameters.AddWithValue(
+            "@estatus",
+            "Pendiente");
+
+        cmdEncuentro.ExecuteNonQuery();
+    }
+
             string? idGuardado =
                 HttpContext.Session.GetString("IdUsuario");
 

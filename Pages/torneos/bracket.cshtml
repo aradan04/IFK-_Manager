@@ -83,11 +83,28 @@ Layout = null;
 
                 <label>CATEGORÍA</label>
 
-                <select class="ifk-input">
-                    <option>Infantil</option>
-                    <option>Juvenil</option>
-                    <option>Adultos</option>
-                </select>
+                <form method="get">
+
+                    <select name="IdCategoria"
+                            class="ifk-input"
+                            onchange="this.form.submit()">
+
+                        <option value="">
+                            Seleccione categoría
+                        </option>
+
+                        @foreach(var categoria in Model.Categorias)
+                        {
+                            <option value="@categoria.IdCategoria">
+
+                                @categoria.NombreCategoria
+
+                            </option>
+                        }
+
+                    </select>
+
+                </form>
 
             </div>
 
@@ -126,10 +143,16 @@ Layout = null;
 <div class="bracket-container">
 
     <div class="bracket-column players-column">
-        <div class="bracket-player">Juan Pérez</div>
-        <div class="bracket-player">María García</div>
-        <div class="bracket-player">Carlos Ruiz</div>
-        <div class="bracket-player">Roberto Gómez</div>
+
+        @foreach(var competidor in Model.Competidores)
+        {
+            <div class="bracket-player">
+
+                @competidor
+
+            </div>
+        }
+
     </div>
 
     <div class="bracket-column semifinal-column">
