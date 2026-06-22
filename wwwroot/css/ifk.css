@@ -1011,20 +1011,18 @@ cursor:pointer;
 
     grid-template-columns:
         220px
-        180px
-        180px
         220px
-        180px
-        180px
+        220px
         220px;
 
-    gap:30px;
-
     justify-content:center;
-    align-items:center;
+
+    gap:50px;
 
     margin-top:40px;
     margin-bottom:60px;
+
+    position:relative;
 }
 
 .bracket-column{
@@ -1041,8 +1039,12 @@ cursor:pointer;
 }
 
 .bracket-player{
-    width:180px;
-    min-height:55px;
+        min-width:180px;
+        min-height:55px;
+
+        padding:10px;
+
+        height:auto;
 
     border:2px solid #d4d4d4;
     background:white;
@@ -1066,6 +1068,8 @@ cursor:pointer;
 
     font-weight:bold;
     font-size:22px;
+
+    margin-top: 300px;
 }
 
 .semifinal-column .bracket-player,

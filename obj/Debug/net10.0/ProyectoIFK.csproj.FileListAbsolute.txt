@@ -297,4 +297,4 @@ D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\ref\ProyectoIFK.dll
 D:\PROYECTO\IFK-_Manager\bin\Debug\net10.0\MySqlConnector.dll
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\ProyectoIFK.csproj.AssemblyReference.cache
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\Proyecto.094677A8.Up2Date
-D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-lo3g0tmopv-lo3g0tmopv.gz
+D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-md54i5w24h-md54i5w24h.gz
