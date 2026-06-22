@@ -220,7 +220,6 @@ D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\scopedcss\bundle\ProyectoIFK.styles.css
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\scopedcss\projectbundle\ProyectoIFK.bundle.scp.css
-D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-i8ko4gb0gs-i8ko4gb0gs.gz
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\compressed\n6ifskqdb1-{0}-b9sayid5wm-b9sayid5wm.gz
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\compressed\2nx615qvo3-{0}-61n19gt1b8-61n19gt1b8.gz
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\compressed\gaosto9xhw-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
@@ -298,3 +297,4 @@ D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\ref\ProyectoIFK.dll
 D:\PROYECTO\IFK-_Manager\bin\Debug\net10.0\MySqlConnector.dll
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\ProyectoIFK.csproj.AssemblyReference.cache
 D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\Proyecto.094677A8.Up2Date
+D:\PROYECTO\IFK-_Manager\obj\Debug\net10.0\compressed\g00d1ol1mk-{0}-lo3g0tmopv-lo3g0tmopv.gz
