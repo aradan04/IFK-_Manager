@@ -49,8 +49,9 @@ namespace ProyectoIFK.Pages.alumnos
             // del campo faltante para que sepas con precisión qué arreglar en el navegador.
             if (!ModelState.IsValid)
             {
+                // CORRECCIÓN CS8602: Se agregó el operador '!' en ModelState[k]! 
                 var erroresDetallados = string.Join(", ", ModelState.Keys
-                    .Where(k => ModelState[k].Errors.Count > 0)
+                    .Where(k => ModelState[k]!.Errors.Count > 0)
                     .Select(k => k.Replace("NuevoAlumno.", "")));
 
                 TempData["MensajeError"] = $"El sistema rebotó el formulario. Campos con problemas: [{erroresDetallados}]. Revisa que tengan un formato correcto.";
@@ -87,7 +88,7 @@ namespace ProyectoIFK.Pages.alumnos
                 
                 // Propiedades auxiliares mapeadas correctamente
                 NuevoAlumno.ContactoEmergenciaNombre = "-";
-                NuevoAlumno.ContactoEmergenciaTelefono = "-"; // <--- AQUÍ QUEDÓ CORREGIDO EL ERROR CS0103
+                NuevoAlumno.ContactoEmergenciaTelefono = "-"; 
                 NuevoAlumno.FechaInscripcion = DateTime.Now;
                 NuevoAlumno.Estatus = "Activo";
 
