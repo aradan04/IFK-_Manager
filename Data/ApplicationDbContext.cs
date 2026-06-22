@@ -17,10 +17,12 @@ namespace ProyectoIFK.Data
         // Módulo de Promociones (Historial de Grados)
         public DbSet<HistorialKyus> Historial_Kyus { get; set; }
 
+        // Módulo de Finanzas - NUEVA TABLA
+        public DbSet<Tarifa> Tarifa { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }

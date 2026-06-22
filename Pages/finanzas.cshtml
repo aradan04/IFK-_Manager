@@ -15,7 +15,7 @@
     <style>
         @@media print {
             .header, .sidebar, .btn-registrar-pago, .buscar-container { display: none !important; }
-            .page-box { border: none !important; box-shadow: none !important; width: 100%; }
+            .page-box { border: none !important; box-shadow: none !important; width: 100%; margin: 0; }
             #statusTransferencia { display: block !important; }
         }
         .resultados-busqueda { border: 1px solid #ddd; background: #fff; position: absolute; width: 100%; z-index: 1000; display: none; }
@@ -63,7 +63,16 @@
                     </div>
 
                     <div class="pago-grid" style="margin-top: 10px;">
-                        <div><label>PAGO ($):</label><input type="number" id="inPagos" class="ifk-input" value="0" oninput="calcularTotal()"></div>
+                        <div>
+                            <label>PAGO (CONCEPTO):</label>
+                            <select id="inPagos" class="ifk-input" onchange="calcularTotal()">
+                                <option value="0" data-monto="0">Seleccione un concepto...</option>
+                                @foreach (var t in Model.ListaTarifas)
+                                {
+                                    <option value="@t.IdTarifa" data-monto="@t.Monto">@t.NombreCategoria - $@t.Monto</option>
+                                }
+                            </select>
+                        </div>
                         <div><label>PENDIENTES ($):</label><input type="number" id="inPendientes" class="ifk-input" value="0" oninput="calcularTotal()"></div>
                         <div><label>EXTRA ($):</label><input type="number" id="inExtra" class="ifk-input" value="0" oninput="calcularTotal()"></div>
                     </div>
@@ -94,11 +103,17 @@
 
     <script>
         function calcularTotal() {
-            const p = parseFloat(document.getElementById('inPagos').value) || 0;
+            // Obtenemos el select
+            const selectPagos = document.getElementById('inPagos');
+            // Sacamos el monto guardado en data-monto
+            const p = parseFloat(selectPagos.options[selectPagos.selectedIndex].getAttribute('data-monto')) || 0;
+            
             const pen = parseFloat(document.getElementById('inPendientes').value) || 0;
             const ex = parseFloat(document.getElementById('inExtra').value) || 0;
+            
             const subtotal = p + pen + ex;
             const total = subtotal * 1.16;
+            
             document.getElementById('totalInput').value = total.toFixed(2);
         }
 
