@@ -19,8 +19,6 @@ public class bracketModel : PageModel
 
     public List<CategoriaTorneo> Categorias { get; set; } = new();
 
-    public List<string> Competidores { get; set; } = new();
-
     [BindProperty(SupportsGet = true)]
     public int IdCategoria { get; set; }
     
@@ -63,30 +61,106 @@ public class bracketModel : PageModel
 
         if (IdCategoria > 0)
         {
-            string sqlCompetidores =
-                @"SELECT
-                    A.nombre_completo
-                FROM categoria_alumno CA
-                INNER JOIN alumno A
-                    ON A.id_alumno = CA.id_alumno
-                WHERE CA.id_categoria = @idCategoria";
+        string sqlEncuentros =
+            @"SELECT
+                E.id_encuentro,
+                E.id_alumno_1,
+                E.id_alumno_2,
+                E.id_ganador,
+                A1.nombre_completo AS alumno1,
+                A2.nombre_completo AS alumno2,
+                E.fase,
+                E.estatus
+            FROM encuentro E
+            LEFT JOIN alumno A1
+                ON A1.id_alumno = E.id_alumno_1
+            LEFT JOIN alumno A2
+                ON A2.id_alumno = E.id_alumno_2
+            WHERE E.id_categoria = @idCategoria";
 
-            using var cmdCompetidores =
-                new MySqlCommand(sqlCompetidores, conn);
+        using var cmdEncuentros =
+            new MySqlCommand(sqlEncuentros, conn);
 
-            cmdCompetidores.Parameters.AddWithValue(
-                "@idCategoria",
-                IdCategoria);
+        cmdEncuentros.Parameters.AddWithValue(
+            "@idCategoria",
+            IdCategoria);
 
-            using var readerCompetidores =
-                cmdCompetidores.ExecuteReader();
+        using var reader =
+            cmdEncuentros.ExecuteReader();
 
-            while (readerCompetidores.Read())
-            {
-                Competidores.Add(
-                    readerCompetidores.GetString(
-                        "nombre_completo"));
+        while(reader.Read())
+        {
+            Encuentros.Add(
+                new Encuentro
+                {
+                    IdEncuentro =
+                        reader.GetInt32("id_encuentro"),
+
+                    Alumno1 =
+                        reader["alumno1"]?.ToString() ?? "",
+
+                    Alumno2 =
+                        reader["alumno2"]?.ToString() ?? "PASE",
+
+                    IdAlumno1 =
+                        reader["id_alumno_1"] == DBNull.Value
+                            ? null
+                            : Convert.ToInt32(reader["id_alumno_1"]),
+
+                    IdAlumno2 =
+                        reader["id_alumno_2"] == DBNull.Value
+                            ? null
+                            : Convert.ToInt32(reader["id_alumno_2"]),
+
+                    IdGanador =
+                        reader["id_ganador"] == DBNull.Value
+                            ? null
+                            : Convert.ToInt32(reader["id_ganador"]),
+
+                    Fase =
+                        reader["fase"]?.ToString() ?? "",
+
+                    Estatus =
+                        reader["estatus"]?.ToString() ?? ""
+                    });
             }
-        }
+        }    
     }
+
+    public IActionResult OnPostSeleccionarGanador(
+    int IdEncuentro,
+    int IdGanador,
+    int IdCategoria)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sql =
+                @"UPDATE encuentro
+                SET
+                    id_ganador = @ganador,
+                    estatus = 'Terminado'
+                WHERE id_encuentro = @encuentro";
+
+            using var cmd =
+                new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@ganador",
+                IdGanador);
+
+            cmd.Parameters.AddWithValue(
+                "@encuentro",
+                IdEncuentro);
+
+            cmd.ExecuteNonQuery();
+
+            return RedirectToPage(
+                new
+                {
+                    IdCategoria = IdCategoria
+                });
+        }
 }

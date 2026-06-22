@@ -142,13 +142,25 @@ Layout = null;
 
 <div class="bracket-container">
 
+    <!-- LADO IZQUIERDO -->
+
     <div class="bracket-column players-column">
 
-        @foreach(var competidor in Model.Competidores)
+        @for(int i = 0; i < Model.Encuentros.Count / 2; i++)
         {
-            <div class="bracket-player">
+            var encuentro = Model.Encuentros[i];
 
-                @competidor
+            <div class="bracket-match">
+
+                <div class="bracket-player">
+                    @encuentro.Alumno1
+                </div>
+
+                <div class="bracket-player">
+                    @(string.IsNullOrEmpty(encuentro.Alumno2)
+                        ? "PASE"
+                        : encuentro.Alumno2)
+                </div>
 
             </div>
         }
@@ -165,7 +177,9 @@ Layout = null;
     </div>
 
     <div class="bracket-column champion-column">
-        <div class="bracket-player champion-box">CAMPEÓN</div>
+        <div class="bracket-player champion-box">
+            CAMPEÓN
+        </div>
     </div>
 
     <div class="bracket-column finalist-column">
@@ -177,12 +191,34 @@ Layout = null;
         <div class="bracket-player">Ganador 4</div>
     </div>
 
+    <!-- LADO DERECHO -->
+
     <div class="bracket-column players-column">
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
+
+        @for(int i = Model.Encuentros.Count / 2;
+              i < Model.Encuentros.Count;
+              i++)
+        {
+            var encuentro = Model.Encuentros[i];
+
+            <div class="bracket-match">
+
+                <div class="bracket-player">
+                    @encuentro.Alumno1
+                </div>
+
+                <div class="bracket-player">
+                    @(string.IsNullOrEmpty(encuentro.Alumno2)
+                        ? "PASE"
+                        : encuentro.Alumno2)
+                </div>
+
+            </div>
+        }
+
     </div>
+
+    
 
 </div>
 
