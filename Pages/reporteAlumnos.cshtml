@@ -1,0 +1,108 @@
+@page
+@model ProyectoIFK.Pages.ReporteAlumnosModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+        <title>Padrón de Alumnos</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            border:1px solid black;
+            padding:8px;
+            text-align:center;
+        }
+
+        th{
+            background:#dddddd;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div style="text-align:center; margin-bottom:30px;">
+
+        <h1>INTERNATIONAL FIGHTING KARATE</h1>
+
+        <h2>PADRÓN GENERAL DE ALUMNOS</h2>
+
+        <p>
+            Fecha de generación:
+            @DateTime.Now.ToString("dd/MM/yyyy HH:mm")
+        </p>
+
+    </div>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Matrícula</th>
+                <th>Nombre</th>
+                <th>Sexo</th>
+                <th>Grado</th>
+                <th>Peso</th>
+                <th>Estatus Médico</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach(var alumno in Model.Alumnos)
+            {
+                <tr>
+
+                    <td>@alumno.Matricula</td>
+
+                    <td>@alumno.NombreCompleto</td>
+
+                    <td>@alumno.Sexo</td>
+
+                    <td>@alumno.KyuActual</td>
+
+                    <td>@alumno.Peso</td>
+
+                    <td>@alumno.EstatusMedico</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    <button onclick="window.print()">
+        Imprimir / Guardar PDF
+    </button>
+
+</body>
+
+</html>

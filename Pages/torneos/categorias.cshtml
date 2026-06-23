@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/css/ifk.css" />
 
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 
 <body>
@@ -80,6 +80,9 @@
 
             <div class="categoria-divider"></div>
 
+            <form method="post"
+                    asp-page-handler="Previsualizar">
+
             <!-- NOMBRE -->
 
             <div class="categoria-nombre">
@@ -89,8 +92,9 @@
                 </label>
 
                 <input type="text"
-                       class="ifk-input"
-                       value="Infantil Principiantes">
+                    name="NombreCategoria"
+                    class="ifk-input"
+                    value="@Model.NombreCategoria">
 
             </div>
 
@@ -103,18 +107,23 @@
                     <label>EDAD MÍNIMA</label>
 
                     <input type="number"
-                           class="ifk-input"
-                           value="8">
+                        name="EdadMin"
+                        class="ifk-input"
+                        min="1"
+                        max="99"
+                        value="@Model.EdadMin">
 
                 </div>
 
                 <div>
 
                     <label>EDAD MÁXIMA</label>
-
                     <input type="number"
-                           class="ifk-input"
-                           value="11">
+                        name="EdadMax"
+                        class="ifk-input"
+                        min="1"
+                        max="99"
+                        value="@Model.EdadMax">
 
                 </div>
 
@@ -123,8 +132,12 @@
                     <label>PESO MÍNIMO</label>
 
                     <input type="number"
-                           class="ifk-input"
-                           value="25">
+                        name="PesoMin"
+                        class="ifk-input"
+                        min="1"
+                        max="300"
+                        step="0.1"
+                        value="@Model.PesoMin">
 
                 </div>
 
@@ -133,8 +146,12 @@
                     <label>PESO MÁXIMO</label>
 
                     <input type="number"
-                           class="ifk-input"
-                           value="40">
+                        name="PesoMax"
+                        class="ifk-input"
+                        min="1"
+                        max="300"
+                        step="0.1"
+                        value="@Model.PesoMax">
 
                 </div>
 
@@ -142,11 +159,23 @@
 
                     <label>RAMA</label>
 
-                    <select class="ifk-input">
+                    <select name="Rama"
+                            class="ifk-input">
 
-                        <option>Varonil</option>
-                        <option>Femenil</option>
-                        <option>Mixto</option>
+                        <option value="Varonil"
+                                selected="@(Model.Rama == "Varonil")">
+                            Varonil
+                        </option>
+
+                        <option value="Femenil"
+                                selected="@(Model.Rama == "Femenil")">
+                            Femenil
+                        </option>
+
+                        <option value="Mixto"
+                                selected="@(Model.Rama == "Mixto")">
+                            Mixto
+                        </option>
 
                     </select>
 
@@ -162,14 +191,13 @@
 
                     <label>CINTA MÍNIMA</label>
 
-                    <select class="ifk-input">
+                    <select name="CintaMin" class="ifk-input">
 
-                        <option>Blanca</option>
-                        <option>Naranja</option>
-                        <option>Naranja avanzada</option>
-                        <option>Azul</option>
-                        <option>Azul avanzada</option>
-                        <option>Amarilla</option>
+                        <option value="Blanca" selected="@(Model.CintaMin=="Blanca")">Blanca</option>
+                        <option value="Amarilla" selected="@(Model.CintaMin=="Amarilla")">Amarilla</option>
+                        <option value="Naranja" selected="@(Model.CintaMin=="Naranja")">Naranja</option>
+                        <option value="Azul" selected="@(Model.CintaMin=="Azul")">Azul</option>
+                        <option value="Verde" selected="@(Model.CintaMin=="Verde")">Verde</option>
 
                     </select>
 
@@ -179,12 +207,13 @@
 
                     <label>CINTA MÁXIMA</label>
 
-                    <select class="ifk-input">
+                    <select name="CintaMax" class="ifk-input">
 
-                        <option>Amarilla avanzada</option>
-                        <option>Verde</option>
-                        <option>Verde avanzada</option>
-                        <option>Café</option>
+                        <option value="Amarilla" selected="@(Model.CintaMax=="Amarilla")">Amarilla</option>
+                        <option value="Naranja" selected="@(Model.CintaMax=="Naranja")">Naranja</option>
+                        <option value="Azul" selected="@(Model.CintaMax=="Azul")">Azul</option>
+                        <option value="Verde" selected="@(Model.CintaMax=="Verde")">Verde</option>
+                        <option value="Café" selected="@(Model.CintaMax=="Café")">Café</option>
 
                     </select>
 
@@ -192,7 +221,8 @@
 
                 <div class="categoria-btn-container">
 
-                    <button class="btn-previsualizar">
+                    <button type="submit"
+                            class="btn-previsualizar">
 
                         PREVISUALIZAR GRUPO
 
@@ -201,6 +231,13 @@
                 </div>
 
             </div>
+
+            @if(ViewData["Mensaje"] != null)
+            {
+                <div class="alerta-torneo">
+                    @ViewData["Mensaje"]
+                </div>
+            }
 
             <!-- TABLA -->
 
@@ -231,51 +268,38 @@
 
                 <tbody>
 
-                <tr>
+                    @foreach(var alumno in Model.AlumnosEncontrados)
+                    {
+                        int edad =
+                            DateTime.Today.Year -
+                            alumno.FechaNacimiento.Year;
 
-                    <td>2026-001</td>
-                    <td>Juan Pérez</td>
-                    <td>10</td>
-                    <td>34 kg</td>
-                    <td>Blanca (10mo Kyu)</td>
-                    <td>Varonil</td>
+                        if(alumno.FechaNacimiento.Date >
+                            DateTime.Today.AddYears(-edad))
+                        {
+                            edad--;
+                        }
 
-                </tr>
+                        <tr>
 
-                <tr>
+                            <td>@alumno.Matricula</td>
 
-                    <td>2026-002</td>
-                    <td>María García</td>
-                    <td>9</td>
-                    <td>31 kg</td>
-                    <td>Amarilla (9no Kyu)</td>
-                    <td>Femenil</td>
+                            <td>@alumno.NombreCompleto</td>
 
-                </tr>
+                            <td>@edad</td>
 
-                <tr>
+                            <td>@alumno.Peso kg</td>
 
-                    <td>2026-004</td>
-                    <td>Carlos Ruiz</td>
-                    <td>10</td>
-                    <td>35 kg</td>
-                    <td>Blanca (10mo Kyu)</td>
-                    <td>Varonil</td>
+                            <td>
+                                @Model.ObtenerCinta(alumno.KyuActual)
+                            </td>
 
-                </tr>
+                            <td>@alumno.Sexo</td>
 
-                <tr>
+                        </tr>
+                    }
 
-                    <td>2026-005</td>
-                    <td>Roberto Gómez</td>
-                    <td>11</td>
-                    <td>38 kg</td>
-                    <td>Naranja (8vo Kyu)</td>
-                    <td>Varonil</td>
-
-                </tr>
-
-                </tbody>
+                    </tbody>
 
             </table>
 
@@ -289,11 +313,16 @@
 
                     Competidores encontrados:
 
-                    <strong>4</strong>
+                    <strong>
+                        @Model.AlumnosEncontrados.Count
+                    </strong>
 
                 </div>
 
-                <button class="btn-guardar-categoria">
+
+                <button type="submit"
+                        asp-page-handler="GuardarCategoria"
+                        class="btn-guardar-categoria">
 
                     <i class="fas fa-save"></i>
 
@@ -302,6 +331,8 @@
                 </button>
 
             </div>
+
+            </form>
 
         </div>
 
