@@ -6,16 +6,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProyectoIFK.Data;
 using ProyectoIFK.Models;
+using ProyectoIFK.Services;
+using MySqlConnector;
 
 namespace ProyectoIFK.Pages
 {
     public class FinanzasModel : PageModel
     {
+        
         private readonly ApplicationDbContext _context;
+        private readonly ConexionBD _conexion;
 
-        public FinanzasModel(ApplicationDbContext context)
+        public FinanzasModel(
+            ApplicationDbContext context,
+            ConexionBD conexion)
         {
             _context = context;
+            _conexion = conexion;
         }
 
         // Lista para guardar las tarifas y mostrar en el select de la vista
@@ -26,6 +33,20 @@ namespace ProyectoIFK.Pages
         {
             // Cargamos todas las tarifas de la base de datos
             ListaTarifas = await _context.Tarifa.ToListAsync();
+
+                    string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
+                RegistrarAuditoria(
+                    idUsuario,
+                    "Ingresó al módulo de finanzas",
+                    "Finanzas");
+            }
         }
 
         // Método para el buscador (lo que usa tu JS en la vista)
@@ -43,6 +64,57 @@ namespace ProyectoIFK.Pages
                 .ToList();
 
             return new JsonResult(resultados);
+        }
+    
+
+            private void RegistrarAuditoria(
+            int idUsuario,
+            string accion,
+            string modulo)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sql =
+                @"INSERT INTO log_auditoria
+                (
+                    id_usuario,
+                    accion,
+                    modulo,
+                    ip_direccion
+                )
+                VALUES
+                (
+                    @idUsuario,
+                    @accion,
+                    @modulo,
+                    @ip
+                )";
+
+            using var cmd =
+                new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@idUsuario",
+                idUsuario);
+
+            cmd.Parameters.AddWithValue(
+                "@accion",
+                accion);
+
+            cmd.Parameters.AddWithValue(
+                "@modulo",
+                modulo);
+
+            cmd.Parameters.AddWithValue(
+                "@ip",
+                HttpContext.Connection
+                    .RemoteIpAddress?
+                    .ToString());
+
+            cmd.ExecuteNonQuery();
         }
     }
 }

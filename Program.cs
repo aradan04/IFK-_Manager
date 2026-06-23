@@ -1,10 +1,13 @@
 using ProyectoIFK.Data;
+using ProyectoIFK.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<ConexionBD>();
+builder.Services.AddSession();
 
 // =========================================================================
 // CONFIGURACIÓN DE CONEXIÓN A MYSQL (POMELO EF CORE)
@@ -30,6 +33,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

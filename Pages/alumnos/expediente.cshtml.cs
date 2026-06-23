@@ -6,16 +6,22 @@ using ProyectoIFK.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProyectoIFK.Services;
+using MySqlConnector;
 
 namespace ProyectoIFK.Pages.alumnos
 {
     public class expedienteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly ConexionBD _conexion;
 
-        public expedienteModel(ApplicationDbContext context)
+        public expedienteModel(
+            ApplicationDbContext context,
+            ConexionBD conexion)
         {
             _context = context;
+            _conexion = conexion;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -45,6 +51,20 @@ namespace ProyectoIFK.Pages.alumnos
                     .Where(h => h.IdAlumno == AlumnoSeleccionado.IdAlumno)
                     .OrderBy(h => h.FechaEvaluacion)
                     .ToListAsync();
+
+                        string? idGuardado =
+                            HttpContext.Session.GetString("IdUsuario");
+
+                        if(idGuardado != null)
+                        {
+                            int idUsuario =
+                                Convert.ToInt32(idGuardado);
+
+                            RegistrarAuditoria(
+                                idUsuario,
+                                $"Consultó expediente de {AlumnoSeleccionado.NombreCompleto}",
+                                "Expediente");
+                        }
             }
         }
 
@@ -55,6 +75,56 @@ namespace ProyectoIFK.Pages.alumnos
                 return RedirectToPage();
             }
             return RedirectToPage(new { TerminoBusqueda = TerminoBusqueda });
+        }
+
+        private void RegistrarAuditoria(
+            int idUsuario,
+            string accion,
+            string modulo)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sql =
+                @"INSERT INTO log_auditoria
+                (
+                    id_usuario,
+                    accion,
+                    modulo,
+                    ip_direccion
+                )
+                VALUES
+                (
+                    @idUsuario,
+                    @accion,
+                    @modulo,
+                    @ip
+                )";
+
+            using var cmd =
+                new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@idUsuario",
+                idUsuario);
+
+            cmd.Parameters.AddWithValue(
+                "@accion",
+                accion);
+
+            cmd.Parameters.AddWithValue(
+                "@modulo",
+                modulo);
+
+            cmd.Parameters.AddWithValue(
+                "@ip",
+                HttpContext.Connection
+                    .RemoteIpAddress?
+                    .ToString());
+
+            cmd.ExecuteNonQuery();
         }
     }
 }

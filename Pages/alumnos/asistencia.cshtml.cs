@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using ProyectoIFK.Services;
+using MySqlConnector;
 
 namespace ProyectoIFK.Pages.alumnos
 {
@@ -22,7 +24,15 @@ namespace ProyectoIFK.Pages.alumnos
     public class asistenciaModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public asistenciaModel(ApplicationDbContext context) => _context = context;
+        private readonly ConexionBD _conexion;
+
+        public asistenciaModel(
+            ApplicationDbContext context,
+            ConexionBD conexion)
+        {
+            _context = context;
+            _conexion = conexion;
+        }
 
         [BindProperty(SupportsGet = true)]
         public string ClaseSeleccionada { get; set; } = "ADULTOS";
@@ -68,11 +78,75 @@ namespace ProyectoIFK.Pages.alumnos
                     }
                 }
                 TempData["Mensaje"] = guardados > 0 ? $"¡{guardados} asistencias guardadas!" : "No se registraron nuevas asistencias.";
+
+                string? idGuardado =
+                    HttpContext.Session.GetString("IdUsuario");
+
+                if(idGuardado != null && guardados > 0)
+                {
+                    int idUsuarioAuditoria =
+                        Convert.ToInt32(idGuardado);
+
+                    RegistrarAuditoria(
+                        idUsuarioAuditoria,
+                        $"Registró {guardados} asistencias",
+                        "Asistencia");
+                }
             }
             catch (Exception ex) {
                 TempData["Mensaje"] = "Error: " + ex.Message;
             }
             return RedirectToPage("./asistencia");
+        }
+
+        private void RegistrarAuditoria(
+            int idUsuario,
+            string accion,
+            string modulo)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sql =
+                @"INSERT INTO log_auditoria
+                (
+                    id_usuario,
+                    accion,
+                    modulo,
+                    ip_direccion
+                )
+                VALUES
+                (
+                    @idUsuario,
+                    @accion,
+                    @modulo,
+                    @ip
+                )";
+
+            using var cmd =
+                new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@idUsuario",
+                idUsuario);
+
+            cmd.Parameters.AddWithValue(
+                "@accion",
+                accion);
+
+            cmd.Parameters.AddWithValue(
+                "@modulo",
+                modulo);
+
+            cmd.Parameters.AddWithValue(
+                "@ip",
+                HttpContext.Connection
+                    .RemoteIpAddress?
+                    .ToString());
+
+            cmd.ExecuteNonQuery();
         }
     }
 }

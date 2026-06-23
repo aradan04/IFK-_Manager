@@ -1025,16 +1025,17 @@ cursor:pointer;
     position:relative;
 }
 
-    margin-top:40px;
-    margin-bottom:60px;
-main
-
-    position:relative;
+.bracket-column{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:60px;
 }
 
-.bracket-column{
-    position:relative;
-    height:500px;
+.bracket-match{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:25px;
 }
 
 .bracket-player{
@@ -1045,21 +1046,16 @@ main
 
         height:auto;
 
-    left:0;
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:180px;
-    height:70px;
- main
-
-    border:3px solid #d4d4d4;
+    border:2px solid #d4d4d4;
     background:white;
 
     display:flex;
     justify-content:center;
     align-items:center;
+
+    text-align:center;
+
+    padding:10px;
 
     font-size:18px;
 }
@@ -1068,13 +1064,17 @@ main
     width:220px;
     height:90px;
 
+    background:#d4af37;
+
     font-weight:bold;
     font-size:22px;
 
     margin-top: 300px;
 }
 
-    background:#d4af37;
+.semifinal-column .bracket-player,
+.finalist-column .bracket-player{
+    height:70px;
 }
 
 .bracket-buttons{
@@ -1169,138 +1169,6 @@ main
     margin-right:6px;
 }
 
-.players-column .bracket-player:nth-child(3){
-    top:62.5%;
-}
-
-.players-column .bracket-player:nth-child(4){
-    top:87.5%;
-}
-
-.semifinal-column .bracket-player:nth-child(1){
-    top:25%;
-}
-
-.semifinal-column .bracket-player:nth-child(2){
-    top:75%;
-}
-
-.finalist-column .bracket-player,
-.champion-column .bracket-player{
-    top:50%;
-}
-
-/* ===========================
-   CONEXIONES
-=========================== */
-
-/* horizontales izquierda */
-
-.bracket-container > .bracket-column:nth-child(-n+4) .bracket-player::after{
-    content:"";
-
-    position:absolute;
-
-    top:50%;
-    right:-40px;
-
-    width:40px;
-    height:2px;
-
-    background:#bcbcbc;
-
-    transform:translateY(-50%);
-}
-
-/* horizontales derecha */
-
-.bracket-container > .bracket-column:nth-child(n+4) .bracket-player::before{
-    content:"";
-
-    position:absolute;
-
-    top:50%;
-    left:-40px;
-
-    width:40px;
-    height:2px;
-
-    background:#bcbcbc;
-
-    transform:translateY(-50%);
-}
-
-/* jugadores -> semifinal izquierda */
-
-.bracket-container > .bracket-column:nth-child(2) .bracket-player::before{
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:50%;
-
-    width:2px;
-    height:128px;
-
-    background:#bcbcbc;
-
-    transform:translateY(-64px);
-}
-
-/* semifinal -> finalista izquierda */
-
-.bracket-container > .bracket-column:nth-child(3) .bracket-player::before{
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:50%;
-
-    width:2px;
-    height:250px;
-
-    background:#bcbcbc;
-
-    transform:translateY(-125px);
-}
-
-/* semifinal -> finalista derecha */
-
-.bracket-container > .bracket-column:nth-child(5) .bracket-player::after{
-    content:"";
-
-    position:absolute;
-
-    right:0;
-    top:50%;
-
-    width:2px;
-    height:250px;
-
-    background:#bcbcbc;
-
-    transform:translateY(-125px);
-}
-
-/* jugadores -> semifinal derecha */
-
-.bracket-container > .bracket-column:nth-child(6) .bracket-player::after{
-    content:"";
-
-    position:absolute;
-
-    right:0;
-    top:50%;
-
-    width:2px;
-    height:128px;
-
-    background:#bcbcbc;
-
-    transform:translateY(-64px);
-}
 /* ===========================
    PERSONAL
 =========================== */
