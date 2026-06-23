@@ -19,6 +19,9 @@
 
     <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+main
 
     </head>
 
@@ -74,6 +77,37 @@
     </div>
 
     <div class="content">
+
+        <div class="page-box">
+
+            <div class="bracket-top">
+
+                <div>
+
+                    <label>CATEGORÍA</label>
+
+                    <form method="get">
+
+                        <select name="IdCategoria"
+                                class="ifk-input"
+                                onchange="this.form.submit()">
+
+                            <option value="">
+                                Seleccione categoría
+                            </option>
+
+                            @foreach(var categoria in Model.Categorias)
+                            {
+                                <option value="@categoria.IdCategoria">
+
+                                    @categoria.NombreCategoria
+
+                                </option>
+                            }
+
+                        </select>
+
+                    </form>
 
         <div class="page-box">
 
@@ -185,6 +219,7 @@
 
                 </form>
             }
+ main
 
         </div>
             }
@@ -313,6 +348,27 @@
 
                 <!-- CAMPEÓN -->
 
+
+                                <button type="submit"
+                                        name="IdGanador"
+                                        value="@final.IdAlumno2">
+
+                                    Gana @final.Alumno2
+                                </button>
+
+                            </form>
+                        }
+
+                    </div>
+                }
+            }
+
+        </div>
+
+                <!-- CAMPEÓN -->
+
+ HEAD
+ main
         <div class="bracket-player champion-box">
 
             @if(!string.IsNullOrEmpty(Model.CampeonNombre))
@@ -325,6 +381,10 @@
             }
 
         </div>
+
+    <div class="bracket-column champion-column">
+        <div class="bracket-player champion-box">CAMPEÓN</div>
+ 24721684ce785efdfc1cd141f41e2e334ef49fcb
     </div>
 
     <div class="bracket-buttons">
@@ -362,6 +422,7 @@
     </div>
 
     </div>
+ main
 
     </div>
 

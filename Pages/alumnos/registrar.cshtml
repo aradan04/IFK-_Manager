@@ -1,4 +1,5 @@
 @page
+@model ProyectoIFK.Pages.alumnos.registrarModel
 
 @{
     ViewData["Title"] = "Registro de Alumno";
@@ -10,7 +11,6 @@
 <head>
     <meta charset="utf-8" />
     <title>Registro de Alumno</title>
-
     <link rel="stylesheet" href="~/css/ifk.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
@@ -21,7 +21,6 @@
         <div class="header-title">
             IFK MANAGER
         </div>
-
         <a href="/Index" class="logout">
             <i class="fas fa-sign-out-alt"></i>
             Cerrar sesión
@@ -31,37 +30,24 @@
     <div class="main">
 
         <div class="sidebar">
-
             <a href="/Inicio">
-                <i class="fas fa-home"></i>
-                Inicio
+                <i class="fas fa-home"></i> Inicio
             </a>
-
             <a href="/alumnos/gestion">
-                <i class="fas fa-users"></i>
-                Alumnos
+                <i class="fas fa-users"></i> Alumnos
             </a>
-
             <a href="/finanzas">
-                <i class="fas fa-money-bill"></i>
-                Finanzas
+                <i class="fas fa-money-bill"></i> Finanzas
             </a>
-
             <a href="/torneos/gestorTorneo">
-                <i class="fas fa-trophy"></i>
-                Torneos
+                <i class="fas fa-trophy"></i> Torneos
             </a>
-
             <a href="/reportes">
-                <i class="fas fa-file"></i>
-                Reportes
+                <i class="fas fa-file"></i> Reportes
             </a>
-
             <a href="/personal/menuPersonal">
-                <i class="fas fa-user"></i>
-                Personal
+                <i class="fas fa-user"></i> Personal
             </a>
-
         </div>
 
         <div class="content">
@@ -72,160 +58,122 @@
                     REGISTRO DE ALUMNO
                 </h1>
 
-                <!-- DATOS PERSONALES -->
+                @if (TempData["MensajeError"] != null)
+                {
+                    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #f5c6cb;">
+                        @TempData["MensajeError"]
+                    </div>
+                }
 
-                <h2 class="section-title">
-                    DATOS PERSONALES
-                </h2>
+                <form method="post">
 
-                <div class="registro-grid">
+                    <h2 class="section-title">
+                        DATOS PERSONALES
+                    </h2>
 
-                    <div class="campo-grande">
+                    <div class="registro-grid">
+                        <div class="campo-grande">
+                            <label>Nombre Completo</label>
+                            <input type="text" asp-for="NuevoAlumno.NombreCompleto" class="ifk-input" required />
+                        </div>
 
-                        <label>Nombre Completo</label>
+                        <div>
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" asp-for="NuevoAlumno.FechaNacimiento" class="ifk-input" required />
+                        </div>
 
-                        <input type="text"
-                               class="ifk-input">
+                        <div>
+                            <label>Sexo</label>
+                            <select asp-for="NuevoAlumno.Sexo" class="ifk-input" required>
+                                <option value="" selected disabled>Seleccione el sexo</option>
+                                <option value="H">Masculino</option>
+                                <option value="M">Femenino</option>
+                            </select>
+                        </div>
 
+                        <div class="campo-grande">
+                            <label>CURP (Manual - 18 caracteres)</label>
+                            <input type="text" asp-for="NuevoAlumno.Curp" class="ifk-input" maxlength="18" required />
+                        </div>
                     </div>
 
-                    <div>
+                    <h2 class="section-title">
+                        DATOS FÍSICOS Y DE CONTACTO
+                    </h2>
 
-                        <label>Fecha de Nacimiento</label>
+                    <div class="datos-fisicos">
+                        <div class="peso-box">
+                            <label>Peso</label>
+                            <input type="number" step="0.01" asp-for="NuevoAlumno.Peso" class="ifk-input" placeholder="kg" />
 
-                        <input type="date"
-                               class="ifk-input">
+                            <label style="margin-top: 15px; display: block;">Estatura</label>
+                            <input type="number" step="0.01" asp-for="NuevoAlumno.Estatura" class="ifk-input" placeholder="cm" />
+                        </div>
 
+                        <div class="contacto-box">
+                            <label>Nombre del contacto de emergencia</label>
+                            <input type="text" asp-for="ContactoNombreAux" class="ifk-input" required />
+
+                            <label style="margin-top: 15px; display: block;">Teléfono</label>
+                            <input type="text" asp-for="ContactoTelefonoAux" class="ifk-input" required />
+                        </div>
+
+                        <div class="medico-box">
+                            <label>Datos médicos / alergias</label>
+                            <textarea asp-for="MedicosAlergiasAux" class="ifk-textarea" placeholder="Ej: Ninguna / Apto para entrenamiento físico intenso."></textarea>
+                        </div>
                     </div>
 
-                    <div>
+                    <h2 class="section-title">
+                        DATOS DE LA ACADEMIA
+                    </h2>
 
-                        <label>Sexo</label>
+                    <div class="academia-grid">
+                        <div>
+                            <label>Grado Inicial</label>
+                            <select asp-for="NuevoAlumno.KyuActual" class="ifk-input" required>
+                                <option value="" selected disabled>Seleccione un grado</option>
+                                <option value="Blanca (sin grado)">Blanca (sin grado)</option>
+                                <option value="Naranja (10mo Kyu)">Naranja (10mo Kyu)</option>
+                                <option value="Naranja avanzada (9no Kyu)">Naranja avanzada (9no Kyu)</option>
+                                <option value="Azul (8vo Kyu)">Azul (8vo Kyu)</option>
+                                <option value="Azul avanzada (7mo Kyu)">Azul avanzada (7mo Kyu)</option>
+                                <option value="Amarilla (6to Kyu)">Amarilla (6to Kyu)</option>
+                                <option value="Amarilla avanzada (5to Kyu)">Amarilla avanzada (5to Kyu)</option>
+                                <option value="Verde (4to Kyu)">Verde (4to Kyu)</option>
+                                <option value="Verde avanzada (3er Kyu)">Verde avanzada (3er Kyu)</option>
+                                <option value="Café (2do Kyu)">Café (2do Kyu)</option>
+                                <option value="Café avanzada (1er Kyu)">Café avanzada (1er Kyu)</option>
+                                <option value="Negra (1er Dan)">Negra (1er Dan)</option>
+                            </select>
+                        </div>
 
-                        <select class="ifk-input">
+                        <div>
+                            <label>Matrícula</label>
+                            <input type="text" value="Se generará automáticamente al guardar" readonly class="ifk-input" style="background-color: #f1f1f1; color: #666;" />
+                        </div>
 
-                            <option selected disabled>
-                                Seleccione el sexo
-                            </option>
-
-                            <option>Masculino</option>
-                            <option>Femenino</option>
-
-                        </select>
-
+                        <div>
+                            <label>Vínculo de Tarifa</label>
+                            <select asp-for="NuevoAlumno.IdTarifa" class="ifk-input" required>
+                                <option value="" selected disabled>Seleccione una tarifa</option>
+                                <option value="1">1 - Mensualidad Regular Infantes</option>
+                                <option value="2">2 - Mensualidad Adultos</option>
+                                <option value="3">3 - Media Beca</option>
+                            </select>
+                        </div>
                     </div>
 
-                </div>
-
-                <!-- DATOS FISICOS -->
-
-                <h2 class="section-title">
-                    DATOS FÍSICOS Y DE CONTACTO
-                </h2>
-
-                <div class="datos-fisicos">
-
-                    <div class="peso-box">
-
-                        <label>Peso</label>
-
-                        <input type="number"
-                               class="ifk-input"
-                               placeholder="kg">
-
+                    <div class="registro-buttons">
+                        <button type="submit" class="btn-guardar">
+                            GUARDAR ALUMNO
+                        </button>
+                        <a href="/alumnos/gestion" class="btn-cancelar" style="text-decoration: none; display: inline-block; text-align: center; line-height: 40px;">
+                            CANCELAR
+                        </a>
                     </div>
 
-                    <div class="contacto-box">
-
-                        <label>Nombre del contacto de emergencia</label>
-
-                        <input type="text"
-                               class="ifk-input">
-
-                        <label>Teléfono</label>
-
-                        <input type="text"
-                               class="ifk-input">
-
-                    </div>
-
-                    <div class="medico-box">
-
-                        <label>Datos médicos / alergias</label>
-
-                        <textarea class="ifk-textarea"></textarea>
-
-                    </div>
-
-                </div>
-
-                <!-- DATOS ACADEMIA -->
-
-                <h2 class="section-title">
-                    DATOS DE LA ACADEMIA
-                </h2>
-
-                <div class="academia-grid">
-
-                    <div>
-
-                        <label>Grado Inicial</label>
-
-                        <select class="ifk-input">
-
-                            <option selected disabled>
-                                Seleccione un grado
-                            </option>
-
-                            <option>Blanca (sin grado)</option>
-
-                            <option>Naranja (10mo Kyu)</option>
-                            <option>Naranja avanzada (9no Kyu)</option>
-
-                            <option>Azul (8vo Kyu)</option>
-                            <option>Azul avanzada (7mo Kyu)</option>
-
-                            <option>Amarilla (6to Kyu)</option>
-                            <option>Amarilla avanzada (5to Kyu)</option>
-
-                            <option>Verde (4to Kyu)</option>
-                            <option>Verde avanzada (3er Kyu)</option>
-
-                            <option>Café (2do Kyu)</option>
-                            <option>Café avanzada (1er Kyu)</option>
-
-                            <option>Negra (1er Dan)</option>
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        <label>Matrícula</label>
-
-                        <input type="text"
-                               value="2026-001"
-                               readonly
-                               class="ifk-input">
-
-                    </div>
-
-                </div>
-
-                <!-- BOTONES -->
-
-                <div class="registro-buttons">
-
-                    <button class="btn-guardar">
-                        GUARDAR ALUMNO
-                    </button>
-
-                    <button class="btn-cancelar">
-                        CANCELAR
-                    </button>
-
-                </div>
+                </form>
 
             </div>
 

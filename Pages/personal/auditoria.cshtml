@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="~/css/ifk.css" />
 
     <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
 </head>
 
@@ -124,7 +124,7 @@
                             <th>USUARIO</th>
                             <th>ACCIÓN REALIZADA</th>
                             <th>MÓDULO</th>
-                            <th>IP</th>
+                            <th>DETALLES</th>
 
                         </tr>
 
@@ -132,32 +132,100 @@
 
                     <tbody>
 
-                    @foreach (var log in Model.Registros)
-                    {
                         <tr>
 
-                            <td>
-                                @log.FechaHora.ToString("dd/MM/yyyy HH:mm")
-                            </td>
+                            <td>07/04/26 14:20</td>
+                            <td>Secretaria_IFK</td>
+                            <td>Registró Pago: $850.00 (Juan Pérez)</td>
+                            <td>FINANZAS</td>
 
                             <td>
-                                @log.Usuario
-                            </td>
 
-                            <td>
-                                @log.Accion
-                            </td>
+                                <button class="btn-detalle">
 
-                            <td>
-                                @log.Modulo
-                            </td>
+                                    <i class="fas fa-search"></i>
 
-                            <td>
-                                @log.IpDireccion
+                                </button>
+
                             </td>
 
                         </tr>
-                    }
+
+                        <tr>
+
+                            <td>07/04/26 13:15</td>
+                            <td>Sensei_Roberto</td>
+                            <td>Promovió Grado: Blanca a Amarilla</td>
+                            <td>ALUMNOS</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>06/04/26 18:00</td>
+                            <td>Staff_Mesa01</td>
+                            <td>Actualizó Bracket: Copa Primavera</td>
+                            <td>TORNEOS</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>06/04/26 10:05</td>
+                            <td>Secretaria_IFK</td>
+                            <td>Generó Reporte PDF: Padrón Abril</td>
+                            <td>REPORTES</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>05/04/26 16:30</td>
+                            <td>Sensei_Roberto</td>
+                            <td>Creó Usuario: Staff_Mesa02</td>
+                            <td>SEGURIDAD</td>
+
+                            <td>
+
+                                <button class="btn-detalle">
+
+                                    <i class="fas fa-search"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
 
                     </tbody>
 
