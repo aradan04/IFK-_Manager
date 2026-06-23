@@ -474,6 +474,20 @@ public class bracketModel : PageModel
                 cmdInsert.ExecuteNonQuery();
             }
 
+            string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
+                RegistrarAuditoria(
+                    idUsuario,
+                    $"Inició bracket de la categoría {IdCategoria}",
+                    "Torneos");
+            }
+
             return RedirectToPage(
                 new
                 {
@@ -503,11 +517,75 @@ public class bracketModel : PageModel
 
             cmd.ExecuteNonQuery();
 
+            string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
+                RegistrarAuditoria(
+                    idUsuario,
+                    $"Cerró bracket de la categoría {IdCategoria}",
+                    "Torneos");
+            }
+
             return RedirectToPage(
                 new
                 {
                     IdCategoria
                 });
+        }
+
+        private void RegistrarAuditoria(
+            int idUsuario,
+            string accion,
+            string modulo)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sql =
+                @"INSERT INTO log_auditoria
+                (
+                    id_usuario,
+                    accion,
+                    modulo,
+                    ip_direccion
+                )
+                VALUES
+                (
+                    @idUsuario,
+                    @accion,
+                    @modulo,
+                    @ip
+                )";
+
+            using var cmd =
+                new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@idUsuario",
+                idUsuario);
+
+            cmd.Parameters.AddWithValue(
+                "@accion",
+                accion);
+
+            cmd.Parameters.AddWithValue(
+                "@modulo",
+                modulo);
+
+            cmd.Parameters.AddWithValue(
+                "@ip",
+                HttpContext.Connection
+                    .RemoteIpAddress?
+                    .ToString());
+
+            cmd.ExecuteNonQuery();
         }
 
         private void GenerarSemifinales(

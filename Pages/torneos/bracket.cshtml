@@ -161,20 +161,24 @@
                         value="@Model.IdCategoria" />
 
                     <button type="submit"
+                            class="btn-ganador"
                             name="IdGanador"
                             value="@encuentro.IdAlumno1">
 
-                        Gana @encuentro.Alumno1
+                        <i class="fas fa-trophy"></i>
+                        @encuentro.Alumno1
 
                     </button>
 
                     @if(encuentro.IdAlumno2 != null)
                     {
                         <button type="submit"
+                                class="btn-ganador"
                                 name="IdGanador"
                                 value="@encuentro.IdAlumno2">
 
-                            Gana @encuentro.Alumno2
+                            <i class="fas fa-trophy"></i>
+                            @encuentro.Alumno2
 
                         </button>
                     }
@@ -219,17 +223,23 @@
                                         value="@Model.IdCategoria" />
 
                                     <button type="submit"
+                                            class="btn-ganador"
                                             name="IdGanador"
                                             value="@semi.IdAlumno1">
 
-                                        Gana @semi.Alumno1
+                                        <i class="fas fa-trophy"></i>
+                                        @semi.Alumno1
+
                                     </button>
 
                                     <button type="submit"
+                                            class="btn-ganador"
                                             name="IdGanador"
                                             value="@semi.IdAlumno2">
 
-                                        Gana @semi.Alumno2
+                                        <i class="fas fa-trophy"></i>
+                                        @semi.Alumno2
+
                                     </button>
 
                                 </form>
@@ -273,17 +283,23 @@
                                     value="@Model.IdCategoria" />
 
                                 <button type="submit"
+                                        class="btn-ganador"
                                         name="IdGanador"
                                         value="@final.IdAlumno1">
 
-                                    Gana @final.Alumno1
+                                    <i class="fas fa-trophy"></i>
+                                    @final.Alumno1
+
                                 </button>
 
                                 <button type="submit"
+                                        class="btn-ganador"
                                         name="IdGanador"
                                         value="@final.IdAlumno2">
 
-                                    Gana @final.Alumno2
+                                    <i class="fas fa-trophy"></i>
+                                    @final.Alumno2
+
                                 </button>
 
                             </form>
@@ -321,6 +337,7 @@
                 value="@Model.IdCategoria" />
 
             <button class="btn-iniciar-bracket">
+                <i class="fas fa-play"></i>
                 INICIAR BRACKET
             </button>
 
@@ -333,9 +350,10 @@
                 name="IdCategoria"
                 value="@Model.IdCategoria" />
 
-            <button class="btn-cerrar-bracket">
-                CERRAR BRACKET
-            </button>
+                <button class="btn-cerrar-bracket">
+                    <i class="fas fa-lock"></i>
+                    CERRAR BRACKET
+                </button>
 
         </form>
 

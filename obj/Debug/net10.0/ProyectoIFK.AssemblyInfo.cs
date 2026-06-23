@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProyectoIFK")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24a9bc7c53a3f1d44483f96c27c88877351c3275")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3b3a9b8b2c8afea75161c1db0ebedf216cf93c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProyectoIFK")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProyectoIFK")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

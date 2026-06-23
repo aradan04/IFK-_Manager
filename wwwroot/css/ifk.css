@@ -1081,11 +1081,15 @@ cursor:pointer;
     display:flex;
     justify-content:flex-end;
     gap:15px;
+
+    margin-top:30px;
 }
 
-.btn-cerrar-bracket{
-    background:#111;
-    color:#d4af37;
+/* BOTÓN INICIAR */
+
+.btn-iniciar-bracket{
+    background:#1f6feb;
+    color:white;
 
     border:none;
 
@@ -1094,7 +1098,75 @@ cursor:pointer;
     font-size:18px;
     font-weight:bold;
 
+    border-radius:10px;
+
     cursor:pointer;
+
+    transition:all .2s ease;
+}
+
+.btn-iniciar-bracket:hover{
+    background:#1857ba;
+
+    transform:translateY(-2px);
+}
+
+/* BOTÓN CERRAR */
+
+.btn-cerrar-bracket{
+    background:#111;
+    color:#d4af37;
+
+    border:2px solid #d4af37;
+
+    padding:18px 30px;
+
+    font-size:18px;
+    font-weight:bold;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:all .2s ease;
+}
+
+.btn-cerrar-bracket:hover{
+    background:#d4af37;
+    color:#111;
+}
+
+/* BOTONES GANADOR */
+
+.btn-ganador{
+    width:100%;
+
+    margin-top:8px;
+
+    padding:10px 14px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#d4af37;
+    color:#111;
+
+    font-size:14px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:all .2s ease;
+}
+
+.btn-ganador:hover{
+    background:#c39b2c;
+
+    transform:translateY(-2px);
+}
+
+.btn-ganador i{
+    margin-right:6px;
 }
 
 /* ===========================
