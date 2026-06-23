@@ -84,76 +84,35 @@
                     LOG DE AUDITORÍA
                 </h1>
 
-                <div class="auditoria-filtros">
+                <form method="get">
 
-                    <div>
+                    <div class="auditoria-busqueda">
 
-                        <label>
-                            Buscar por palabra clave o descripción:
-                        </label>
+                        <i class="fas fa-search"></i>
 
                         <input type="text"
-                                class="ifk-input"
-                                placeholder="" />
+                            name="Busqueda"
+                            value="@Model.Busqueda"
+                            class="ifk-input auditoria-search"
+                            placeholder="Buscar actividad, usuario o módulo..." />
+
+                        <button type="submit"
+                                class="btn-aplicar">
+
+                            Buscar
+
+                        </button>
+
+                        <a href="/personal/Auditoria"
+                        class="btn-limpiar">
+
+                            Limpiar
+
+                        </a>
 
                     </div>
 
-                    <div>
-
-                        <label>
-                            Filtrar por módulo:
-                        </label>
-
-                        <select class="ifk-input">
-
-                            <option>Todos</option>
-                            <option>Finanzas</option>
-                            <option>Alumnos</option>
-                            <option>Torneos</option>
-                            <option>Reportes</option>
-                            <option>Seguridad</option>
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        <label>
-                            Filtrar por fecha:
-                        </label>
-
-                        <div class="auditoria-fechas">
-
-                            <div>
-
-                                <span>Desde:</span>
-
-                                <input type="date"
-                                        class="ifk-input" />
-
-                            </div>
-
-                            <div>
-
-                                <span>Hasta:</span>
-
-                                <input type="date"
-                                        class="ifk-input" />
-
-                            </div>
-
-                            <button class="btn-aplicar">
-
-                                APLICAR
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                </form>
 
                 <table class="auditoria-table">
 
