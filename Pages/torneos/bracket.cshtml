@@ -17,13 +17,11 @@
 
     <link rel="stylesheet" href="~/css/ifk.css" />
 
-<<<<<<< HEAD
     <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-=======
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
->>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+main
 
     </head>
 
@@ -80,7 +78,37 @@
 
     <div class="content">
 
-<<<<<<< HEAD
+        <div class="page-box">
+
+            <div class="bracket-top">
+
+                <div>
+
+                    <label>CATEGORÍA</label>
+
+                    <form method="get">
+
+                        <select name="IdCategoria"
+                                class="ifk-input"
+                                onchange="this.form.submit()">
+
+                            <option value="">
+                                Seleccione categoría
+                            </option>
+
+                            @foreach(var categoria in Model.Categorias)
+                            {
+                                <option value="@categoria.IdCategoria">
+
+                                    @categoria.NombreCategoria
+
+                                </option>
+                            }
+
+                        </select>
+
+                    </form>
+
         <div class="page-box">
 
             <div class="bracket-top">
@@ -123,14 +151,14 @@
             <div class="bracket-info">
 
                 <span>
-                    Categoría: Infantil Principiantes
+                    Categoría: @Model.NombreCategoria
                 </span>
 
                 <span>
-                    Competidores: 8
+                    Competidores: @Model.TotalCompetidores
                 </span>
 
-                <p>Encuentros: @Model.PrimeraRonda.Count</p>
+                <p>Encuentros: @Model.TotalEncuentros</p>
             </div>
 
     <div class="bracket-container">
@@ -167,33 +195,31 @@
                         value="@Model.IdCategoria" />
 
                     <button type="submit"
+                            class="btn-ganador"
                             name="IdGanador"
                             value="@encuentro.IdAlumno1">
 
-                        Gana @encuentro.Alumno1
+                        <i class="fas fa-trophy"></i>
+                        @encuentro.Alumno1
 
                     </button>
 
                     @if(encuentro.IdAlumno2 != null)
                     {
                         <button type="submit"
+                                class="btn-ganador"
                                 name="IdGanador"
                                 value="@encuentro.IdAlumno2">
 
-                            Gana @encuentro.Alumno2
+                            <i class="fas fa-trophy"></i>
+                            @encuentro.Alumno2
 
                         </button>
                     }
 
                 </form>
             }
-=======
-                <select class="ifk-input">
-                    <option>Infantil</option>
-                    <option>Juvenil</option>
-                    <option>Adultos</option>
-                </select>
->>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
+ main
 
         </div>
             }
@@ -232,17 +258,23 @@
                                         value="@Model.IdCategoria" />
 
                                     <button type="submit"
+                                            class="btn-ganador"
                                             name="IdGanador"
                                             value="@semi.IdAlumno1">
 
-                                        Gana @semi.Alumno1
+                                        <i class="fas fa-trophy"></i>
+                                        @semi.Alumno1
+
                                     </button>
 
                                     <button type="submit"
+                                            class="btn-ganador"
                                             name="IdGanador"
                                             value="@semi.IdAlumno2">
 
-                                        Gana @semi.Alumno2
+                                        <i class="fas fa-trophy"></i>
+                                        @semi.Alumno2
+
                                     </button>
 
                                 </form>
@@ -258,7 +290,6 @@
 
         <!-- FINAL -->
 
-<<<<<<< HEAD
         <div class="bracket-column finalist-column">
 
             @if(Model.Finales.Count > 0)
@@ -287,19 +318,36 @@
                                     value="@Model.IdCategoria" />
 
                                 <button type="submit"
+                                        class="btn-ganador"
                                         name="IdGanador"
                                         value="@final.IdAlumno1">
 
-                                    Gana @final.Alumno1
+                                    <i class="fas fa-trophy"></i>
+                                    @final.Alumno1
+
                                 </button>
-=======
-    <div class="bracket-column players-column">
-        <div class="bracket-player">Juan Pérez</div>
-        <div class="bracket-player">María García</div>
-        <div class="bracket-player">Carlos Ruiz</div>
-        <div class="bracket-player">Roberto Gómez</div>
-    </div>
->>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
+
+                                <button type="submit"
+                                        class="btn-ganador"
+                                        name="IdGanador"
+                                        value="@final.IdAlumno2">
+
+                                    <i class="fas fa-trophy"></i>
+                                    @final.Alumno2
+
+                                </button>
+
+                            </form>
+                        }
+
+                    </div>
+                }
+            }
+
+        </div>
+
+                <!-- CAMPEÓN -->
+
 
                                 <button type="submit"
                                         name="IdGanador"
@@ -319,7 +367,8 @@
 
                 <!-- CAMPEÓN -->
 
-<<<<<<< HEAD
+ HEAD
+ main
         <div class="bracket-player champion-box">
 
             @if(!string.IsNullOrEmpty(Model.CampeonNombre))
@@ -332,10 +381,10 @@
             }
 
         </div>
-=======
+
     <div class="bracket-column champion-column">
         <div class="bracket-player champion-box">CAMPEÓN</div>
->>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
+ 24721684ce785efdfc1cd141f41e2e334ef49fcb
     </div>
 
     <div class="bracket-buttons">
@@ -343,12 +392,12 @@
         <form method="post"
             asp-page-handler="IniciarBracket">
 
-<<<<<<< HEAD
             <input type="hidden"
                 name="IdCategoria"
                 value="@Model.IdCategoria" />
 
             <button class="btn-iniciar-bracket">
+                <i class="fas fa-play"></i>
                 INICIAR BRACKET
             </button>
 
@@ -361,9 +410,10 @@
                 name="IdCategoria"
                 value="@Model.IdCategoria" />
 
-            <button class="btn-cerrar-bracket">
-                CERRAR BRACKET
-            </button>
+                <button class="btn-cerrar-bracket">
+                    <i class="fas fa-lock"></i>
+                    CERRAR BRACKET
+                </button>
 
         </form>
 
@@ -372,16 +422,7 @@
     </div>
 
     </div>
-=======
-    <div class="bracket-column players-column">
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-    </div>
-
-</div>
->>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
+ main
 
     </div>
 

@@ -4,7 +4,6 @@ namespace ProyectoIFK.Pages.torneos;
 
 public class bracketModel : PageModel
 {
-<<<<<<< HEAD
     private readonly ConexionBD _conexion;
 
     public bracketModel(ConexionBD conexion)
@@ -24,16 +23,21 @@ public class bracketModel : PageModel
 
     public string CampeonNombre { get; set; } = "";
 
+    public string NombreCategoria { get; set; } = "";
+
+    public int TotalCompetidores { get; set; }
+
+    public int TotalEncuentros { get; set; }
+
     [BindProperty(SupportsGet = true)]
     public int IdCategoria { get; set; }
     
 
-=======
->>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
+
+ 24721684ce785efdfc1cd141f41e2e334ef49fcb
     public void OnGet()
     {
 
-<<<<<<< HEAD
         conn.Open();
 
         string sqlCategorias =
@@ -67,6 +71,44 @@ public class bracketModel : PageModel
 
         if (IdCategoria > 0)
         {
+
+                string sqlCategoria =
+        @"SELECT nombre_categoria
+        FROM categoria_torneo
+        WHERE id_categoria = @idCategoria";
+
+        using var cmdCategoria =
+            new MySqlCommand(sqlCategoria, conn);
+
+        cmdCategoria.Parameters.AddWithValue(
+            "@idCategoria",
+            IdCategoria);
+
+        object? nombreCategoria =
+            cmdCategoria.ExecuteScalar();
+
+        if(nombreCategoria != null)
+        {
+            NombreCategoria =
+                nombreCategoria.ToString() ?? "";
+        }
+
+        string sqlCompetidores =
+        @"SELECT COUNT(*)
+        FROM categoria_alumno
+        WHERE id_categoria = @idCategoria";
+
+        using var cmdCompetidores =
+            new MySqlCommand(sqlCompetidores, conn);
+
+        cmdCompetidores.Parameters.AddWithValue(
+            "@idCategoria",
+            IdCategoria);
+
+        TotalCompetidores =
+            Convert.ToInt32(
+                cmdCompetidores.ExecuteScalar());
+        
         string sqlEncuentros =
         @"SELECT
             E.id_encuentro,
@@ -136,6 +178,9 @@ public class bracketModel : PageModel
             {
                 PrimeraRonda.Add(encuentro);
             }
+
+            TotalEncuentros =
+                Encuentros.Count;
         }
         } 
 
@@ -425,6 +470,20 @@ public class bracketModel : PageModel
                 cmdInsert.ExecuteNonQuery();
             }
 
+            string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
+                RegistrarAuditoria(
+                    idUsuario,
+                    $"Inició bracket de la categoría {IdCategoria}",
+                    "Torneos");
+            }
+
             return RedirectToPage(
                 new
                 {
@@ -441,20 +500,88 @@ public class bracketModel : PageModel
             conn.Open();
 
             string sql =
-                @"UPDATE torneo
-                SET estatus = 'Finalizado'
-                WHERE id_torneo = 1";
+            @"UPDATE encuentro
+            SET estatus = 'Cerrado'
+            WHERE id_categoria = @categoria";
 
             using var cmd =
                 new MySqlCommand(sql, conn);
 
+            cmd.Parameters.AddWithValue(
+                "@categoria",
+                IdCategoria);
+
             cmd.ExecuteNonQuery();
+
+            string? idGuardado =
+                HttpContext.Session.GetString("IdUsuario");
+
+            if(idGuardado != null)
+            {
+                int idUsuario =
+                    Convert.ToInt32(idGuardado);
+
+                RegistrarAuditoria(
+                    idUsuario,
+                    $"Cerró bracket de la categoría {IdCategoria}",
+                    "Torneos");
+            }
 
             return RedirectToPage(
                 new
                 {
                     IdCategoria
                 });
+        }
+
+        private void RegistrarAuditoria(
+            int idUsuario,
+            string accion,
+            string modulo)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sql =
+                @"INSERT INTO log_auditoria
+                (
+                    id_usuario,
+                    accion,
+                    modulo,
+                    ip_direccion
+                )
+                VALUES
+                (
+                    @idUsuario,
+                    @accion,
+                    @modulo,
+                    @ip
+                )";
+
+            using var cmd =
+                new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@idUsuario",
+                idUsuario);
+
+            cmd.Parameters.AddWithValue(
+                "@accion",
+                accion);
+
+            cmd.Parameters.AddWithValue(
+                "@modulo",
+                modulo);
+
+            cmd.Parameters.AddWithValue(
+                "@ip",
+                HttpContext.Connection
+                    .RemoteIpAddress?
+                    .ToString());
+
+            cmd.ExecuteNonQuery();
         }
 
         private void GenerarSemifinales(
@@ -794,7 +921,5 @@ public class bracketModel : PageModel
 
             cmdInsert.ExecuteNonQuery();
         }
-=======
-    }
->>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
+ main
 }
