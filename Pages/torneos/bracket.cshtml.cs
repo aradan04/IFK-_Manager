@@ -27,6 +27,12 @@ public class bracketModel : PageModel
 
     public string CampeonNombre { get; set; } = "";
 
+    public string NombreCategoria { get; set; } = "";
+
+    public int TotalCompetidores { get; set; }
+
+    public int TotalEncuentros { get; set; }
+
     [BindProperty(SupportsGet = true)]
     public int IdCategoria { get; set; }
     
@@ -69,6 +75,44 @@ public class bracketModel : PageModel
 
         if (IdCategoria > 0)
         {
+
+                string sqlCategoria =
+        @"SELECT nombre_categoria
+        FROM categoria_torneo
+        WHERE id_categoria = @idCategoria";
+
+        using var cmdCategoria =
+            new MySqlCommand(sqlCategoria, conn);
+
+        cmdCategoria.Parameters.AddWithValue(
+            "@idCategoria",
+            IdCategoria);
+
+        object? nombreCategoria =
+            cmdCategoria.ExecuteScalar();
+
+        if(nombreCategoria != null)
+        {
+            NombreCategoria =
+                nombreCategoria.ToString() ?? "";
+        }
+
+        string sqlCompetidores =
+        @"SELECT COUNT(*)
+        FROM categoria_alumno
+        WHERE id_categoria = @idCategoria";
+
+        using var cmdCompetidores =
+            new MySqlCommand(sqlCompetidores, conn);
+
+        cmdCompetidores.Parameters.AddWithValue(
+            "@idCategoria",
+            IdCategoria);
+
+        TotalCompetidores =
+            Convert.ToInt32(
+                cmdCompetidores.ExecuteScalar());
+        
         string sqlEncuentros =
         @"SELECT
             E.id_encuentro,
@@ -138,6 +182,9 @@ public class bracketModel : PageModel
             {
                 PrimeraRonda.Add(encuentro);
             }
+
+            TotalEncuentros =
+                Encuentros.Count;
         }
         } 
 
@@ -443,12 +490,16 @@ public class bracketModel : PageModel
             conn.Open();
 
             string sql =
-                @"UPDATE torneo
-                SET estatus = 'Finalizado'
-                WHERE id_torneo = 1";
+            @"UPDATE encuentro
+            SET estatus = 'Cerrado'
+            WHERE id_categoria = @categoria";
 
             using var cmd =
                 new MySqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@categoria",
+                IdCategoria);
 
             cmd.ExecuteNonQuery();
 
