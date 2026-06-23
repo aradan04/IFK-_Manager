@@ -326,6 +326,139 @@ public class bracketModel : PageModel
                 });
         }
 
+        public IActionResult OnPostIniciarBracket(int IdCategoria)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string verificar =
+                @"SELECT COUNT(*)
+                FROM encuentro
+                WHERE id_categoria = @categoria";
+
+            using var cmdVerificar =
+                new MySqlCommand(verificar, conn);
+
+            cmdVerificar.Parameters.AddWithValue(
+                "@categoria",
+                IdCategoria);
+
+            int existentes =
+                Convert.ToInt32(
+                    cmdVerificar.ExecuteScalar());
+
+            if(existentes > 0)
+            {
+                return RedirectToPage(
+                    new { IdCategoria });
+            }
+
+            List<int> alumnos = new();
+
+            string sqlAlumnos =
+                @"SELECT id_alumno
+                FROM categoria_alumno
+                WHERE id_categoria = @categoria";
+
+            using var cmdAlumnos =
+                new MySqlCommand(sqlAlumnos, conn);
+
+            cmdAlumnos.Parameters.AddWithValue(
+                "@categoria",
+                IdCategoria);
+
+            using(var reader =
+                cmdAlumnos.ExecuteReader())
+            {
+                while(reader.Read())
+                {
+                    alumnos.Add(
+                        Convert.ToInt32(
+                            reader["id_alumno"]));
+                }
+            }
+
+            for(int i = 0; i < alumnos.Count; i += 2)
+            {
+                int alumno1 = alumnos[i];
+
+                int? alumno2 =
+                    (i + 1 < alumnos.Count)
+                        ? alumnos[i + 1]
+                        : null;
+
+                string insert =
+                    @"INSERT INTO encuentro
+                    (
+                        id_torneo,
+                        id_categoria,
+                        id_alumno_1,
+                        id_alumno_2,
+                        fase,
+                        estatus
+                    )
+                    VALUES
+                    (
+                        1,
+                        @categoria,
+                        @alumno1,
+                        @alumno2,
+                        'Primera Ronda',
+                        'Pendiente'
+                    )";
+
+                using var cmdInsert =
+                    new MySqlCommand(insert, conn);
+
+                cmdInsert.Parameters.AddWithValue(
+                    "@categoria",
+                    IdCategoria);
+
+                cmdInsert.Parameters.AddWithValue(
+                    "@alumno1",
+                    alumno1);
+
+                cmdInsert.Parameters.AddWithValue(
+                    "@alumno2",
+                    alumno2);
+
+                cmdInsert.ExecuteNonQuery();
+            }
+
+            return RedirectToPage(
+                new
+                {
+                    IdCategoria
+                });
+        }
+
+        public IActionResult OnPostCerrarBracket(
+            int IdCategoria)
+        {
+            using var conn =
+                _conexion.ObtenerConexion();
+
+            conn.Open();
+
+            string sql =
+                @"UPDATE torneo
+                SET estatus = 'Finalizado'
+                WHERE id_torneo = 1";
+
+            using var cmd =
+                new MySqlCommand(sql, conn);
+
+            cmd.ExecuteNonQuery();
+
+            return RedirectToPage(
+                new
+                {
+                    IdCategoria
+                });
+        }
+
         private void GenerarSemifinales(
             MySqlConnection conn,
             int idCategoria)
@@ -427,15 +560,141 @@ public class bracketModel : PageModel
             MySqlConnection conn,
             int idCategoria)
         {
-            List<int> ganadores = new();
+            string sqlParticipantes =
+                @"SELECT COUNT(*)
+                FROM categoria_alumno
+                WHERE id_categoria = @idCategoria";
 
-            string sql =
+            using var cmdParticipantes =
+                new MySqlCommand(sqlParticipantes, conn);
+
+            cmdParticipantes.Parameters.AddWithValue(
+                "@idCategoria",
+                idCategoria);
+
+            int totalParticipantes =
+                Convert.ToInt32(
+                    cmdParticipantes.ExecuteScalar());
+
+            List<int> ganadoresSemi = new();
+
+            string sqlSemi =
                 @"SELECT id_ganador
                 FROM encuentro
                 WHERE id_categoria = @idCategoria
                 AND fase = 'Semifinal'
                 AND estatus = 'Terminado'
                 ORDER BY id_encuentro";
+
+            using(var cmdSemi =
+                new MySqlCommand(sqlSemi, conn))
+            {
+                cmdSemi.Parameters.AddWithValue(
+                    "@idCategoria",
+                    idCategoria);
+
+                using var readerSemi =
+                    cmdSemi.ExecuteReader();
+
+                while(readerSemi.Read())
+                {
+                    ganadoresSemi.Add(
+                        Convert.ToInt32(
+                            readerSemi["id_ganador"]));
+                }
+            }
+
+            // TORNEOS DE 8 O MÁS
+            if(totalParticipantes > 4 &&
+            ganadoresSemi.Count == 2)
+            {
+                InsertarFinal(
+                    conn,
+                    idCategoria,
+                    ganadoresSemi[0],
+                    ganadoresSemi[1]);
+
+                return;
+            }
+
+            List<int> ganadoresPrimera = new();
+
+            string sqlPrimera =
+                @"SELECT id_ganador
+                FROM encuentro
+                WHERE id_categoria = @idCategoria
+                AND fase = 'Primera Ronda'
+                AND estatus = 'Terminado'
+                ORDER BY id_encuentro";
+
+            using(var cmdPrimera =
+                new MySqlCommand(sqlPrimera, conn))
+            {
+                cmdPrimera.Parameters.AddWithValue(
+                    "@idCategoria",
+                    idCategoria);
+
+                using var readerPrimera =
+                    cmdPrimera.ExecuteReader();
+
+                while(readerPrimera.Read())
+                {
+                    ganadoresPrimera.Add(
+                        Convert.ToInt32(
+                            readerPrimera["id_ganador"]));
+                }
+            }
+
+            // TORNEOS DE 4
+            if(totalParticipantes > 2 &&
+            totalParticipantes <= 4 &&
+            ganadoresPrimera.Count == 2)
+            {
+                InsertarFinal(
+                    conn,
+                    idCategoria,
+                    ganadoresPrimera[0],
+                    ganadoresPrimera[1]);
+
+                return;
+            }
+
+            // TORNEOS DE 2
+            if(totalParticipantes == 2 &&
+            ganadoresPrimera.Count == 1)
+            {
+                string actualizar =
+                    @"UPDATE categoria_torneo
+                    SET campeon = @campeon
+                    WHERE id_categoria = @categoria";
+
+                using var cmdCampeon =
+                    new MySqlCommand(actualizar, conn);
+
+                cmdCampeon.Parameters.AddWithValue(
+                    "@campeon",
+                    ganadoresPrimera[0]);
+
+                cmdCampeon.Parameters.AddWithValue(
+                    "@categoria",
+                    idCategoria);
+
+                cmdCampeon.ExecuteNonQuery();
+
+                return;
+            }
+        }
+
+        private void GenerarCampeon(
+            MySqlConnection conn,
+            int idCategoria)
+        {
+            string sql =
+                @"SELECT id_ganador
+                FROM encuentro
+                WHERE id_categoria = @idCategoria
+                AND fase = 'Final'
+                AND estatus = 'Terminado'";
 
             using var cmd =
                 new MySqlCommand(sql, conn);
@@ -444,30 +703,42 @@ public class bracketModel : PageModel
                 "@idCategoria",
                 idCategoria);
 
-            using var reader =
-                cmd.ExecuteReader();
+            object? resultado =
+                cmd.ExecuteScalar();
 
-            while(reader.Read())
+            if(resultado == null)
             {
-                ganadores.Add(
-                    Convert.ToInt32(
-                        reader["id_ganador"]));
-            }
-
-            reader.Close();
-
-            Console.WriteLine(
-                $"SEMIFINALES TERMINADAS: {ganadores.Count}");
-
-
-            if(ganadores.Count < 2)
-            {
-                Console.WriteLine(
-                    "NO HAY SUFICIENTES GANADORES");
-
                 return;
             }
 
+            int idCampeon =
+                Convert.ToInt32(resultado);
+
+            string actualizar =
+                @"UPDATE categoria_torneo
+                SET campeon = @campeon
+                WHERE id_categoria = @categoria";
+
+            using var cmdUpdate =
+                new MySqlCommand(actualizar, conn);
+
+            cmdUpdate.Parameters.AddWithValue(
+                "@campeon",
+                idCampeon);
+
+            cmdUpdate.Parameters.AddWithValue(
+                "@categoria",
+                idCategoria);
+
+            cmdUpdate.ExecuteNonQuery();
+        }
+
+        private void InsertarFinal(
+            MySqlConnection conn,
+            int idCategoria,
+            int alumno1,
+            int alumno2)
+        {
             string verificar =
                 @"SELECT COUNT(*)
                 FROM encuentro
@@ -517,61 +788,12 @@ public class bracketModel : PageModel
 
             cmdInsert.Parameters.AddWithValue(
                 "@alumno1",
-                ganadores[0]);
+                alumno1);
 
             cmdInsert.Parameters.AddWithValue(
                 "@alumno2",
-                ganadores[1]);
-
-            Console.WriteLine(
-            $"INSERTANDO FINAL: {ganadores[0]} vs {ganadores[1]}");
+                alumno2);
 
             cmdInsert.ExecuteNonQuery();
-        }
-
-        private void GenerarCampeon(
-            MySqlConnection conn,
-            int idCategoria)
-        {
-            string sql =
-                @"SELECT id_ganador
-                FROM encuentro
-                WHERE id_categoria = @idCategoria
-                AND fase = 'Final'
-                AND estatus = 'Terminado'";
-
-            using var cmd =
-                new MySqlCommand(sql, conn);
-
-            cmd.Parameters.AddWithValue(
-                "@idCategoria",
-                idCategoria);
-
-            object? resultado =
-                cmd.ExecuteScalar();
-
-            if(resultado == null)
-                return;
-
-            int idCampeon =
-                Convert.ToInt32(resultado);
-
-            string actualizar =
-                @"UPDATE categoria_torneo
-                SET campeon = @campeon
-                WHERE id_categoria = @categoria";
-
-            using var cmdUpdate =
-                new MySqlCommand(actualizar, conn);
-
-            cmdUpdate.Parameters.AddWithValue(
-                "@campeon",
-                idCampeon);
-
-            cmdUpdate.Parameters.AddWithValue(
-                "@categoria",
-                idCategoria);
-
-            cmdUpdate.ExecuteNonQuery();
         }
 }

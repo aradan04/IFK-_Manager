@@ -108,20 +108,6 @@
 
                 </div>
 
-                <div>
-
-                    <label>GRADO</label>
-
-                    <select class="ifk-input">
-                        <option>Blanca</option>
-                        <option>Amarilla</option>
-                        <option>Naranja</option>
-                        <option>Verde</option>
-                        <option>cafe/negra</option>
-                    </select>
-
-                </div>
-
                 <div class="bracket-title">
                     BRACKET
                 </div>
@@ -138,6 +124,7 @@
                     Competidores: 8
                 </span>
 
+                <p>Encuentros: @Model.PrimeraRonda.Count</p>
             </div>
 
     <div class="bracket-container">
@@ -206,57 +193,51 @@
 
             @if(Model.Semifinales.Count > 0)
             {
-                @foreach(var semi in Model.Semifinales)
-                {
-                    <div class="bracket-match">
+                <div class="bracket-column semifinal-column">
 
-                        <div class="bracket-player">
-                            @semi.Alumno1
-                            VS
-                            @semi.Alumno2
+                    @foreach(var semi in Model.Semifinales)
+                    {
+                        <div class="bracket-match">
+
+                            <div class="bracket-player">
+                                @semi.Alumno1
+                                VS
+                                @semi.Alumno2
+                            </div>
+
+                            @if(semi.IdGanador == null)
+                            {
+                                <form method="post"
+                                    asp-page-handler="SeleccionarGanador">
+
+                                    <input type="hidden"
+                                        name="IdEncuentro"
+                                        value="@semi.IdEncuentro" />
+
+                                    <input type="hidden"
+                                        name="IdCategoria"
+                                        value="@Model.IdCategoria" />
+
+                                    <button type="submit"
+                                            name="IdGanador"
+                                            value="@semi.IdAlumno1">
+
+                                        Gana @semi.Alumno1
+                                    </button>
+
+                                    <button type="submit"
+                                            name="IdGanador"
+                                            value="@semi.IdAlumno2">
+
+                                        Gana @semi.Alumno2
+                                    </button>
+
+                                </form>
+                            }
+
                         </div>
+                    }
 
-                        @if(semi.IdGanador == null)
-                        {
-                            <form method="post"
-                                asp-page-handler="SeleccionarGanador">
-
-                                <input type="hidden"
-                                    name="IdEncuentro"
-                                    value="@semi.IdEncuentro" />
-
-                                <input type="hidden"
-                                    name="IdCategoria"
-                                    value="@Model.IdCategoria" />
-
-                                <button type="submit"
-                                        name="IdGanador"
-                                        value="@semi.IdAlumno1">
-
-                                    Gana @semi.Alumno1
-                                </button>
-
-                                <button type="submit"
-                                        name="IdGanador"
-                                        value="@semi.IdAlumno2">
-
-                                    Gana @semi.Alumno2
-                                </button>
-
-                            </form>
-                        }
-
-                    </div>
-                }
-            }
-            else
-            {
-                <div class="bracket-player">
-                    Semifinalista 1
-                </div>
-
-                <div class="bracket-player">
-                    Semifinalista 2
                 </div>
             }
 
@@ -332,13 +313,31 @@
 
     <div class="bracket-buttons">
 
-        <button class="btn-iniciar-bracket">
-            INICIAR BRACKET
-        </button>
+        <form method="post"
+            asp-page-handler="IniciarBracket">
 
-        <button class="btn-cerrar-bracket">
-            CERRAR BRACKET
-        </button>
+            <input type="hidden"
+                name="IdCategoria"
+                value="@Model.IdCategoria" />
+
+            <button class="btn-iniciar-bracket">
+                INICIAR BRACKET
+            </button>
+
+        </form>
+
+        <form method="post"
+            asp-page-handler="CerrarBracket">
+
+            <input type="hidden"
+                name="IdCategoria"
+                value="@Model.IdCategoria" />
+
+            <button class="btn-cerrar-bracket">
+                CERRAR BRACKET
+            </button>
+
+        </form>
 
     </div>
 
