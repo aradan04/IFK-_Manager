@@ -1,171 +1,351 @@
-@page
-@model ProyectoIFK.Pages.torneos.bracketModel
+    @page
+    @model ProyectoIFK.Pages.torneos.bracketModel
 
-@{
-ViewData["Title"] = "Bracket";
-Layout = null;
-}
+    @{
+    ViewData["Title"] = "Bracket";
+    Layout = null;
+    }
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-<html lang="es">
-<head>
+    <html lang="es">
+    <head>
 
-<meta charset="utf-8" />
+    <meta charset="utf-8" />
 
-<title>Bracket</title>
+    <title>Bracket</title>
 
-<link rel="stylesheet" href="~/css/ifk.css" />
+    <link rel="stylesheet" href="~/css/ifk.css" />
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-<div class="header">
+    <div class="header">
 
-<div class="header-title">
-    IFK MANAGER
-</div>
+    <div class="header-title">
+        IFK MANAGER
+    </div>
 
-<a href="/Index" class="logout">
-    <i class="fas fa-sign-out-alt"></i>
-    Cerrar sesión
-</a>
-
-</div>
-
-<div class="main">
-
-<div class="sidebar">
-
-    <a href="/Inicio">
-        <i class="fas fa-home"></i>
-        Inicio
+    <a href="/Index" class="logout">
+        <i class="fas fa-sign-out-alt"></i>
+        Cerrar sesión
     </a>
 
-    <a href="/alumnos/gestion">
-        <i class="fas fa-users"></i>
-        Alumnos
-    </a>
+    </div>
 
-    <a href="/finanzas">
-        <i class="fas fa-money-bill"></i>
-        Finanzas
-    </a>
+    <div class="main">
 
-    <a href="/torneos/gestorTorneo">
-        <i class="fas fa-trophy"></i>
-        Torneos
-    </a>
+    <div class="sidebar">
 
-    <a href="/reportes">
-        <i class="fas fa-chart-bar"></i>
-        Reportes
-    </a>
+        <a href="/Inicio">
+            <i class="fas fa-home"></i>
+            Inicio
+        </a>
 
-    <a href="/personal/menuPersonal">
-        <i class="fas fa-user"></i>
-        Personal
-    </a>
+        <a href="/alumnos/gestion">
+            <i class="fas fa-users"></i>
+            Alumnos
+        </a>
 
-</div>
+        <a href="/finanzas">
+            <i class="fas fa-money-bill"></i>
+            Finanzas
+        </a>
 
-<div class="content">
+        <a href="/torneos/gestorTorneo">
+            <i class="fas fa-trophy"></i>
+            Torneos
+        </a>
 
-    <div class="page-box">
+        <a href="/reportes">
+            <i class="fas fa-chart-bar"></i>
+            Reportes
+        </a>
 
-        <div class="bracket-top">
+        <a href="/personal/menuPersonal">
+            <i class="fas fa-user"></i>
+            Personal
+        </a>
 
-            <div>
+    </div>
 
-                <label>CATEGORÍA</label>
+    <div class="content">
 
-                <select class="ifk-input">
-                    <option>Infantil</option>
-                    <option>Juvenil</option>
-                    <option>Adultos</option>
-                </select>
+        <div class="page-box">
+
+            <div class="bracket-top">
+
+                <div>
+
+                    <label>CATEGORÍA</label>
+
+                    <form method="get">
+
+                        <select name="IdCategoria"
+                                class="ifk-input"
+                                onchange="this.form.submit()">
+
+                            <option value="">
+                                Seleccione categoría
+                            </option>
+
+                            @foreach(var categoria in Model.Categorias)
+                            {
+                                <option value="@categoria.IdCategoria">
+
+                                    @categoria.NombreCategoria
+
+                                </option>
+                            }
+
+                        </select>
+
+                    </form>
+
+                </div>
+
+                <div class="bracket-title">
+                    BRACKET
+                </div>
 
             </div>
 
-            <div>
+            <div class="bracket-info">
 
-                <label>GRADO</label>
+                <span>
+                    Categoría: Infantil Principiantes
+                </span>
 
-                <select class="ifk-input">
-                    <option>Blanca</option>
-                    <option>Amarilla</option>
-                    <option>Naranja</option>
-                    <option>Verde</option>
-                    <option>cafe/negra</option>
-                </select>
+                <span>
+                    Competidores: 8
+                </span>
 
+                <p>Encuentros: @Model.PrimeraRonda.Count</p>
             </div>
 
-            <div class="bracket-title">
-                BRACKET
+    <div class="bracket-container">
+
+        <!-- LADO IZQUIERDO -->
+
+        <div class="bracket-column players-column">
+
+            @foreach(var encuentro in Model.PrimeraRonda)
+            {
+                <div class="bracket-match">
+
+        <div class="bracket-player">
+            @encuentro.Alumno1
+        </div>
+
+        <div class="bracket-player">
+                @(string.IsNullOrEmpty(encuentro.Alumno2)
+                    ? "PASE"
+                    : encuentro.Alumno2)
             </div>
+
+            @if(encuentro.IdGanador == null)
+            {
+                <form method="post"
+                    asp-page-handler="SeleccionarGanador">
+
+                    <input type="hidden"
+                        name="IdEncuentro"
+                        value="@encuentro.IdEncuentro" />
+
+                    <input type="hidden"
+                        name="IdCategoria"
+                        value="@Model.IdCategoria" />
+
+                    <button type="submit"
+                            name="IdGanador"
+                            value="@encuentro.IdAlumno1">
+
+                        Gana @encuentro.Alumno1
+
+                    </button>
+
+                    @if(encuentro.IdAlumno2 != null)
+                    {
+                        <button type="submit"
+                                name="IdGanador"
+                                value="@encuentro.IdAlumno2">
+
+                            Gana @encuentro.Alumno2
+
+                        </button>
+                    }
+
+                </form>
+            }
+
+        </div>
+            }
 
         </div>
 
-        <div class="bracket-info">
+        <!-- SEMIFINALES -->
 
-            <span>
-                Categoría: Infantil Principiantes
-            </span>
+        <div class="bracket-column semifinal-column">
 
-            <span>
-                Competidores: 8
-            </span>
+            @if(Model.Semifinales.Count > 0)
+            {
+                <div class="bracket-column semifinal-column">
+
+                    @foreach(var semi in Model.Semifinales)
+                    {
+                        <div class="bracket-match">
+
+                            <div class="bracket-player">
+                                @semi.Alumno1
+                                VS
+                                @semi.Alumno2
+                            </div>
+
+                            @if(semi.IdGanador == null)
+                            {
+                                <form method="post"
+                                    asp-page-handler="SeleccionarGanador">
+
+                                    <input type="hidden"
+                                        name="IdEncuentro"
+                                        value="@semi.IdEncuentro" />
+
+                                    <input type="hidden"
+                                        name="IdCategoria"
+                                        value="@Model.IdCategoria" />
+
+                                    <button type="submit"
+                                            name="IdGanador"
+                                            value="@semi.IdAlumno1">
+
+                                        Gana @semi.Alumno1
+                                    </button>
+
+                                    <button type="submit"
+                                            name="IdGanador"
+                                            value="@semi.IdAlumno2">
+
+                                        Gana @semi.Alumno2
+                                    </button>
+
+                                </form>
+                            }
+
+                        </div>
+                    }
+
+                </div>
+            }
 
         </div>
 
-<div class="bracket-container">
+        <!-- FINAL -->
 
-    <div class="bracket-column players-column">
-        <div class="bracket-player">Juan Pérez</div>
-        <div class="bracket-player">María García</div>
-        <div class="bracket-player">Carlos Ruiz</div>
-        <div class="bracket-player">Roberto Gómez</div>
+        <div class="bracket-column finalist-column">
+
+            @if(Model.Finales.Count > 0)
+            {
+                @foreach(var final in Model.Finales)
+                {
+                    <div class="bracket-match">
+
+                        <div class="bracket-player">
+                            @final.Alumno1
+                            VS
+                            @final.Alumno2
+                        </div>
+
+                        @if(final.IdGanador == null)
+                        {
+                            <form method="post"
+                                asp-page-handler="SeleccionarGanador">
+
+                                <input type="hidden"
+                                    name="IdEncuentro"
+                                    value="@final.IdEncuentro" />
+
+                                <input type="hidden"
+                                    name="IdCategoria"
+                                    value="@Model.IdCategoria" />
+
+                                <button type="submit"
+                                        name="IdGanador"
+                                        value="@final.IdAlumno1">
+
+                                    Gana @final.Alumno1
+                                </button>
+
+                                <button type="submit"
+                                        name="IdGanador"
+                                        value="@final.IdAlumno2">
+
+                                    Gana @final.Alumno2
+                                </button>
+
+                            </form>
+                        }
+
+                    </div>
+                }
+            }
+
+        </div>
+
+                <!-- CAMPEÓN -->
+
+        <div class="bracket-player champion-box">
+
+            @if(!string.IsNullOrEmpty(Model.CampeonNombre))
+            {
+                @Model.CampeonNombre
+            }
+            else
+            {
+                <text>CAMPEÓN</text>
+            }
+
+        </div>
     </div>
 
-    <div class="bracket-column semifinal-column">
-        <div class="bracket-player">Ganador 1</div>
-        <div class="bracket-player">Ganador 2</div>
+    <div class="bracket-buttons">
+
+        <form method="post"
+            asp-page-handler="IniciarBracket">
+
+            <input type="hidden"
+                name="IdCategoria"
+                value="@Model.IdCategoria" />
+
+            <button class="btn-iniciar-bracket">
+                INICIAR BRACKET
+            </button>
+
+        </form>
+
+        <form method="post"
+            asp-page-handler="CerrarBracket">
+
+            <input type="hidden"
+                name="IdCategoria"
+                value="@Model.IdCategoria" />
+
+            <button class="btn-cerrar-bracket">
+                CERRAR BRACKET
+            </button>
+
+        </form>
+
     </div>
 
-    <div class="bracket-column finalist-column">
-        <div class="bracket-player">Finalista</div>
     </div>
 
-    <div class="bracket-column champion-column">
-        <div class="bracket-player champion-box">CAMPEÓN</div>
     </div>
 
-    <div class="bracket-column finalist-column">
-        <div class="bracket-player">Finalista</div>
     </div>
 
-    <div class="bracket-column semifinal-column">
-        <div class="bracket-player">Ganador 3</div>
-        <div class="bracket-player">Ganador 4</div>
-    </div>
-
-    <div class="bracket-column players-column">
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-        <div class="bracket-player"></div>
-    </div>
-
-</div>
-
-</div>
-
-</div>
-
-</body>
-</html>
+    </body>
+    </html>
