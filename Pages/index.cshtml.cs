@@ -1,28 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MySqlConnector;
-using ProyectoIFK.Services;
 
 namespace ProyectoIFK.Pages;
 
 public class IndexModel : PageModel
 {
     public string CustomCSS { get; set; } = string.Empty;
-
-    private readonly ConexionBD _conexion;
-
-    [BindProperty]
-    public string Username { get; set; } = "";
-
-    [BindProperty]
-    public string Password { get; set; } = "";
-
-    public string Mensaje { get; set; } = "";
-
-    public IndexModel(ConexionBD conexion)
-    {
-        _conexion = conexion;
-    }
 
     public void OnGet()
     {
@@ -86,112 +69,8 @@ public class IndexModel : PageModel
             }";
     }
 
-    public IActionResult OnPost(
-        string Username,
-        string Password)
+    public IActionResult OnPost()
     {
-        try
-        {
-            using var conn =
-                _conexion.ObtenerConexion();
-
-            conn.Open();
-
-            string sql =
-                @"SELECT
-                    id_usuario
-                FROM usuario
-                WHERE username = @username
-                AND password = @password
-                AND estatus = 'Activo'";
-
-            using var cmd =
-                new MySqlCommand(sql, conn);
-
-            cmd.Parameters.AddWithValue(
-                "@username",
-                Username);
-
-            cmd.Parameters.AddWithValue(
-                "@password",
-                Password);
-
-            object? resultado =
-                cmd.ExecuteScalar();
-
-            if (resultado != null)
-            {
-                int idUsuario =
-                    Convert.ToInt32(resultado);
-
-                HttpContext.Session.SetString(
-                "IdUsuario",
-                idUsuario.ToString());
-
-                RegistrarAuditoria(
-                    idUsuario,
-                    "Inicio de sesión",
-                    "Login");
-
-                return RedirectToPage("/inicio");
-            }
-
-            Mensaje = "Usuario o contraseña incorrectos";
-            OnGet();
-            return Page();
-        }
-        catch(Exception ex)
-        {
-            Mensaje = ex.Message;
-            OnGet();
-            return Page();
-        }
-    }
-
-    private void RegistrarAuditoria(
-        int idUsuario,
-        string accion,
-        string modulo)
-    {
-        using var conn = _conexion.ObtenerConexion();
-
-        conn.Open();
-
-        string sql =
-            @"INSERT INTO log_auditoria
-            (
-                id_usuario,
-                accion,
-                modulo,
-                ip_direccion
-            )
-            VALUES
-            (
-                @idUsuario,
-                @accion,
-                @modulo,
-                @ip
-            )";
-
-        using var cmd =
-            new MySqlCommand(sql, conn);
-
-        cmd.Parameters.AddWithValue(
-            "@idUsuario",
-            idUsuario);
-
-        cmd.Parameters.AddWithValue(
-            "@accion",
-            accion);
-
-        cmd.Parameters.AddWithValue(
-            "@modulo",
-            modulo);
-
-        cmd.Parameters.AddWithValue(
-            "@ip",
-            HttpContext.Connection.RemoteIpAddress?.ToString());
-
-        cmd.ExecuteNonQuery();
+        return RedirectToPage("/inicio");
     }
 }

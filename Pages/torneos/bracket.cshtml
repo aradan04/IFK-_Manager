@@ -17,8 +17,13 @@
 
     <link rel="stylesheet" href="~/css/ifk.css" />
 
+<<<<<<< HEAD
     <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+=======
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 
     </head>
 
@@ -75,6 +80,7 @@
 
     <div class="content">
 
+<<<<<<< HEAD
         <div class="page-box">
 
             <div class="bracket-top">
@@ -181,6 +187,13 @@
 
                 </form>
             }
+=======
+                <select class="ifk-input">
+                    <option>Infantil</option>
+                    <option>Juvenil</option>
+                    <option>Adultos</option>
+                </select>
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 
         </div>
             }
@@ -245,6 +258,7 @@
 
         <!-- FINAL -->
 
+<<<<<<< HEAD
         <div class="bracket-column finalist-column">
 
             @if(Model.Finales.Count > 0)
@@ -278,6 +292,14 @@
 
                                     Gana @final.Alumno1
                                 </button>
+=======
+    <div class="bracket-column players-column">
+        <div class="bracket-player">Juan Pérez</div>
+        <div class="bracket-player">María García</div>
+        <div class="bracket-player">Carlos Ruiz</div>
+        <div class="bracket-player">Roberto Gómez</div>
+    </div>
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 
                                 <button type="submit"
                                         name="IdGanador"
@@ -297,6 +319,7 @@
 
                 <!-- CAMPEÓN -->
 
+<<<<<<< HEAD
         <div class="bracket-player champion-box">
 
             @if(!string.IsNullOrEmpty(Model.CampeonNombre))
@@ -309,6 +332,10 @@
             }
 
         </div>
+=======
+    <div class="bracket-column champion-column">
+        <div class="bracket-player champion-box">CAMPEÓN</div>
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
     </div>
 
     <div class="bracket-buttons">
@@ -316,6 +343,7 @@
         <form method="post"
             asp-page-handler="IniciarBracket">
 
+<<<<<<< HEAD
             <input type="hidden"
                 name="IdCategoria"
                 value="@Model.IdCategoria" />
@@ -344,6 +372,16 @@
     </div>
 
     </div>
+=======
+    <div class="bracket-column players-column">
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+        <div class="bracket-player"></div>
+    </div>
+
+</div>
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 
     </div>
 

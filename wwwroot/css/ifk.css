@@ -1010,6 +1010,7 @@ cursor:pointer;
     display:grid;
 
     grid-template-columns:
+<<<<<<< HEAD
         220px
         220px
         220px
@@ -1018,6 +1019,19 @@ cursor:pointer;
     justify-content:center;
 
     gap:50px;
+=======
+        180px
+        180px
+        180px
+        220px
+        180px
+        180px
+        180px;
+
+    justify-content:center;
+
+    gap:35px;
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 
     margin-top:40px;
     margin-bottom:60px;
@@ -1026,36 +1040,36 @@ cursor:pointer;
 }
 
 .bracket-column{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:60px;
-}
-
-.bracket-match{
-    display:flex;
-    flex-direction:column;
-    margin-bottom:25px;
+    position:relative;
+    height:500px;
 }
 
 .bracket-player{
+<<<<<<< HEAD
         min-width:180px;
         min-height:55px;
 
         padding:10px;
 
         height:auto;
+=======
+    position:absolute;
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 
-    border:2px solid #d4d4d4;
+    left:0;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:180px;
+    height:70px;
+
+    border:3px solid #d4d4d4;
     background:white;
 
     display:flex;
     justify-content:center;
     align-items:center;
-
-    text-align:center;
-
-    padding:10px;
 
     font-size:18px;
 }
@@ -1064,17 +1078,16 @@ cursor:pointer;
     width:220px;
     height:90px;
 
-    background:#d4af37;
-
     font-weight:bold;
+<<<<<<< HEAD
     font-size:22px;
 
     margin-top: 300px;
 }
+=======
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 
-.semifinal-column .bracket-player,
-.finalist-column .bracket-player{
-    height:70px;
+    background:#d4af37;
 }
 
 .bracket-buttons{
@@ -1095,8 +1108,153 @@ cursor:pointer;
     font-weight:bold;
 
     cursor:pointer;
+    width:auto;
 }
 
+/* ===========================
+   POSICIONES
+=========================== */
+
+.players-column .bracket-player:nth-child(1){
+    top:12.5%;
+}
+
+.players-column .bracket-player:nth-child(2){
+    top:37.5%;
+}
+
+.players-column .bracket-player:nth-child(3){
+    top:62.5%;
+}
+
+.players-column .bracket-player:nth-child(4){
+    top:87.5%;
+}
+
+.semifinal-column .bracket-player:nth-child(1){
+    top:25%;
+}
+
+.semifinal-column .bracket-player:nth-child(2){
+    top:75%;
+}
+
+.finalist-column .bracket-player,
+.champion-column .bracket-player{
+    top:50%;
+}
+
+/* ===========================
+   CONEXIONES
+=========================== */
+
+/* horizontales izquierda */
+
+.bracket-container > .bracket-column:nth-child(-n+4) .bracket-player::after{
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    right:-40px;
+
+    width:40px;
+    height:2px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-50%);
+}
+
+/* horizontales derecha */
+
+.bracket-container > .bracket-column:nth-child(n+4) .bracket-player::before{
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    left:-40px;
+
+    width:40px;
+    height:2px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-50%);
+}
+
+/* jugadores -> semifinal izquierda */
+
+.bracket-container > .bracket-column:nth-child(2) .bracket-player::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    width:2px;
+    height:128px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-64px);
+}
+
+/* semifinal -> finalista izquierda */
+
+.bracket-container > .bracket-column:nth-child(3) .bracket-player::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    width:2px;
+    height:250px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-125px);
+}
+
+/* semifinal -> finalista derecha */
+
+.bracket-container > .bracket-column:nth-child(5) .bracket-player::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:50%;
+
+    width:2px;
+    height:250px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-125px);
+}
+
+/* jugadores -> semifinal derecha */
+
+.bracket-container > .bracket-column:nth-child(6) .bracket-player::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:50%;
+
+    width:2px;
+    height:128px;
+
+    background:#bcbcbc;
+
+    transform:translateY(-64px);
+}
 /* ===========================
    PERSONAL
 =========================== */

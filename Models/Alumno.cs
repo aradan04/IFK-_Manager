@@ -1,23 +1,68 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ProyectoIFK.Models
 {
+    [Table("alumno")]
     public class Alumno
     {
+        [Key]
+        [Column("id_alumno")]
         public int IdAlumno { get; set; }
 
-        public string Matricula { get; set; } = "";
+        [Required]
+        [StringLength(20)]
+        [Column("matricula")]
+        public string Matricula { get; set; } = string.Empty;
 
-        public string NombreCompleto { get; set; } = "";
+        [Required]
+        [StringLength(150)]
+        [Column("nombre_completo")]
+        public string NombreCompleto { get; set; } = string.Empty;
 
+        // Esta es la fecha que ya tienes en la base de datos
+        [Column("fecha_nacimiento")]
         public DateTime FechaNacimiento { get; set; }
 
-        public string Sexo { get; set; } = "";
+        [StringLength(18)]
+        [Column("curp")]
+        public string? Curp { get; set; }
 
-        public decimal Peso { get; set; }
+        [StringLength(1)]
+        [Column("sexo")]
+        public string? Sexo { get; set; }
 
-        public int Estatura { get; set; }
+        [Column("peso")]
+        public decimal? Peso { get; set; }
 
-        public string KyuActual { get; set; } = "";
+        [Column("estatura")]
+        public int? Estatura { get; set; }
 
-        public string EstatusMedico { get; set; } = "";
+        [StringLength(30)]
+        [Column("kyu_actual")]
+        public string? KyuActual { get; set; }
+
+        [Column("estatus_medico")]
+        public string? EstatusMedico { get; set; }
+
+        [Column("id_tutor")]
+        public int? IdTutor { get; set; }
+
+        [Required]
+        [Column("id_tarifa")]
+        public int IdTarifa { get; set; }
+
+        // --- CAMPOS NO MAPEADOS (Variables auxiliares) ---
+
+        [NotMapped]
+        public string? Estatus { get; set; }
+
+        [NotMapped]
+        public string? ContactoEmergenciaNombre { get; set; }
+        
+        [NotMapped]
+        public string? ContactoEmergenciaTelefono { get; set; }
+
     }
 }

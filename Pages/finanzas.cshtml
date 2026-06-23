@@ -1,5 +1,5 @@
 @page
-
+@model ProyectoIFK.Pages.FinanzasModel
 @{
     ViewData["Title"] = "Registro de Pago";
     Layout = null;
@@ -9,240 +9,148 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-
     <title>Registro de Pago</title>
-
     <link rel="stylesheet" href="~/css/ifk.css" />
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        @@media print {
+            .header, .sidebar, .btn-registrar-pago, .buscar-container { display: none !important; }
+            .page-box { border: none !important; box-shadow: none !important; width: 100%; margin: 0; }
+            #statusTransferencia { display: block !important; }
+        }
+        .resultados-busqueda { border: 1px solid #ddd; background: #fff; position: absolute; width: 100%; z-index: 1000; display: none; }
+        .item-resultado { padding: 10px; cursor: pointer; color: #333; }
+        .item-resultado:hover { background: #f0f0f0; }
+        .alert-transferencia { display: none; font-weight: bold; margin-top: 10px; }
+    </style>
 </head>
 
 <body>
-
     <div class="header">
-
-        <div class="header-title">
-            IFK MANAGER
-        </div>
-
-        <a href="/Index" class="logout">
-            <i class="fas fa-sign-out-alt"></i>
-            Cerrar sesión
-        </a>
-
+        <div class="header-title">IFK MANAGER</div>
+        <a href="/Index" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
     </div>
 
     <div class="main">
-
         <div class="sidebar">
-
-            <a href="/Inicio">
-                <i class="fas fa-home"></i>
-                Inicio
-            </a>
-
-            <a href="/alumnos/gestion">
-                <i class="fas fa-users"></i>
-                Alumnos
-            </a>
-
-            <a href="/Finanzas">
-                <i class="fas fa-money-bill"></i>
-                Finanzas
-            </a>
-
-            <a href="/torneos/gestorTorneo">
-                <i class="fas fa-trophy"></i>
-                Torneos
-            </a>
-
-            <a href="/reportes">
-                <i class="fas fa-chart-bar"></i>
-                Reportes
-            </a>
-
-            <a href="/personal/menuPersonal">
-                <i class="fas fa-user"></i>
-                Personal
-            </a>            
-
+            <a href="/Inicio"><i class="fas fa-home"></i> Inicio</a>
+            <a href="/alumnos/gestion"><i class="fas fa-users"></i> Alumnos</a>
+            <a href="/Finanzas"><i class="fas fa-money-bill"></i> Finanzas</a>
+            <a href="/torneos/gestorTorneo"><i class="fas fa-trophy"></i> Torneos</a>
+            <a href="/reportes"><i class="fas fa-chart-bar"></i> Reportes</a>
+            <a href="/personal/menuPersonal"><i class="fas fa-user"></i> Personal</a>
         </div>
 
         <div class="content">
-
             <div class="page-box">
-
-                <h1 class="finanzas-title">
-                    REGISTRO DE PAGO
-                </h1>
-
-                <!-- BUSQUEDA -->
-
-                <div class="buscar-container">
-
-                    <label>
-                        Buscar por matrícula o nombre:
-                    </label>
-
-                    <input type="text"
-                           class="ifk-input">
-
+                <h1 class="finanzas-title">REGISTRO DE PAGO</h1>
+                
+                <div class="buscar-container" style="position: relative;">
+                    <label>Buscar por matrícula o nombre:</label>
+                    <input type="text" id="inputBusqueda" class="ifk-input" placeholder="Escribe para buscar..." autocomplete="off">
+                    <div id="listaResultados" class="resultados-busqueda"></div>
                 </div>
 
-                <!-- FORMULARIO -->
-
                 <div class="pago-box">
-
                     <div class="alumno-row">
-
                         <label>ALUMNO:</label>
-
-                        <input type="text"
-                               class="ifk-input">
-
+                        <input type="text" id="nombreAlumnoInput" class="ifk-input" placeholder="Nombre del alumno">
                     </div>
-
+                    
                     <div class="pago-grid">
-
-                        <!-- CONCEPTO -->
-
-                        <div>
-
-                            <label>CONCEPTO:</label>
-
-                            <select class="ifk-input">
-
-                                <option selected disabled>
-                                    Seleccione un concepto
-                                </option>
-
-                                <option>Mensualidad</option>
-                                <option>Examen de grado</option>
-                                <option>Inscripción</option>
-                                <option>Equipo / Uniforme</option>
-                                <option>Torneo</option>
-                                <option>Camp</option>
-                                <option>Seminario</option>
-                                <option>Otro</option>
-
-                            </select>
-
-                        </div>
-
-                        <!-- MONTO -->
-
-                        <div>
-
-                            <label>MONTO:</label>
-
-                            <input type="number"
-                                   class="ifk-input"
-                                   placeholder="$0.00">
-
-                        </div>
-
-                        <!-- METODO -->
-
-                        <div>
-
-                            <label>MÉTODO DE PAGO:</label>
-
-                            <select class="ifk-input">
-
-                                <option selected disabled>
-                                    Seleccione método
-                                </option>
-
-                                <option>Efectivo</option>
-                                <option>Transferencia</option>
-                                <option>Tarjeta</option>
-
-                            </select>
-
-                        </div>
-
+                        <div><label>FECHA:</label><input type="date" class="ifk-input" value="@DateTime.Now.ToString("yyyy-MM-dd")"></div>
+                        <div><label>CONCEPTO:</label><input type="text" class="ifk-input"></div>
                     </div>
 
+                    <div class="pago-grid" style="margin-top: 10px;">
+                        <div>
+                            <label>PAGO (CONCEPTO):</label>
+                            <select id="inPagos" class="ifk-input" onchange="calcularTotal()">
+                                <option value="0" data-monto="0">Seleccione un concepto...</option>
+                                @foreach (var t in Model.ListaTarifas)
+                                {
+                                    <option value="@t.IdTarifa" data-monto="@t.Monto">@t.NombreCategoria - $@t.Monto</option>
+                                }
+                            </select>
+                        </div>
+                        <div><label>PENDIENTES ($):</label><input type="number" id="inPendientes" class="ifk-input" value="0" oninput="calcularTotal()"></div>
+                        <div><label>EXTRA ($):</label><input type="number" id="inExtra" class="ifk-input" value="0" oninput="calcularTotal()"></div>
+                    </div>
+                    
+                    <div style="margin-top: 10px;">
+                        <label>TOTAL FINAL (IVA 16%):</label>
+                        <input type="text" id="totalInput" class="ifk-input" readonly>
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <label>MÉTODO DE PAGO:</label>
+                        <select id="metodoPago" class="ifk-input" onchange="verificarMetodo()">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                        <div id="statusTransferencia" class="alert-transferencia">
+                            * PENDIENTE A SELLAR O FIRMAR
+                        </div>
+                    </div>
                 </div>
 
                 <div class="registro-pago-container">
-
-                    <button class="btn-registrar-pago">
-                        REGISTRAR PAGO
-                    </button>
-
+                    <button type="button" onclick="window.print()" class="btn-registrar-pago">IMPRIMIR RECIBO</button>
                 </div>
-
-                <!-- HISTORIAL -->
-
-                <h2 class="historial-title">
-                    HISTORIAL DE PAGOS
-                </h2>
-
-                <table class="tabla-pagos">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>FECHA</th>
-                            <th>MATRÍCULA</th>
-                            <th>CONCEPTO</th>
-                            <th>MONTO</th>
-                            <th>MÉTODO</th>
-                            <th>ESTATUS</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-                            <td>05/04/2026</td>
-                            <td>2026-001</td>
-                            <td>Mensualidad Abril</td>
-                            <td>$850.00</td>
-                            <td>Efectivo</td>
-                            <td>Completado</td>
-                        </tr>
-
-                        <tr>
-                            <td>05/04/2026</td>
-                            <td>2026-002</td>
-                            <td>Mensualidad Abril</td>
-                            <td>$850.00</td>
-                            <td>Transferencia</td>
-                            <td>Completado</td>
-                        </tr>
-
-                        <tr>
-                            <td>04/04/2026</td>
-                            <td>2026-004</td>
-                            <td>Examen de grado</td>
-                            <td>$1200.00</td>
-                            <td>Tarjeta</td>
-                            <td>Completado</td>
-                        </tr>
-
-                        <tr>
-                            <td>03/04/2026</td>
-                            <td>2026-005</td>
-                            <td>Equipo / Uniforme</td>
-                            <td>$950.00</td>
-                            <td>Efectivo</td>
-                            <td>Pendiente</td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
             </div>
-
         </div>
-
     </div>
 
+    <script>
+        function calcularTotal() {
+            // Obtenemos el select
+            const selectPagos = document.getElementById('inPagos');
+            // Sacamos el monto guardado en data-monto
+            const p = parseFloat(selectPagos.options[selectPagos.selectedIndex].getAttribute('data-monto')) || 0;
+            
+            const pen = parseFloat(document.getElementById('inPendientes').value) || 0;
+            const ex = parseFloat(document.getElementById('inExtra').value) || 0;
+            
+            const subtotal = p + pen + ex;
+            const total = subtotal * 1.16;
+            
+            document.getElementById('totalInput').value = total.toFixed(2);
+        }
+
+        function verificarMetodo() {
+            const select = document.getElementById('metodoPago');
+            const status = document.getElementById('statusTransferencia');
+            status.style.display = (select.value === 'Transferencia') ? 'block' : 'none';
+        }
+
+        const input = document.getElementById("inputBusqueda");
+        const lista = document.getElementById("listaResultados");
+        const nombreInput = document.getElementById("nombreAlumnoInput");
+
+        input.addEventListener("input", function() {
+            const query = this.value;
+            if (query.length > 2) {
+                fetch(`?handler=BuscarAlumnos&query=${query}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        lista.innerHTML = "";
+                        if (data.length > 0) {
+                            data.forEach(a => {
+                                const div = document.createElement("div");
+                                div.className = "item-resultado";
+                                div.innerText = `${a.matricula} - ${a.nombre}`;
+                                div.onclick = () => {
+                                    nombreInput.value = a.nombre;
+                                    input.value = "";
+                                    lista.style.display = "none";
+                                };
+                                lista.appendChild(div);
+                            });
+                            lista.style.display = "block";
+                        }
+                    });
+            } else { lista.style.display = "none"; }
+        });
+    </script>
 </body>
 </html>

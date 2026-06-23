@@ -1,13 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MySqlConnector;
-using ProyectoIFK.Models;
-using ProyectoIFK.Services;
 
 namespace ProyectoIFK.Pages.torneos;
 
 public class bracketModel : PageModel
 {
+<<<<<<< HEAD
     private readonly ConexionBD _conexion;
 
     public bracketModel(ConexionBD conexion)
@@ -31,11 +28,12 @@ public class bracketModel : PageModel
     public int IdCategoria { get; set; }
     
 
+=======
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
     public void OnGet()
     {
-        using var conn =
-            _conexion.ObtenerConexion();
 
+<<<<<<< HEAD
         conn.Open();
 
         string sqlCategorias =
@@ -796,4 +794,7 @@ public class bracketModel : PageModel
 
             cmdInsert.ExecuteNonQuery();
         }
+=======
+    }
+>>>>>>> 24721684ce785efdfc1cd141f41e2e334ef49fcb
 }
